@@ -10,6 +10,7 @@ const initialState={
       password : "",
       email : "",
       colgname : "",
+      signUpDone : false
 }
 
 class StudentSignUp extends Component{
@@ -66,23 +67,17 @@ submitDetails = (e) => {
   console.log("Sending Data "+JSON.stringify(data));
   axios.post('http://localhost:3001/studentsignup',data)
     .then(response => {
-      console.log("Entered inside axios post req");
-        if(!response.data.signup_fail){
-            const newStudentDetails={...response.data.details,
-              editmode : true
-          }  
-          this.props.fillStudentDetails(newStudentDetails);
-        }
-        else{
-          window.alert("User already exists");
-        }
+      this.setState({
+        signUpDone : true
+      });
+      window.alert(response.data);
     });
 }
 
 render(){
       let redirectVar = null;
-      if (this.props.studentDetails) {
-        redirectVar = <Redirect to="/studentprofilepage" />
+      if (this.state.signUpDone) {
+        redirectVar = <Redirect to="/student" />
       }
       return(
         <div>

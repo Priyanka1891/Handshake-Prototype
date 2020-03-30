@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 var usersSchema = new Schema({
     username: {type: String, required: true},
+    email : {type: String, required: true},
     password: {type: String, required: true}
 },
 {
@@ -10,52 +11,52 @@ var usersSchema = new Schema({
 });
 
 
-var usersDetailsSchema = new Schema({
+var studentDetailsSchema = new Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
-    name : {type: String, required: true},
-    dob : {type: String, required: true},
-    city : {type: String, required: true},
-    state : {type: String, required: true},
-    country : {type: String, required: true},
-    contactno : {type: String, required: true},
-    objective : {type: String, required: true},
-    skills : {type: String, required: true}
+    name : {type: String, required: false},
+    dob : {type: String, required: false},
+    city : {type: String, required: false},
+    state : {type: String, required: false},
+    country : {type: String, required: false},
+    contactno : {type: String, required: false},
+    objective : {type: String, required: false},
+    skills : {type: String, required: false}
 },
 {
     versionKey: false
 });
 
-var usersEducationSchema = new Schema({
+var studentEducationSchema = new Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
-    colgname : {type: String, required: true},
-    location : {type: String, required: true},
-    degree : {type: String, required: true},
-    major : {type: String, required: true},
-    yearofpassing : {type: String, required: true},
-    cgpa : {type: String, required: true}
+    colgname : {type: String, required: false},
+    location : {type: String, required: false},
+    degree : {type: String, required: false},
+    major : {type: String, required: false},
+    yearofpassing : {type: String, required: false},
+    cgpa : {type: String, required: false}
 },
 {
     versionKey: false
 });
 
 
-var usersExperienceSchema = new Schema({
+var studentExperienceSchema = new Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
-    companyname : {type: String, required: true},
-    title : {type: String, required: true},
-    companylocation : {type: String, required: true},
-    startdate : {type: String, required: true},
-    enddate : {type: String, required: true},
-    jobdetails : {type: String, required: true}
+    companyname : {type: String, required: false},
+    title : {type: String, required: false},
+    companylocation : {type: String, required: false},
+    startdate : {type: String, required: false},
+    enddate : {type: String, required: false},
+    jobdetails : {type: String, required: false}
 },
 {
     versionKey: false
@@ -67,7 +68,7 @@ var usersExperienceSchema = new Schema({
 
 module.exports = {
     Users : mongoose.model('user', usersSchema),
-    studentDetails : mongoose.model('userdetails', usersDetailsSchema),
-    studentEducation : mongoose.model('usereducation', usersEducationSchema),
-    studentExperience : mongoose.model('userexperience', usersExperienceSchema)
+    studentDetails : mongoose.model('studentdetails', studentDetailsSchema),
+    studentEducation : mongoose.model('studenteducation', studentEducationSchema),
+    studentExperience : mongoose.model('studentexperience', studentExperienceSchema)
 }
