@@ -1,0 +1,133 @@
+import React, {Component} from 'react';
+import {Redirect} from 'react-router';
+import {connect} from 'react-redux';
+import axios from 'axios';
+
+const initialState={
+  eventPosted : false,
+  eventTitle : '',
+  eventDate : '',
+  eventDetail : '',
+  eventLocation : '',
+  companyName : ''
+}
+
+class PostEvent extends Component{
+
+  constructor(props){
+      super(props);
+      this.state= initialState;
+      this.state.companyName = this.props.employerDetails.name;
+      this.eventTitleChangeHandler = this.eventTitleChangeHandler.bind(this);
+      this.eventDateChangeHandler = this.eventDateChangeHandler.bind(this);
+      this.eventDetailChangeHandler = this.eventDetailChangeHandler.bind(this);
+      this.eventLocationChangeHandler = this.eventLocationChangeHandler.bind(this);
+      this.postEventDetails = this.postEventDetails.bind(this);
+  }
+
+  eventTitleChangeHandler = (e) => {
+    this.setState({
+      eventTitle : e.target.value
+    })
+  }
+
+  eventDateChangeHandler = (e) => {
+    this.setState({
+      eventDate : e.target.value
+    })
+  }
+
+  eventDetailChangeHandler = (e) => {
+    this.setState({
+      eventDetail : e.target.value
+    })
+  }
+
+  eventLocationChangeHandler = (e) => {
+    this.setState({
+      eventLocation : e.target.value
+    })
+  }
+
+  postEventDetails = (e) => {
+    e.preventDefault();
+    for (let [key, value] of Object.entries(this.state)) {
+      if (key === 'eventPosted') continue;
+      if (!value) {
+        var msg;
+        if (key === 'companyName') msg = 'Please login and try again...';
+        else msg = 'Enter all required fields';
+        window.alert(msg);
+        return;
+      }
+    }
+
+    axios.defaults.withCredentials = true;
+    const data = this.state;
+    console.log("Sending Data ", data);
+    axios.post('http://localhost:3001/events/postevent', data)
+      .then(response => {
+        console.log("Edit Education Response: ", response);
+        if (response.status === 200) {
+          this.setState({
+            eventPosted : true
+          });
+          window.alert("Event posted successfully")
+        }
+    });
+  }
+
+  render() {
+    let redirectVar = null;
+    if (this.state.eventPosted) {
+      redirectVar = <Redirect to="/employerevents" />
+    }
+    return(
+      <div>
+      {redirectVar}
+      <br />
+      <React.Fragment>
+        <div className="container">
+          <div className="login-form">
+            <div className="main-div">
+              <div className="panel">
+                <h2>Event Details</h2>
+              </div>
+              <div className="form-group">
+                <label>Event Title*</label>
+                <input onChange = {this.eventTitleChangeHandler}value={this.state.eventTitle} 
+                type="text" className="form-control" name="colgname" />
+              </div>
+              <div className="form-group">
+                <label>Event Date*</label>
+                <input onChange = {this.eventDateChangeHandler}value={this.state.eventDate} 
+                type="text" className="form-control" name="dob" />
+              </div>
+              <div className="form-group">
+                <label>Event Detail*</label>
+                <input onChange = {this.eventDetailChangeHandler}value={this.state.eventDetail} 
+                type="text" className="form-control" name="city" />
+              </div>
+              <div className="form-group">
+                <label>Location*</label>
+                <input onChange = {this.eventLocationChangeHandler}value={this.state.eventLocation} 
+                type="text" className="form-control" name="state" />
+              </div>
+              <button type="button" onClick={this.postEventDetails} className="btn btn-primary">Post Event</button>    
+            </div>
+          </div>
+        </div>
+      </React.Fragment> 
+      </div>
+    )   
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+    employerDetails : state.employerDetails
+  }
+}
+
+// export default PostEvent;
+export default connect(mapStateToProps, null)(PostEvent);

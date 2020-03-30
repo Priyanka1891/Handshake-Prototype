@@ -1,0 +1,136 @@
+import React, {Component} from 'react';
+import {Redirect} from 'react-router';
+import {connect} from 'react-redux';
+import axios from 'axios';
+import { fillEmployerDetails } from "../../common_store/actions/index";
+
+const initialState={
+  companyname : "",
+  password : "",
+  email : "",
+  location : ""
+}
+
+class EmployerSignUp extends Component{
+
+  constructor(props){
+    super(props);
+    this.state=initialState;
+    this.companynameChangeHandler = this.companynameChangeHandler.bind(this);
+    this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
+    this.emailChangeHandler = this.emailChangeHandler.bind(this);
+    this.locationChangeHandler = this.locationChangeHandler.bind(this);
+  }
+
+  companynameChangeHandler = (e) => {
+    this.setState({
+      companyname : e.target.value,
+    })
+  }
+  
+  passwordChangeHandler = (e) => {
+    this.setState({
+      password : e.target.value,
+    })
+  }
+  
+  emailChangeHandler = (e) => {
+    this.setState({
+      email : e.target.value,
+    })
+  }
+  
+  locationChangeHandler = (e) => {
+    this.setState({
+      location : e.target.value,
+    })
+  }
+  
+  submitDetails = (e) => {
+    e.preventDefault();
+    const data = {
+      companyname : this.state.companyname,
+      password : this.state.password,
+      email : this.state.email,
+      location : this.state.location
+    }
+
+  axios.defaults.withCredentials = true;
+  console.log("Sending Data "+JSON.stringify(data));
+    axios.post('http://localhost:3001/employersignup',data)
+      .then(response => {
+        console.log("Entered inside axios post req");
+          if(!response.data.signup_fail){
+            this.props.fillEmployerDetails(response.data.details);
+          }
+          else{
+            window.alert("User already exists");
+          }
+      });
+  }
+  render(){
+    let redirectVar = null;
+    if (this.props.employerDetails) {
+      redirectVar = <Redirect to="/employerprofilepage" />
+    }
+    return(
+      <div>
+        {redirectVar}
+        <br />
+          <div className="container">
+            <div className="login-form">
+              <div className="main-div">
+                <div className="panel">
+                  <h2>Company Details</h2>
+                  <span>Please enter your details</span>
+                </div>
+                <div className="form-group">
+                  <label>Company Name</label>
+                  <input onChange = {this.companynameChangeHandler}value={this.state.companyname} 
+                  type="text" className="form-control" name="companyname" placeholder="Userame" />
+                </div>
+                <div className="form-group">
+                  <label>Password</label>
+                  <input onChange = {this.passwordChangeHandler}value={this.state.password} 
+                  type="password" className="form-control" name="password" placeholder="Password" />
+                </div>
+                <div className="form-group">
+                  <label>Email</label>
+                  <input onChange = {this.emailChangeHandler}value={this.state.email}  
+                  type="text" className="form-control" name="email" placeholder="Email" />
+                </div>
+                <div className="form-group">
+                  <label>Location</label>
+                  <input onChange = {this.locationChangeHandler}value={this.state.location} 
+                  type="text" className="form-control" name="location" placeholder="Location" />
+                </div>
+                <button type="button" className="btn btn-primary"onClick = {this.submitDetails}>Submit Details</button>    
+                <br />
+                <br />
+                <form action="http://localhost:3000/student">
+                  <input type="submit" className="btn btn-secondary" value="Switch to Student" />
+                </form>
+                {/* <button type="button" className="btn btn-secondary"onclick="location.href='http://localhost:3000/student';">Switch to Student</button>         */}
+              </div>
+            </div>
+          </div>
+        </div>
+        )
+    }
+}
+
+// export Student Sign Up Component
+
+function mapStateToProps(state) {
+  return {
+    employerDetails : state.employerDetails
+  }
+}
+  
+function mapDispatchToProps(dispatch) {
+  return {
+    fillEmployerDetails : (details) => dispatch(fillEmployerDetails(details))
+  }
+}
+  // export EMployer Sign Up Component
+export default connect(mapStateToProps, mapDispatchToProps)(EmployerSignUp);
