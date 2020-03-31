@@ -1,29 +1,27 @@
 "use strict";
 const express = require("express");
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const { secret } = require('../Utils/config');
-const { Users } = require('../Models/UserModel');
-const { auth } = require("../utils/passport");
-auth();
+var kafka = require('../kafka/client');
+// const { auth } = require("../../kafka-backend/Utils/passport");
+// auth();
 
 //Route to handle Post Request Call
 router.post('/studentsignin', (req, res) => {
-    console.log("Reached here ", req.body);
-    Users.findOne({ username: req.body.username, password: req.body.password }, (error, user) => {
-        if (error) {
-            res.status(500).end("Error Occured");
-        }
-        if (user) {
-            const payload = { _id: user._id, username: user.username};
-            const token = jwt.sign(payload, secret, {
-                expiresIn: 1008000
-            });
-            res.status(200).end("JWT " + token);
-        }
-        else {
-            res.status(401).end("Invalid Credentials");
-        }
+    kafka.make_request('signin', req.body, function(err,results){
+        console.log('in result');
+        console.log(results);
+        if (err){
+            console.log("Inside err");
+            res.writeHead(500, {
+                'Content-Type': 'text/plain'
+            })
+            res.end("Error");
+        }else{
+            res.writeHead(results.code, {
+                'Content-Type': 'text/plain'
+            })
+            res.end(results.value);
+        }    
     });
 });
 

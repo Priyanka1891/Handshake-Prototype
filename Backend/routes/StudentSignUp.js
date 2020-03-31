@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const CryptoJS = require('crypto-js');
-const { secret } = require('../Utils/config');
-const { Users, studentDetails } = require('../Models/UserModel');
+const { secret } = require('../../kafka-backend/Utils/config');
+const { Users, studentDetails } = require('../../kafka-backend/Models/UserModel');
 
 //Route to handle Post Request Call
 router.post('/studentsignup',function(req,res) {

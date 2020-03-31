@@ -4,7 +4,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
-const { mongoDB, frontendURL } = require('./Utils/config');
+const { mongoDB, frontendURL } = require('../kafka-backend/Utils/config');
 var cors = require('cors');
 
 // Route path handlers student specific
@@ -60,26 +60,6 @@ app.use(function(req, res, next) {
     res.setHeader('Cache-Control', 'no-cache');
     next();
   });
-
-const mongoose = require('mongoose');
-
-var options = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    poolSize: 500,
-    bufferMaxEntries: 0
-};
-
-console.log("MongoDB:", mongoDB);
-
-mongoose.connect(mongoDB, options, (err, res) => {
-    if (err) {
-        console.log(err);
-        console.log(`MongoDB Connection Failed`);
-    } else {
-        console.log(`MongoDB Connected`);
-    }
-});
   
 //start your server on port 3001
 app.listen(3001);
