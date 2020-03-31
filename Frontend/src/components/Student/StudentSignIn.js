@@ -56,9 +56,7 @@ login = (e) => {
       });
     })
     .catch(error => {
-        this.setState({
-            message: error.response.data
-        })
+      console.log(error);
     });
 } 
 
