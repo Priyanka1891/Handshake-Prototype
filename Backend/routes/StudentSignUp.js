@@ -1,50 +1,26 @@
+"use strict";
 const express = require('express');
 const router = express.Router();
-const CryptoJS = require('crypto-js');
-const { secret } = require('../../kafka-backend/Utils/config');
-const { Users, studentDetails } = require('../../kafka-backend/Models/UserModel');
+var kafka = require('../kafka/client');
+
 
 //Route to handle Post Request Call
-router.post('/studentsignup',function(req,res) {
-  console.log("Student Signup Req Body : ", req.body);
-  // Encrypting the password
-  var ecPasswd = CryptoJS.AES.encrypt(req.body.password, secret);
-  ecPasswd = ecPasswd.toString();
-  var newUser = new Users({
-    username : req.body.username,
-    email : req.body.email,
-    password : ecPasswd,
-  });
-
-  Users.findOne({ username : req.body.username }, (error, user) => {
-    if (error) {
-      res.writeHead(500, {
-          'Content-Type': 'text/plain'
-      })
-      res.end();
-    }
-    if (user) {
-      res.writeHead(200, {
-          'Content-Type': 'text/plain'
-      })
-      res.end("User already exists");
-    }
-    else {
-      newUser.save((error, data) => {
-        if (error) {
-          res.writeHead(500, {
+router.post('/studentsignup',(req,res) => {
+  kafka.make_request('studentsignup', req.body, function(err,results){
+    console.log('in result');
+    console.log(results);
+    if (err){
+        console.log("Inside err");
+        res.writeHead(500, {
             'Content-Type': 'text/plain'
-          })
-          res.end();
-        }
-        else {
-          res.writeHead(200, {
+        })
+        res.end("Error");
+    }else{
+        res.writeHead(results.code, {
             'Content-Type': 'text/plain'
-          })
-          res.end("User signed up successfully");
-        }
-      });
-    }
-  });
+        })
+        res.end(results.value);
+    }    
+});
 });
 module.exports = router;

@@ -3,6 +3,7 @@ const { mongoDB } = require('./Utils/config');
 
 //topics files
 var SignIn = require('./services/signin.js');
+var StudentSignUp = require('./services/studentsignup.js');
 
 function handleTopicRequest(topic_name,fname){
     //var topic_name = 'root_topic';
@@ -55,3 +56,4 @@ mongoose.connect(mongoDB, options, (err, res) => {
 //first argument is topic name
 //second argument is a function that will handle this topic request
 handleTopicRequest("signin", SignIn);
+handleTopicRequest("studentsignup", StudentSignUp);
