@@ -2,8 +2,8 @@
 var JwtStrategy = require("passport-jwt").Strategy;
 var ExtractJwt = require("passport-jwt").ExtractJwt;
 const passport = require("passport");
-var { secret } = require("./config");
-const Users = require('../Models/UserModel');
+var { secret } = require("../../kafka-backend/Utils/config");
+const Users = require('../../kafka-backend/Models/UserModel');
 
 // Setup work and export for the JWT passport strategy
 function auth() {
@@ -16,6 +16,7 @@ function auth() {
             const user_id = jwt_payload._id;
             Users.findById(user_id, (err, results) => {
                 if (err) {
+                    console.log("Invalid ", err);
                     return callback(err, false);
                 }
                 if (results) {

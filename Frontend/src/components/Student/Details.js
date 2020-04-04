@@ -32,7 +32,7 @@ class Details extends Component{
                 <h2>Profile Overview
                 {/* <ul class="nav navbar-nav navbar-right"> */}
                   &nbsp;&nbsp;{this.props.studentDetails.editmode?(<button onClick={this.editStudentDetails} type="button" className="btn btn-default btn-sm">
-                  <span class="glyphicon glyphicon-pencil"></span>
+                  <span className="glyphicon glyphicon-pencil"></span>
                   </button>):(<div></div>)} </h2> 
                 {/* </ul> */}
                 <br />

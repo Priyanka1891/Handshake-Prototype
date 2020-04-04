@@ -75,6 +75,7 @@ class Editdetails extends Component{
   submitStudentDetails = (e) => {
     e.preventDefault();
     axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data ", this.state.studentDetails);
     const data = {details : this.state.studentDetails , edit_details : true}
                   // edit_education_details : false, edit_experience_details : false}

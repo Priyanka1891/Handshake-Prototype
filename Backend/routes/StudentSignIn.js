@@ -2,7 +2,8 @@
 const express = require("express");
 const router = express.Router();
 var kafka = require('../kafka/client');
-
+const { auth } = require("../Utils/passport");
+auth();
 
 //Route to handle Post Request Call
 router.post('/studentsignin', (req, res) => {
