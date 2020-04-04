@@ -21,63 +21,29 @@ class Experience extends Component{
   render(){
       let redirectVar = null;
       if (this.state.editExperienceDetails) {
-        redirectVar = <Redirect to="/editexperiencedetails" />
+        redirectVar = <Redirect to={{pathname :'/editexperiencedetails',state:this.props.index}}/>
       }
 
       return(
-        <div>
-        {redirectVar}
-          <br />
         <React.Fragment>
-          <div className="container">
-            <div className="login-form">
-              <div className="main-div">
-                <div className="panel">
-                  <h2>Experience Overview</h2>
-                </div>
-                <div className="form-group">
-                  <label>Company Name: </label>
-                &nbsp;
-                  <label>{this.props.studentDetails.companyname}</label>
-                </div>
-                <div className="form-group">
-                  <label>Job Title: </label>
-                  <label>{this.props.studentDetails.title}</label>
-                </div>
-                <div className="form-group">
-                  <label>Company Location:</label>
-                &nbsp;
-                  <label>{this.props.studentDetails.companylocation}</label>
-                </div>
-                <div className="form-group">
-                  <label>Start Date:</label>
-                &nbsp;
-                  <label>{this.props.studentDetails.startdate}</label>
-                </div>
-                <div className="form-group">
-                  <label>End Date:</label>
-                &nbsp;
-                  <label>{this.props.studentDetails.enddate}</label>
-                </div>
-                <div className="form-group">
-                  <label>Job Details:</label>
-                &nbsp;
-                  <label>{this.props.studentDetails.jobdetails}</label>
-                </div>
-                <div className="form-group">
-                  <label>Skills:</label>
-                &nbsp;
-                  <label>{this.props.studentDetails.skills}</label>
-                </div>
-                <div>
-                  {this.props.studentDetails.editmode?(<button type="button" onClick={this.editStudentDetails} className="btn btn-default btn-sm">                <span class="glyphicon glyphicon-pencil"></span>
+        {redirectVar}
+        {this.props.studentDetails.editmode?(<button type="button" onClick={this.editStudentDetails} className="btn btn-default btn-sm"><span class="glyphicon glyphicon-pencil"></span>
                   </button>) :(<div></div>)} 
-                </div>           
-              </div>
-            </div>
-          </div>
+                  <br />
+                  <label>Company Name :&nbsp;{this.props.studentDetails.studentExperience[this.props.index].companyname}</label>
+                  <br />
+                  <label>Job Title :&nbsp;{this.props.studentDetails.studentExperience[this.props.index].title}</label>
+                  <br />
+                  <label>Company Location :&nbsp;{this.props.studentDetails.studentExperience[this.props.index].companylocation}</label>
+                  <br />
+                  <label>Start Date :&nbsp;{this.props.studentDetails.studentExperience[this.props.index].startdate}</label>
+                  &nbsp;&nbsp;
+                  <label>End Date :&nbsp;{this.props.studentDetails.studentExperience[this.props.index].enddate}</label>
+                  <br />
+                  <label>Job Details :&nbsp;{this.props.studentDetails.studentExperience[this.props.index].jobdetails}</label>
+                  <br />
+                  <label>Skills :&nbsp;{this.props.studentDetails.studentExperience[this.props.index].skills}</label>
         </React.Fragment>
-        </div>
         )
     }
 }

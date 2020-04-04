@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { secret } = require('../Utils/config');
-const { Users, studentDetails, studentEducation, studentExperience } = require('../Models/UserModel');
+const { Users} = require('../Models/UserModel');
 const CryptoJS = require('crypto-js');
 
 

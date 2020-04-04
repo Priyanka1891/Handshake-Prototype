@@ -6,7 +6,7 @@ import { fillStudentDetails } from "../../common_store/actions/index";
 
 const initialState={
   detailsSubmitted : false,
-  studentDetails : {}
+  studentDetails : null
 }
 
 class EditExperiencedetails extends Component{
@@ -26,45 +26,45 @@ class EditExperiencedetails extends Component{
   }
 
   companynameChangeHandler = (e) => {
-    var studentDetails = {...this.state.studentDetails}
-    studentDetails.companyname = e.target.value;
-    this.setState({studentDetails})
+    var newstudentDetails = this.state.studentDetails;
+    newstudentDetails.studentExperience[this.props.location.state].companyname = e.target.value;
+    this.setState({studentDetails : newstudentDetails});
   }
 
   titleChangeHandler = (e) => {
-    var studentDetails = {...this.state.studentDetails}
-    studentDetails.title = e.target.value;
-    this.setState({studentDetails})
+    var newstudentDetails = this.state.studentDetails;
+    newstudentDetails.studentExperience[this.props.location.state].title = e.target.value;
+    this.setState({studentDetails : newstudentDetails});
   }
 
   companylocationChangeHandler = (e) => {
-    var studentDetails = {...this.state.studentDetails}
-    studentDetails.companylocation = e.target.value;
-    this.setState({studentDetails})
+    var newstudentDetails = this.state.studentDetails;
+    newstudentDetails.studentExperience[this.props.location.state].companylocation = e.target.value;
+    this.setState({studentDetails : newstudentDetails});
   }
 
   startdateChangeHandler = (e) => {
-    var studentDetails = {...this.state.studentDetails}
-    studentDetails.startdate = e.target.value;
-    this.setState({studentDetails})
+    var newstudentDetails = this.state.studentDetails;
+    newstudentDetails.studentExperience[this.props.location.state].startdate = e.target.value;
+    this.setState({studentDetails: newstudentDetails})
   }
 
   enddateChangeHandler = (e) => {
-    var studentDetails = {...this.state.studentDetails}
-    studentDetails.enddate = e.target.value;
-    this.setState({studentDetails})
+    var newstudentDetails = this.state.studentDetails;
+    newstudentDetails.studentExperience[this.props.location.state].enddate = e.target.value;
+    this.setState({studentDetails: newstudentDetails})
   }
 
   jobdetailsChangeHandler = (e) => {
-    var studentDetails = {...this.state.studentDetails}
-    studentDetails.jobdetails = e.target.value;
-    this.setState({studentDetails})
+    var newstudentDetails = this.state.studentDetails;
+    newstudentDetails.studentExperience[this.props.location.state].jobdetails = e.target.value;
+    this.setState({studentDetails: newstudentDetails})
   }
 
   skillsChangeHandler = (e) => {
-    var studentDetails = {...this.state.studentDetails}
-    studentDetails.skills = e.target.value;
-    this.setState({studentDetails})
+    var newstudentDetails = this.state.studentDetails;
+    newstudentDetails.studentExperience[this.props.location.state].skills = e.target.value;
+    this.setState({studentDetails: newstudentDetails})
   }
 
   dispatch = async (state) => {
@@ -81,14 +81,14 @@ class EditExperiencedetails extends Component{
     console.log("Sending Data ", data);
     axios.post('http://localhost:3001/editstudentdetails', data)
       .then(response => {
-        console.log("Edit Education Response: ", response);
+        console.log("Edit Experience Response: ", response);
         if (response.status === 200) {
           this.dispatch(this.state.studentDetails)
             .then(result => {
               this.setState({
                 detailsSubmitted : true
               })
-             console.log("Edited details: ", result);
+             console.log("Edited details: ", result.data.details);
             })
         }
     });
@@ -104,48 +104,39 @@ class EditExperiencedetails extends Component{
       {redirectVar}
       <br />
       <React.Fragment>
-        <div className="container">
-          <div className="login-form">
-            <div className="main-div">
-              <div className="panel">
-                <h2>Experience Overview</h2>
-              </div>
-              <div className="form-group">
+      <div className="col-md-offset-0">
+           <div className="profile-content">
+              <div className="col-md-offset-4">
+                <h2>Edit Experience</h2>
                 <label>Company Name</label>
-                <input onChange = {this.companynameChangeHandler}value={this.state.companyname} placeholder={this.props.studentDetails.companyname}
+                <input style={{width:"300px"}} onChange = {this.companynameChangeHandler}value={this.state.companyname} placeholder={this.props.studentDetails.studentExperience[this.props.location.state].companyname}
                 type="text" className="form-control" name="companyname" />
-              </div>
-              <div className="form-group">
+                <br />
                 <label>Title</label>
-                <input onChange = {this.titleChangeHandler}value={this.state.title} placeholder={this.props.studentDetails.title}
+                <input style={{width:"300px"}} onChange = {this.titleChangeHandler}value={this.state.title} placeholder={this.props.studentDetails.studentExperience[this.props.location.state].title}
                 type="text" className="form-control" name="dob" />
-              </div>
-              <div className="form-group">
+                <br />
                 <label>Company Location</label>
-                <input onChange = {this.companylocationChangeHandler}value={this.state.companylocationn} placeholder={this.props.studentDetails.companylocation}
+                <input style={{width:"300px"}} onChange = {this.companylocationChangeHandler}value={this.state.companylocationn} placeholder={this.props.studentDetails.studentExperience[this.props.location.state].companylocation}
                 type="text" className="form-control" name="city" />
-              </div>    
-              <div className="form-group">
+                <br />
                 <label>Start Date</label>
-                <input onChange = {this.startdateChangeHandler}value={this.state.startdate} placeholder={this.props.studentDetails.startdate}
+                <input style={{width:"300px"}} onChange = {this.startdateChangeHandler}value={this.state.startdate} placeholder={this.props.studentDetails.studentExperience[this.props.location.state].startdate}
                 type="text" className="form-control" name="state" />
-              </div>
-              <div className="form-group">
+                <br/>
                 <label>End Date</label>
-                <input onChange = {this.enddateChangeHandler}value={this.state.enddate} placeholder={this.props.studentDetails.enddate}
+                <input style={{width:"300px"}} onChange = {this.enddateChangeHandler}value={this.state.enddate} placeholder={this.props.studentDetails.studentExperience[this.props.location.state].enddate}
                 type="text" className="form-control" name="country" />
-              </div>
-              <div className="form-group">
+                <br/>
                 <label>Job Details</label>
-                <input onChange = {this.jobdetailsChangeHandler}value={this.state.jobdetails} placeholder={this.props.studentDetails.jobdetails}
+                <input style={{width:"300px"}} onChange = {this.jobdetailsChangeHandler}value={this.state.jobdetails} placeholder={this.props.studentDetails.studentExperience[this.props.location.state].jobdetails}
                 type="text" className="form-control" name="objective" />
-              </div>
-              <div className="form-group">
+                <br/>
                 <label>Skills</label>
-                <input onChange = {this.skillsChangeHandler}value={this.state.skills} placeholder={this.props.studentDetails.skills}
+                <input style={{width:"300px"}} onChange = {this.skillsChangeHandler}value={this.state.skills} placeholder={this.props.studentDetails.studentDetails.skills}
                 type="text" className="form-control" name="objective" />
-              </div>
-              <button type="button" onClick={this.submitStudentDetails} className="btn btn-primary">Save</button>    
+                <br/>
+              <button type="button" onClick={this.submitStudentDetails} className="btn btn-success">Save</button>    
             </div>
           </div>
         </div>

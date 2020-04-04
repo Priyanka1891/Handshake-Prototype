@@ -21,23 +21,15 @@ class Resume extends Component {
     data.append('file', this.state.selectedFile)
     axios.post('http://localhost:3001/studentsignin/resume',data)
       .then(response => {
-        console.log("Success");
+        console.log("Success",response.data);
     })
   }
   render(){
     return(
       <React.Fragment>
-        <div className="container">
-          <div className="login-form">
-            <div className="main-div">
-              <div className="panel">
-                <h2>Upload Resume</h2>
                 <input type="file" name="file" onChange={this.onChangeHandler} />
+                <br />
                 <button type="button" className="btn btn-success" onClick={this.onClickHandler}>Upload</button> 
-              </div>
-            </div>
-          </div>
-        </div>
       </React.Fragment>
     )
   }

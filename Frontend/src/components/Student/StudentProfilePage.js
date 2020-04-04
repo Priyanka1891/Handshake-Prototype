@@ -27,27 +27,20 @@ class StudentProfilePage extends Component {
         
                 <div className="profile-usertitle">
                   <div className="profile-usertitle-name">
-                    {this.props.studentDetails.username}
+                    Welcome&nbsp;{this.props.studentDetails.username}
                   </div>
-                  {/* <div className="profile-usertitle-job">
-                    Full Stack Developer
-                  </div> */}
+                  <div className="profile-usertitle-job">
+                  {this.props.studentDetails.studentExperience[this.props.studentDetails.studentExperience.length-1].title}
+                  </div>
                 </div>
-                {/* <div className="profile-userbuttons">
-                  <button type="button" className="btn btn-success btn-sm">Follow</button>
-                  <button type="button" className="btn btn-danger btn-sm">Message</button>
-                </div> */}
+                <div className="profile-userbuttons">
+                  {/* <button type="button" className="btn btn-success btn-sm">Connect</button> */}
+                  <button type="button" className="btn btn-primary btn-lg">Message</button>
+                </div>
                 <div className="profile-usermenu">
                   <ul className="nav">
-                    {/* <li className="active">
-                      <a href="#">
-                        <i className="glyphicon glyphicon-home" />
-                        Profile Overview
-                        {' '}
-                      </a>
-                    </li> */}
-                    <li>
-                      <a href="#">
+                    <li className="active">
+                      <a href="#Details">
                         <i className="glyphicon glyphicon-user" />
                         Profile Overview
                         {' '}
@@ -60,9 +53,6 @@ class StudentProfilePage extends Component {
                         {' '}
                       </a>
                     </li>
-                    {/* <ul class="nav navbar-nav navbar-right">
-                        <li><Link to="/" onClick = {this.handleLogout}><span class="glyphicon glyphicon-user"></span>Logout</Link></li>
-                </ul> */}
                     <li>
                       <a href="#Experience">
                         <i className="glyphicon glyphicon-briefcase" />
@@ -83,11 +73,29 @@ class StudentProfilePage extends Component {
             </div>
             <div className="col-md-offset-0">
               <div className="profile-content">
-                {/* <p>Some user related content goes here...</p> */}
+              <div className="col-md-offset-4">
                 <div id='Details'><Details /></div>
-                <div id='Education'><Education /></div>
-                <div id='Experience'><Experience /></div>
-                <div id='Resume'><Resume /></div>
+                <h2  id='Education'>Education Overview&nbsp;&nbsp;
+                <button type="button" onClick = {this.addStudentEducation} className="btn btn-default btn-sm"><span className="glyphicon glyphicon-plus-sign"></span></button></h2>
+                <div>
+                  {
+                    this.props.studentDetails.studentEducation.map((education,index) => (
+                      <div><Education index={index} /></div>
+                    ))
+                  }
+                </div>
+                <h2 id='Experience'>Experience Overview&nbsp;&nbsp;
+                <button type="button" onClick = {this.addStudentExperience} className="btn btn-default btn-sm"><span className="glyphicon glyphicon-plus-sign"></span></button></h2>
+                <div>
+                  {
+                    this.props.studentDetails.studentExperience.map((experience,index) => (
+                      <div><Experience index={index} /></div>
+                    ))
+                  }
+                </div>
+                <h2 id='Resume'>Upload Resume</h2>
+                <div ><Resume /></div>
+                </div>
               </div>
             </div>
           </div>

@@ -51,9 +51,16 @@ login = (e) => {
   console.log("Sending Data "+JSON.stringify(data));
   axios.post('http://localhost:3001/studentsignin',data)
     .then(response => {
-      this.setState({
-          token: response.data
+      const newStudentDetails={...response.data.details,
+        editmode : true};
+      this.dispatch(newStudentDetails)
+        .then(result => {
+          console.log("Student details: ", result);
+          this.setState({
+            token: response.data.value
+          });
       });
+      console.log("Response data is ",response.data.details);
     })
     .catch(error => {
       console.log(error);

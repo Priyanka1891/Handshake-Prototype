@@ -6,7 +6,7 @@ import { fillStudentDetails } from "../../common_store/actions/index";
 
 const initialState={
   detailsSubmitted : false,
-  studentDetails : {}
+  studentDetails : null
 }
 
 class EditEducationDetails extends Component{
@@ -25,39 +25,39 @@ class EditEducationDetails extends Component{
   }
 
   colgnameChangeHandler = (e) => {
-    var studentDetails = {...this.state.studentDetails}
-    studentDetails.colgname = e.target.value;
-    this.setState({studentDetails})
+    var newStudentDetails = this.state.studentDetails;
+    newStudentDetails.studentEducation[this.props.location.state].colgname = e.target.value;
+    this.setState({studentDetails : newStudentDetails});
   }
 
   locationChangeHandler = (e) => {
-    var studentDetails = {...this.state.studentDetails}
-    studentDetails.location = e.target.value;
-    this.setState({studentDetails})
+    var newStudentDetails = this.state.studentDetails
+    newStudentDetails.studentEducation[this.props.location.state].location = e.target.value;
+    this.setState({studentDetails : newStudentDetails});
   }
 
   degreeChangeHandler = (e) => {
-    var studentDetails = {...this.state.studentDetails}
-    studentDetails.degree = e.target.value;
-    this.setState({studentDetails})
+    var newStudentDetails = this.state.studentDetails
+    newStudentDetails.studentEducation[this.props.location.state].degree = e.target.value;
+    this.setState({studentDetails : newStudentDetails});
   }
 
   majorChangeHandler = (e) => {
-    var studentDetails = {...this.state.studentDetails}
-    studentDetails.major = e.target.value;
-    this.setState({studentDetails})
+    var newStudentDetails = this.state.studentDetails
+    newStudentDetails.studentEducation[this.props.location.state].major = e.target.value;
+    this.setState({studentDetails : newStudentDetails});
   }
 
   yearofpassingChangeHandler = (e) => {
-    var studentDetails = {...this.state.studentDetails}
-    studentDetails.yearofpassing = e.target.value;
-    this.setState({studentDetails})
+    var newStudentDetails = this.state.studentDetails
+    newStudentDetails.studentEducation[this.props.location.state].yearofpassing= e.target.value;
+    this.setState({studentDetails : newStudentDetails});
   }
 
   cgpaChangeHandler = (e) => {
-    var studentDetails = {...this.state.studentDetails}
-    studentDetails.cgpa = e.target.value;
-    this.setState({studentDetails})
+    var newStudentDetails = this.state.studentDetails
+    newStudentDetails.studentEducation[this.props.location.state].cgpa = e.target.value;
+    this.setState({studentDetails : newStudentDetails});
   }
 
   dispatch = async (state) => {
@@ -81,7 +81,7 @@ class EditEducationDetails extends Component{
               this.setState({
                 detailsSubmitted : true
               })
-             console.log("Edited details: ", result);
+             console.log("Edited details: ", result.data.details);
             })
         }
     });
@@ -97,43 +97,35 @@ class EditEducationDetails extends Component{
       {redirectVar}
       <br />
       <React.Fragment>
-        <div className="container">
-          <div className="login-form">
-            <div className="main-div">
-              <div className="panel">
-                <h2>Education Overview</h2>
-              </div>
-              <div className="form-group">
+      <div className="col-md-offset-0">
+           <div className="profile-content">
+              <div className="col-md-offset-4">
+                <h2>Edit Education</h2>
                 <label>College Name</label>
-                <input onChange = {this.colgnameChangeHandler}value={this.state.colgname} placeholder={this.props.studentDetails.colgname}
+                <input style={{width:"300px"}} onChange = {this.colgnameChangeHandler}value={this.state.colgname} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].colgname}
                 type="text" className="form-control" name="colgname" />
-              </div>
-              <div className="form-group">
+                <br />
                 <label>Location</label>
-                <input onChange = {this.locationChangeHandler}value={this.state.location} placeholder={this.props.studentDetails.location}
+                <input style={{width:"300px"}} onChange = {this.locationChangeHandler}value={this.state.location} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].location}
                 type="text" className="form-control" name="dob" />
-              </div>
-              <div className="form-group">
+                <br />
                 <label>Degree</label>
-                <input onChange = {this.degreeChangeHandler}value={this.state.degree} placeholder={this.props.studentDetails.degree}
+                <input style={{width:"300px"}} onChange = {this.degreeChangeHandler}value={this.state.degree} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].degree}
                 type="text" className="form-control" name="city" />
-              </div>
-              <div className="form-group">
+                <br />
                 <label>Major</label>
-                <input onChange = {this.majorChangeHandler}value={this.state.major} placeholder={this.props.studentDetails.major}
+                <input style={{width:"300px"}} onChange = {this.majorChangeHandler}value={this.state.major} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].major}
                 type="text" className="form-control" name="state" />
-              </div>
-              <div className="form-group">
+                <br />
                 <label>Year of Passing</label>
-                <input onChange = {this.yearofpassingChangeHandler}value={this.state.yearofpassing} placeholder={this.props.studentDetails.yearofpassing}
+                <input style={{width:"300px"}} onChange = {this.yearofpassingChangeHandler}value={this.state.yearofpassing} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].yearofpassing}
                 type="text" className="form-control" name="country" />
-              </div>
-              <div className="form-group">
+                <br />
                 <label>CGPA</label>
-                <input onChange = {this.cgpaChangeHandler}value={this.state.cgpa} placeholder={this.props.studentDetails.cgpa}
+                <input style={{width:"300px"}} onChange = {this.cgpaChangeHandler}value={this.state.cgpa} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].cgpa}
                 type="text" className="form-control" name="objective" />
-              </div>
-              <button type="button" onClick={this.submitStudentDetails} className="btn btn-primary">Save</button>    
+                <br />
+              <button type="button" onClick={this.submitStudentDetails} className="btn btn-success">Save</button>    
             </div>
           </div>
         </div>

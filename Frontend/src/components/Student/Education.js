@@ -22,58 +22,27 @@ class Education extends Component{
   render(){
       let redirectVar = null;
       if (this.state.editEducationDetails) {
-        redirectVar = <Redirect to="/editeducationdetails" />
+        redirectVar = <Redirect to={{pathname :'/editeducationdetails',state:this.props.index}}/>
       }
 
       return(
-        <div>
+        <React.Fragment> 
         {redirectVar}
-          <br />
-          <React.Fragment> 
-          <div className="container">
-            <div className="login-form">
-              <div className="main-div">
-                <div className="panel">
-                  <h2>Education Overview</h2>
-                </div>
-                <div className="form-group">
-                  <label>College Name: </label>
-                &nbsp;
-                  <label>{this.props.studentDetails.colgname}</label>
-                </div>
-                <div className="form-group">
-                  <label>Location: </label>
-                  <label>{this.props.studentDetails.location}</label>
-                </div>
-                <div className="form-group">
-                  <label>Degree:</label>
-                &nbsp;
-                  <label>{this.props.studentDetails.degree}</label>
-                </div>
-                <div className="form-group">
-                  <label>Major:</label>
-                &nbsp;
-                  <label>{this.props.studentDetails.major}</label>
-                </div>
-                <div className="form-group">
-                  <label>Year of Passing:</label>
-                &nbsp;
-                  <label>{this.props.studentDetails.yearofpassing}</label>
-                </div>
-                <div className="form-group">
-                  <label>CGPA:</label>
-                &nbsp;
-                  <label>{this.props.studentDetails.cgpa}</label>
-                </div>
-                <div>
-                  {this.props.studentDetails.editmode?(<button type="button" onClick={this.editStudentDetails} className="btn btn-default btn-sm">                <span class="glyphicon glyphicon-pencil"></span>
+                  {this.props.studentDetails.editmode?(<button type="button" onClick={this.editStudentDetails} className="btn btn-default btn-sm"><span class="glyphicon glyphicon-pencil"></span>
                   </button>) :(<div></div>)} 
-                </div>     
-              </div>
-            </div>
-          </div>
+                  <br />
+                  <label>College Name :&nbsp;{this.props.studentDetails.studentEducation[this.props.index].colgname}</label>
+                  <br />
+                  <label>Location :&nbsp;{this.props.studentDetails.studentEducation[this.props.index].location}</label>
+                  <br />
+                  <label>Degree :&nbsp;{this.props.studentDetails.studentEducation[this.props.index].degree}</label>
+                  <br />
+                  <label>Major :&nbsp;{this.props.studentDetails.studentEducation[this.props.index].major}</label>
+                  <br />
+                  <label>Year of Passing :&nbsp;{this.props.studentDetails.studentEducation[this.props.index].yearofpassing}</label>
+                  <br />
+                  <label>CGPA :&nbsp;{this.props.studentDetails.studentEducation[this.props.index].cgpa}</label>    
           </React.Fragment>
-        </div>
         )
     }
 }
