@@ -76,9 +76,10 @@ class EditExperiencedetails extends Component{
   submitStudentDetails = (e) => {
     e.preventDefault();
     axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     const data = {details : this.state.studentDetails,
                   edit_experience_details : true}
-    console.log("Sending Data ", data);
+    console.log("Sending Data ", data,  axios.defaults.headers);
     axios.post('http://localhost:3001/editstudentdetails', data)
       .then(response => {
         console.log("Edit Experience Response: ", response);

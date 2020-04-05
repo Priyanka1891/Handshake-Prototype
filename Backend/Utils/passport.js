@@ -13,8 +13,10 @@ function auth() {
     };
     passport.use(
         new JwtStrategy(opts, (jwt_payload, callback) => {
+            console.log("JWT PAYLOAD: ". jwt_payload);
             const user_id = jwt_payload._id;
             Users.findById(user_id, (err, results) => {
+                console.log("Found user");
                 if (err) {
                     console.log("Invalid ", err);
                     return callback(err, false);

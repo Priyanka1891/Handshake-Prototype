@@ -30,7 +30,8 @@ class StudentProfilePage extends Component {
                     Welcome&nbsp;{this.props.studentDetails.username}
                   </div>
                   <div className="profile-usertitle-job">
-                  {this.props.studentDetails.studentExperience[this.props.studentDetails.studentExperience.length-1].title}
+                  {this.props.studentDetails.studentExperience.length ? 
+                    this.props.studentDetails.studentExperience[this.props.studentDetails.studentExperience.length-1].title : null}
                   </div>
                 </div>
                 <div className="profile-userbuttons">

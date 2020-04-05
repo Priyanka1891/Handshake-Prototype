@@ -1,8 +1,10 @@
 "use strict";
 const express = require("express");
+const jwt = require('jsonwebtoken');
+const { tokenSecret } = require('../Utils/config');
 const router = express.Router();
 var kafka = require('../kafka/client');
-const { auth } = require("../Utils/passport");
+const { auth } = require("../../Backend/Utils/passport");
 auth();
 
 //Route to handle Post Request Call
@@ -16,10 +18,17 @@ router.post('/studentsignin', (req, res) => {
             })
             res.end("Error");
         }else{
+            const payload = { _id: results.details._id, username: results.details.username};
+            console.log("token " ,tokenSecret);
+            const token = jwt.sign(payload, tokenSecret, {
+                expiresIn: 1008000
+            });
             res.writeHead(results.code, {
                 'Content-Type': 'text/plain'
             })
-            res.end(JSON.stringify(results));
+            var result_with_token = results;
+            result_with_token.value = "JWT " + token;
+            res.end(JSON.stringify(result_with_token));
         }    
     });
 });

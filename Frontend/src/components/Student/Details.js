@@ -36,21 +36,28 @@ class Details extends Component{
                   </button>):(<div></div>)} </h2> 
                 {/* </ul> */}
                 <br />
-                <label>Name : &nbsp;{this.props.studentDetails.studentDetails.name}</label>
+                <label>Name : &nbsp;{this.props.studentDetails.studentDetails ?
+                this.props.studentDetails.studentDetails.name : null}</label>
                 <br />
-                <label>Date Of Birth :&nbsp;{this.props.studentDetails.studentDetails.dob}</label>
+                <label>Date Of Birth :&nbsp;{this.props.studentDetails.studentDetails ?
+                  this.props.studentDetails.studentDetails.dob : null}</label>
                 <br />
-                <label>City :&nbsp;{this.props.studentDetails.studentDetails.city}</label>
+                <label>City :&nbsp;{this.props.studentDetails.studentDetails ?
+                this.props.studentDetails.studentDetails.city : null}</label>
                 <br />
-                <label>State :&nbsp;{this.props.studentDetails.studentDetails.state}</label>
+                <label>State :&nbsp;{this.props.studentDetails.studentDetails ?
+                this.props.studentDetails.studentDetails.state : null }</label>
                 <br />
-                <label>Country :&nbsp;{this.props.studentDetails.studentDetails.country}</label>
+                <label>Country :&nbsp;{this.props.studentDetails.studentDetails ?
+                this.props.studentDetails.studentDetails.country : null}</label>
                 <br/>
-                <label>Contact No :&nbsp;{this.props.studentDetails.studentDetails.contactno}</label>
+                <label>Contact No :&nbsp;{this.props.studentDetails.studentDetails ?
+                this.props.studentDetails.studentDetails.contactno : null}</label>
                 <br/>
-                <label>Objective :&nbsp;{this.props.studentDetails.studentDetails.objective}</label>
+                <label>Objective :&nbsp;{this.props.studentDetails.studentDetails ?
+                this.props.studentDetails.studentDetails.objective : null}</label>
         </div>
-        )
+        ) 
     }
 }
 

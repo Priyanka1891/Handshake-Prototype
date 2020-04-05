@@ -1,5 +1,3 @@
-const jwt = require('jsonwebtoken');
-const { secret } = require('../Utils/config');
 const { Users} = require('../Models/UserModel');
 
 function handle_request(msg, callback){

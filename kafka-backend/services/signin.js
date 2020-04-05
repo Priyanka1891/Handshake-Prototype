@@ -1,9 +1,6 @@
-const jwt = require('jsonwebtoken');
 const { secret } = require('../Utils/config');
 const { Users} = require('../Models/UserModel');
 const CryptoJS = require('crypto-js');
-
-
 
 function handle_request(msg, callback){
     Users.findOne({ username: msg.username}, (error, user) => {
@@ -24,18 +21,9 @@ function handle_request(msg, callback){
                 callback(null, res);
                 return;
             }
-            const payload = { _id: user._id, username: user.username};
-            const token = jwt.sign(payload, secret, {
-                expiresIn: 1008000
-            });
-            // let promise = handle_details(user._id);
-            // promise.then(results =>{
-            //   console.log("Details fetched are ", results);
-              res.code = 200;
-              res.value = "JWT " + token;
-              res.details = user;
-              callback(null, res);
-            // });
+            res.code = 200;
+            res.details = user;
+            callback(null, res);
         }
         else {
             res.code = 401;
