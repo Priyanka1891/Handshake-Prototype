@@ -6,10 +6,10 @@ import { fillStudentDetails } from "../../common_store/actions/index";
 
 const initialState={
   detailsSubmitted : false,
-  studentDetails : null
+  studentDetails : null,
+  newEducationDetails : {}
 }
-
-class EditEducationDetails extends Component{
+class AddEducationDetails extends Component{
 
   constructor(props){
       super(props);
@@ -25,39 +25,39 @@ class EditEducationDetails extends Component{
   }
 
   colgnameChangeHandler = (e) => {
-    var newStudentDetails = this.state.studentDetails;
-    newStudentDetails.studentEducation[this.props.location.state].colgname = e.target.value;
-    this.setState({studentDetails : newStudentDetails});
+    var newEducationDetails = this.state.newEducationDetails;
+    newEducationDetails.colgname = e.target.value;
+    this.setState({ newEducationDetails: newEducationDetails});
   }
 
   locationChangeHandler = (e) => {
-    var newStudentDetails = this.state.studentDetails
-    newStudentDetails.studentEducation[this.props.location.state].location = e.target.value;
-    this.setState({studentDetails : newStudentDetails});
+    var newEducationDetails = this.state.newEducationDetails;
+    newEducationDetails.location = e.target.value;
+    this.setState({ newEducationDetails: newEducationDetails});
   }
 
   degreeChangeHandler = (e) => {
-    var newStudentDetails = this.state.studentDetails
-    newStudentDetails.studentEducation[this.props.location.state].degree = e.target.value;
-    this.setState({studentDetails : newStudentDetails});
+    var newEducationDetails = this.state.newEducationDetails;
+    newEducationDetails.degree = e.target.value;
+    this.setState({ newEducationDetails: newEducationDetails});
   }
 
   majorChangeHandler = (e) => {
-    var newStudentDetails = this.state.studentDetails
-    newStudentDetails.studentEducation[this.props.location.state].major = e.target.value;
-    this.setState({studentDetails : newStudentDetails});
+    var newEducationDetails = this.state.newEducationDetails;
+    newEducationDetails.major = e.target.value;
+    this.setState({ newEducationDetails: newEducationDetails});
   }
 
   yearofpassingChangeHandler = (e) => {
-    var newStudentDetails = this.state.studentDetails
-    newStudentDetails.studentEducation[this.props.location.state].yearofpassing= e.target.value;
-    this.setState({studentDetails : newStudentDetails});
+    var newEducationDetails = this.state.newEducationDetails;
+    newEducationDetails.yearofpassing = e.target.value;
+    this.setState({ newEducationDetails: newEducationDetails});
   }
 
   cgpaChangeHandler = (e) => {
-    var newStudentDetails = this.state.studentDetails
-    newStudentDetails.studentEducation[this.props.location.state].cgpa = e.target.value;
-    this.setState({studentDetails : newStudentDetails});
+    var newEducationDetails = this.state.newEducationDetails;
+    newEducationDetails.cgpa = e.target.value;
+    this.setState({ newEducationDetails: newEducationDetails});
   }
 
   dispatch = async (state) => {
@@ -70,6 +70,7 @@ class EditEducationDetails extends Component{
     e.preventDefault();
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
+    this.state.studentDetails.studentEducation.push(this.state.newEducationDetails);
     const data = {details : this.state.studentDetails,
                   edit_education_details : true}
     console.log("Sending Data ", data,  axios.defaults.headers);
@@ -100,30 +101,30 @@ class EditEducationDetails extends Component{
       <div className="col-md-offset-0">
            <div className="profile-content">
               <div className="col-md-offset-4">
-                <h2>Edit Education</h2>
+                <h2>Add Education</h2>
                 <label>College Name</label>
-                <input style={{width:"300px"}} onChange = {this.colgnameChangeHandler}value={this.state.colgname} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].colgname}
-                type="text" className="form-control" name="colgname" />
+                <input style={{width:"300px"}} onChange = {this.colgnameChangeHandler}value={this.state.colgname} 
+                type="text" className="form-control" placeholder="College Name" />
                 <br />
                 <label>Location</label>
-                <input style={{width:"300px"}} onChange = {this.locationChangeHandler}value={this.state.location} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].location}
-                type="text" className="form-control" />
+                <input style={{width:"300px"}} onChange = {this.locationChangeHandler}value={this.state.location} 
+                type="text" className="form-control" placeholder="Location" />
                 <br />
                 <label>Degree</label>
-                <input style={{width:"300px"}} onChange = {this.degreeChangeHandler}value={this.state.degree} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].degree}
-                type="text" className="form-control" />
+                <input style={{width:"300px"}} onChange = {this.degreeChangeHandler}value={this.state.degree} 
+                type="text" className="form-control" placeholder="Degree" />
                 <br />
                 <label>Major</label>
-                <input style={{width:"300px"}} onChange = {this.majorChangeHandler}value={this.state.major} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].major}
-                type="text" className="form-control" />
+                <input style={{width:"300px"}} onChange = {this.majorChangeHandler}value={this.state.major} 
+                type="text" className="form-control" placeholder="Major" />
                 <br />
                 <label>Year of Passing</label>
-                <input style={{width:"300px"}} onChange = {this.yearofpassingChangeHandler}value={this.state.yearofpassing} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].yearofpassing}
-                type="text" className="form-control" />
+                <input style={{width:"300px"}} onChange = {this.yearofpassingChangeHandler}value={this.state.yearofpassing} 
+                type="text" className="form-control" placeholder="Year of Passing" />
                 <br />
                 <label>CGPA</label>
-                <input style={{width:"300px"}} onChange = {this.cgpaChangeHandler}value={this.state.cgpa} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].cgpa}
-                type="text" className="form-control" />
+                <input style={{width:"300px"}} onChange = {this.cgpaChangeHandler}value={this.state.cgpa} 
+                type="text" className="form-control" placeholder="CGPA" />
                 <br />
               <button type="button" onClick={this.submitStudentDetails} className="btn btn-success">Save</button>    
             </div>
@@ -148,4 +149,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 // export default EditEducationdetails;
-export default connect(mapStateToProps, mapDispatchToProps)(EditEducationDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(AddEducationDetails);

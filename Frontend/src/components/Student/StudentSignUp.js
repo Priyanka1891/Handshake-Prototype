@@ -112,7 +112,7 @@ render(){
                   onChangeCapture = {this.colgnameChangeHandler} value={this.state.colgname}>
                     <option>-----Choose your University-----</option>
                     <option>UCLA</option>
-                    <option>Univeristy of Hogwarts</option>
+                    <option>University of Hogwarts</option>
                     <option>UC Davis</option>
                     <option>UC Berkley</option>
                     <option>Stanford University</option>

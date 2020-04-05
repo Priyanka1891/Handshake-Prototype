@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router';
 import StudentNavbar from './StudentNavbar';
 import EmployerNavbar from '../Employer/EmployerNavbar'
 import Details from './Details';
@@ -7,11 +8,44 @@ import Education from './Education';
 import Experience from './Experience';
 import Resume from './Resume';
 
+const initialState={
+  addEducation : false,
+  addExperience : false
+}
 
 class StudentProfilePage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = initialState;
+  }
+
+  addStudentEducation = (e) =>{
+    this.setState({
+      addEducation : true
+    })
+  }
+
+  addStudentExperience = (e) =>{
+    this.setState({
+      addExperience : true
+    })
+  }
+
+
+
   render() {
+    let redirectVar = null;
+      if (this.state.addEducation) {
+        redirectVar = <Redirect to='/addeducation' />
+      }
+      if (this.state.addExperience) {
+        redirectVar = <Redirect to='/addexperience' />
+      }
+
     return(
       <React.Fragment>
+      {redirectVar}
+        <br />              
         {this.props.studentDetails.editmode ? (<StudentNavbar />) : (<EmployerNavbar />)}
         <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js" />
@@ -81,16 +115,16 @@ class StudentProfilePage extends Component {
                 <div>
                   {
                     this.props.studentDetails.studentEducation.map((education,index) => (
-                      <div><Education index={index} /></div>
+                      <div><Education index={this.props.studentDetails.studentEducation.length - 1 - index} /></div>
                     ))
                   }
                 </div>
                 <h2 id='Experience'>Experience Overview&nbsp;&nbsp;
                 <button type="button" onClick = {this.addStudentExperience} className="btn btn-default btn-sm"><span className="glyphicon glyphicon-plus-sign"></span></button></h2>
-                <div>
+                  <div>
                   {
                     this.props.studentDetails.studentExperience.map((experience,index) => (
-                      <div><Experience index={index} /></div>
+                      <div><Experience index={this.props.studentDetails.studentExperience.length - 1 - index} /></div>
                     ))
                   }
                 </div>
@@ -101,7 +135,7 @@ class StudentProfilePage extends Component {
             </div>
           </div>
         </div>
-      </React.Fragment> 
+      </React.Fragment>
     )
   }
 }

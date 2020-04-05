@@ -5,7 +5,7 @@ var usersSchema = new Schema({
     username: {type: String, required: true},
     email : {type: String, required: true},
     password: {type: String, required: true},
-    studentDetails :  {
+    basicDetails :  {
 
       name : {type: String, required: false},
       dob : {type: String, required: false},
@@ -35,9 +35,11 @@ var usersSchema = new Schema({
     startdate : {type: String, required: false},
     enddate : {type: String, required: false},
     jobdetails : {type: String, required: false}
-    }],
+    }]
     
-    versionKey: false
+},
+{
+  versionKey: false
 });
 
 // studentEducation :

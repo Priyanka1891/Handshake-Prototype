@@ -35,27 +35,26 @@ class Details extends Component{
                   <span className="glyphicon glyphicon-pencil"></span>
                   </button>):(<div></div>)} </h2> 
                 {/* </ul> */}
+                <label>Name : &nbsp;{this.props.studentDetails.basicDetails ?
+                this.props.studentDetails.basicDetails.name : null}</label>
                 <br />
-                <label>Name : &nbsp;{this.props.studentDetails.studentDetails ?
-                this.props.studentDetails.studentDetails.name : null}</label>
+                <label>Date Of Birth :&nbsp;{this.props.studentDetails.basicDetails ?
+                  this.props.studentDetails.basicDetails.dob : null}</label>
                 <br />
-                <label>Date Of Birth :&nbsp;{this.props.studentDetails.studentDetails ?
-                  this.props.studentDetails.studentDetails.dob : null}</label>
+                <label>City :&nbsp;{this.props.studentDetails.basicDetails ?
+                this.props.studentDetails.basicDetails.city : null}</label>
                 <br />
-                <label>City :&nbsp;{this.props.studentDetails.studentDetails ?
-                this.props.studentDetails.studentDetails.city : null}</label>
+                <label>State :&nbsp;{this.props.studentDetails.basicDetails ?
+                this.props.studentDetails.basicDetails.state : null }</label>
                 <br />
-                <label>State :&nbsp;{this.props.studentDetails.studentDetails ?
-                this.props.studentDetails.studentDetails.state : null }</label>
-                <br />
-                <label>Country :&nbsp;{this.props.studentDetails.studentDetails ?
-                this.props.studentDetails.studentDetails.country : null}</label>
+                <label>Country :&nbsp;{this.props.studentDetails.basicDetails ?
+                this.props.studentDetails.basicDetails.country : null}</label>
                 <br/>
-                <label>Contact No :&nbsp;{this.props.studentDetails.studentDetails ?
-                this.props.studentDetails.studentDetails.contactno : null}</label>
+                <label>Contact No :&nbsp;{this.props.studentDetails.basicDetails ?
+                this.props.studentDetails.basicDetails.contactno : null}</label>
                 <br/>
-                <label>Objective :&nbsp;{this.props.studentDetails.studentDetails ?
-                this.props.studentDetails.studentDetails.objective : null}</label>
+                <label>Objective :&nbsp;{this.props.studentDetails.basicDetails ?
+                this.props.studentDetails.basicDetails.objective : null}</label>
         </div>
         ) 
     }
