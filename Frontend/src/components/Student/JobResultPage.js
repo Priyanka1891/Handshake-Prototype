@@ -15,7 +15,6 @@ class JobResultPage extends Component {
     this.searchedJobs = this.searchedJobs.bind(this);
   }
 
-
   applyJobs = (e) => {
     e.preventDefault();
     const data = {

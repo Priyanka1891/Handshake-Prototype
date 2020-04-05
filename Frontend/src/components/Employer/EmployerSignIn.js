@@ -5,7 +5,7 @@ import { fillEmployerDetails } from "../../common_store/actions/index";
 import axios from 'axios';
 
 const initialState={
-  companyname : "",
+  username : "",
   password : ""
 }
 
@@ -15,14 +15,14 @@ class EmployerSignIn extends Component{
   constructor(props){
     super(props);
     this.state=initialState;
-    this.companynameChangeHandler = this.companynameChangeHandler.bind(this);
+    this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
     this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
     this.login = this.login.bind(this);
   }
 
-  companynameChangeHandler = (e) => {
+  usernameChangeHandler = (e) => {
     this.setState({
-      companyname : e.target.value,
+      username : e.target.value,
     })
   }
   
@@ -39,7 +39,7 @@ class EmployerSignIn extends Component{
   login = (e) => {
     e.preventDefault();
     const data = {
-      companyname : this.state.companyname,
+      username : this.state.username,
       password : this.state.password,
     }
 
@@ -81,8 +81,8 @@ render(){
                 </div>
                 <div className="form-group">
                   <label>Company Name</label>
-                  <input onChange = {this.companynameChangeHandler}value={this.state.companyname} 
-                  type="text" className="form-control" name="companyname" placeholder="Username" />
+                  <input onChange = {this.usernameChangeHandler}value={this.state.username} 
+                  type="text" className="form-control" name="username" placeholder="Username" />
                 </div>
                 <div className="form-group">
                   <label>Password</label>

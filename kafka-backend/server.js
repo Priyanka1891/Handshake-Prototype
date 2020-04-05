@@ -7,6 +7,9 @@ var StudentSignUp = require('./services/studentsignup.js');
 var EditStudentDetails = require('./services/editstudentdetails.js');
 
 
+var EmployerSignUp = require('./services/employersignup');
+
+
 function handleTopicRequest(topic_name,fname){
     //var topic_name = 'root_topic';
     var consumer = connection.getConsumer(topic_name);
@@ -59,4 +62,7 @@ mongoose.connect(mongoDB, options, (err, res) => {
 handleTopicRequest("signin", SignIn);
 handleTopicRequest("studentsignup", StudentSignUp);
 handleTopicRequest("editstudentdetails", EditStudentDetails);
+
+
+handleTopicRequest("employersignup", EmployerSignUp);
 

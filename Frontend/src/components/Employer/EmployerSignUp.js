@@ -5,7 +5,7 @@ import axios from 'axios';
 import { fillEmployerDetails } from "../../common_store/actions/index";
 
 const initialState={
-  companyname : "",
+  username : "",
   password : "",
   email : "",
   location : ""
@@ -16,15 +16,15 @@ class EmployerSignUp extends Component{
   constructor(props){
     super(props);
     this.state=initialState;
-    this.companynameChangeHandler = this.companynameChangeHandler.bind(this);
+    this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
     this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
     this.emailChangeHandler = this.emailChangeHandler.bind(this);
     this.locationChangeHandler = this.locationChangeHandler.bind(this);
   }
 
-  companynameChangeHandler = (e) => {
+  usernameChangeHandler = (e) => {
     this.setState({
-      companyname : e.target.value,
+      username : e.target.value,
     })
   }
   
@@ -49,14 +49,14 @@ class EmployerSignUp extends Component{
   submitDetails = (e) => {
     e.preventDefault();
     const data = {
-      companyname : this.state.companyname,
+      username : this.state.username,
       password : this.state.password,
       email : this.state.email,
       location : this.state.location
     }
 
   axios.defaults.withCredentials = true;
-  console.log("Sending Data "+JSON.stringify(data));
+  console.log("Sending Data " + JSON.stringify(data));
     axios.post('http://localhost:3001/employersignup',data)
       .then(response => {
         console.log("Entered inside axios post req");
@@ -86,8 +86,8 @@ class EmployerSignUp extends Component{
                 </div>
                 <div className="form-group">
                   <label>Company Name</label>
-                  <input onChange = {this.companynameChangeHandler}value={this.state.companyname} 
-                  type="text" className="form-control" name="companyname" placeholder="Userame" />
+                  <input onChange = {this.usernameChangeHandler}value={this.state.username} 
+                  type="text" className="form-control" name="username" placeholder="Userame" />
                 </div>
                 <div className="form-group">
                   <label>Password</label>

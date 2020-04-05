@@ -20,7 +20,7 @@ router.post('/studentsignup',(req,res) => {
             'Content-Type': 'text/plain'
         })
         res.end(results.value);
-    }    
+    }           
 });
 });
 module.exports = router;
