@@ -88,7 +88,7 @@ class Editdetails extends Component{
               this.setState({
                 detailsSubmitted : true
               })
-             console.log("Edited details: ", result.data.details);
+             console.log("Edited details: ", JSON.stringify(result));
             })
         }
     });
