@@ -26,45 +26,34 @@ class Details extends Component{
       }
 
       return(
+        <React.Fragment>
         <div>
         {redirectVar}
           <br />
-        <div className="container">
-          <div className="login-form">
-            <div className="main-div">
-              <div className="panel">
                 <h2>Profile Overview</h2>
-                {/* <ul class="nav navbar-nav navbar-right">
-                <span onClick = {this.editEmployerDetails} className="glyphicon glyphicon-pencil"></span>
-                </ul> */}
-              </div>
-              <div className="form-group">
-                <label>Name:</label>
-                &nbsp;
-                <label>{this.props.employerDetails.name}</label>
-              </div>
-              <div className="form-group">
-                <label>Location:</label>
-                &nbsp;
-                <label>{this.props.employerDetails.location}</label>
-              </div>
-              <div className="form-group">
-                <label>Description:</label>
-                &nbsp;
-                <label>{this.props.employerDetails.description}</label>
-              </div>
-              <div className="form-group">
-                <label>Contact Information:</label>
-                &nbsp;
-                <label>{this.props.employerDetails.contactno}</label>
-              </div>
-              <button onClick={this.editEmployerDetails} type="button" className="btn btn-default btn-sm">
+                <button onClick={this.editEmployerDetails} type="button" className="btn btn-default btn-sm">
                 <span className="glyphicon glyphicon-pencil"></span>
               </button>
-            </div>
+              <br />
+              <br />
+              <div className="form-group">
+                <label>Name :&nbsp;
+                {this.props.employerDetails.name}</label>
+              </div>
+              <div className="form-group">
+                <label>Location :&nbsp;
+                {this.props.employerDetails.location}</label>
+              </div>
+              <div className="form-group">
+                <label>Description :&nbsp;
+                  {this.props.employerDetails.description}</label>
+              </div>
+              <div className="form-group">
+                <label>Contact Information :&nbsp;
+                {this.props.employerDetails.contactno}</label>
+              </div>
           </div>
-          </div>
-        </div>
+        </React.Fragment>
         )
     }
 }

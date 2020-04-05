@@ -40,8 +40,9 @@ class EmployerProfilePage extends Component {
             </div>
             <div className="col-md-offset-0">
               <div className="profile-content">
-                {/* <p>Some user related content goes here...</p> */}
+              <div className="col-md-offset-4">
                 <div id='Details'><Details /></div>
+              </div>
               </div>
             </div>
           </div>
