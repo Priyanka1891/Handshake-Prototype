@@ -75,14 +75,13 @@ class EditEducationDetails extends Component{
     console.log("Sending Data ", data,  axios.defaults.headers);
     axios.post('http://localhost:3001/editstudentdetails', data)
       .then(response => {
-        console.log("Edit Education Response: ", response);
         if (response.status === 200) {
           this.dispatch(this.state.studentDetails)
             .then(result => {
               this.setState({
                 detailsSubmitted : true
               })
-             console.log("Edited details: ", result.data.details);
+             console.log("Edited details: ", result);
             })
         }
     });

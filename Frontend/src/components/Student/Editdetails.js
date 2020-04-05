@@ -9,6 +9,7 @@ const initialState={
   studentDetails : null
 }
 
+
 class Editdetails extends Component{
 
   constructor(props){
@@ -27,43 +28,58 @@ class Editdetails extends Component{
 
   nameChangeHandler = (e) => {
     var newStudentDetails = this.state.studentDetails;
+    newStudentDetails.studentDetails  =  this.state.studentDetails.studentDetails ? 
+                                            this.state.studentDetails.studentDetails  : {};
     newStudentDetails.studentDetails.name = e.target.value;
     this.setState({studentDetails : newStudentDetails});
   }
 
   contactnoChangeHandler = (e) => {
     var newStudentDetails = this.state.studentDetails;
+    newStudentDetails.studentDetails  =  this.state.studentDetails.studentDetails ? 
+    this.state.studentDetails.studentDetails  : {};
     newStudentDetails.studentDetails.contactno = e.target.value;
     this.setState({studentDetails : newStudentDetails});
   }
 
   dobChangeHandler = (e) => {
     var newStudentDetails = this.state.studentDetails;
+    newStudentDetails.studentDetails  =  this.state.studentDetails.studentDetails ? 
+    this.state.studentDetails.studentDetails  : {};
     newStudentDetails.studentDetails.dob = e.target.value;
     this.setState({studentDetails : newStudentDetails});
   }
 
   cityChangeHandler = (e) => {
     var newStudentDetails = this.state.studentDetails;
+    newStudentDetails.studentDetails  =  this.state.studentDetails.studentDetails ? 
+    this.state.studentDetails.studentDetails  : {};
     newStudentDetails.studentDetails.city = e.target.value;
     this.setState({studentDetails : newStudentDetails});
   }
 
   stateChangeHandler = (e) => {
     var newStudentDetails = this.state.studentDetails;
+    newStudentDetails.studentDetails  =  this.state.studentDetails.studentDetails ? 
+    this.state.studentDetails.studentDetails  : {};
     newStudentDetails.studentDetails.state = e.target.value;
     this.setState({studentDetails : newStudentDetails});
   }
 
   countryChangeHandler = (e) => {
     var newStudentDetails = this.state.studentDetails;
+    newStudentDetails.studentDetails  =  this.state.studentDetails.studentDetails ? 
+    this.state.studentDetails.studentDetails  : {};
     newStudentDetails.studentDetails.country = e.target.value;
     this.setState({studentDetails : newStudentDetails});
   }
 
   objectiveChangeHandler = (e) => {
     var newStudentDetails = this.state.studentDetails;
+    newStudentDetails.studentDetails  =  this.state.studentDetails.studentDetails ? 
+    this.state.studentDetails.studentDetails  : {};
     newStudentDetails.studentDetails.objective = e.target.value;
+    console.log("HERE ", newStudentDetails);
     this.setState({studentDetails : newStudentDetails});
   }
 
@@ -109,31 +125,32 @@ class Editdetails extends Component{
 
                 <h2>Edit Profile</h2>
                 <label>Name</label>
-                <input style={{width:"300px"}} onChange = {this.nameChangeHandler}placeholder={this.props.studentDetails.studentDetails.name}value={this.state.name}
+                <input style={{width:"300px"}} onChange = {this.nameChangeHandler}placeholder=
+                {this.props.studentDetails.studentDetails?this.props.studentDetails.studentDetails.name:null}value={this.state.name}
                 type="text" className="form-control" name="name" />
                 <br/>
                 <label>Date Of Birth</label>
-                <input style={{width:"300px"}} onChange = {this.dobChangeHandler}placeholder={this.props.studentDetails.studentDetails.dob}value={this.state.dob}
+                <input style={{width:"300px"}} onChange = {this.dobChangeHandler}placeholder={this.props.studentDetails.studentDetails?this.props.studentDetails.studentDetails.dob:null}value={this.state.dob}
                 type="text" className="form-control" name="dob" />
                 <br/>
                 <label>City</label>
-                <input style={{width:"300px"}} onChange = {this.cityChangeHandler}placeholder={this.props.studentDetails.studentDetails.city}value={this.state.city} 
+                <input style={{width:"300px"}} onChange = {this.cityChangeHandler}placeholder={this.props.studentDetails.studentDetails?this.props.studentDetails.studentDetails.city:null}value={this.state.city} 
                 type="text" className="form-control" name="city" />
                 <br/>
                 <label>State</label>
-                <input style={{width:"300px"}} onChange = {this.stateChangeHandler}placeholder={this.props.studentDetails.studentDetails.state} value={this.state.state}
+                <input style={{width:"300px"}} onChange = {this.stateChangeHandler}placeholder={this.props.studentDetails.studentDetails?this.props.studentDetails.studentDetails.state:null} value={this.state.state}
                 type="text" className="form-control" name="state" />
                 <br/>
                 <label>Country</label>
-                <input style={{width:"300px"}} onChange = {this.countryChangeHandler}placeholder={this.props.studentDetails.studentDetails.country} value={this.state.country}
+                <input style={{width:"300px"}} onChange = {this.countryChangeHandler}placeholder={this.props.studentDetails.studentDetails?this.props.studentDetails.studentDetails.country:null} value={this.state.country}
                 type="text" className="form-control" name="country" />
                 <br/>
                 <label>Contact No:</label>
-                <input style={{width:"300px"}} onChange = {this.contactnoChangeHandler}placeholder={this.props.studentDetails.studentDetails.contactno} value={this.state.contactno}
+                <input style={{width:"300px"}} onChange = {this.contactnoChangeHandler}placeholder={this.props.studentDetails.studentDetails?this.props.studentDetails.studentDetails.contactno:null} value={this.state.contactno}
                 type="number" className="form-control" name="contactno" />
                 <br/>
                 <label>Objective</label>
-                <input  style={{width:"300px"}} onChange = {this.objectiveChangeHandler}placeholder={this.props.studentDetails.studentDetails.objective} value={this.state.objective}
+                <input  style={{width:"300px"}} onChange = {this.objectiveChangeHandler}placeholder={this.props.studentDetails.studentDetails?this.props.studentDetails.studentDetails.objective:null} value={this.state.objective}
                 type="text" className="form-control" name="objective" />
                 <br />
               <button type="button" onClick={this.submitStudentDetails} className="btn btn-success">Save</button> 

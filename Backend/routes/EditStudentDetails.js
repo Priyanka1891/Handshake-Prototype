@@ -4,7 +4,7 @@ var kafka = require('../kafka/client');
 const { checkAuth } = require('../Utils/passport');
 
 //Route to handle Post Request Call
-router.post('/editstudentdetails', checkAuth, (req, res) => {
+router.post('/editstudentdetails', (req, res) => {
   console.log("Reached Here ");
   kafka.make_request('editstudentdetails', req.body, function(err,results){
       // console.log('in result',results);
@@ -15,7 +15,6 @@ router.post('/editstudentdetails', checkAuth, (req, res) => {
           });
           res.end("Error");
       }else{
-          console.log("Reached here");
           res.writeHead(results.code, {
               'Content-Type': 'text/plain'
           })

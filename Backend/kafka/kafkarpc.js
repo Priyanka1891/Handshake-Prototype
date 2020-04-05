@@ -51,10 +51,8 @@ KafkaRPC.prototype.makeRequest = function(topic_name, content, callback){
                 data:content}),
                 partition:0}
         ];
-        console.log('in response1');
         console.log(self.producer.ready);
         self.producer.send(payloads, function(err, data){
-            console.log('in response2');
             if(err)
                 console.log(err);
             console.log(data);
@@ -66,9 +64,6 @@ KafkaRPC.prototype.makeRequest = function(topic_name, content, callback){
 KafkaRPC.prototype.setupResponseQueue = function(producer,topic_name, next){
     //don't mess around if we have a queue
     if(this.response_queue) return next();
-
-    console.log('1');
-
     self = this;
 
     //subscribe to messages

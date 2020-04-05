@@ -28,20 +28,26 @@ class Education extends Component{
       return(
         <React.Fragment> 
         {redirectVar}
-                  {this.props.studentDetails.editmode?(<button type="button" onClick={this.editStudentDetails} className="btn btn-default btn-sm"><span class="glyphicon glyphicon-pencil"></span>
+                  {this.props.studentDetails.editmode?(<button type="button" onClick={this.editStudentDetails} className="btn btn-default btn-sm"><span className="glyphicon glyphicon-pencil"></span>
                   </button>) :(<div></div>)} 
                   <br />
-                  <label>College Name :&nbsp;{this.props.studentDetails.studentEducation[this.props.index].colgname}</label>
+                  <label>College Name :&nbsp;{this.props.studentDetails.studentEducation?
+                  this.props.studentDetails.studentEducation[this.props.index].colgname:null}</label>
                   <br />
-                  <label>Location :&nbsp;{this.props.studentDetails.studentEducation[this.props.index].location}</label>
+                  <label>Location :&nbsp;{this.props.studentDetails.studentEducation?
+                  this.props.studentDetails.studentEducation[this.props.index].location:null}</label>
                   <br />
-                  <label>Degree :&nbsp;{this.props.studentDetails.studentEducation[this.props.index].degree}</label>
+                  <label>Degree :&nbsp;{this.props.studentDetails.studentEducation?
+                  this.props.studentDetails.studentEducation[this.props.index].degree:null}</label>
                   <br />
-                  <label>Major :&nbsp;{this.props.studentDetails.studentEducation[this.props.index].major}</label>
+                  <label>Major :&nbsp;{this.props.studentDetails.studentEducation?
+                  this.props.studentDetails.studentEducation[this.props.index].major:null}</label>
                   <br />
-                  <label>Year of Passing :&nbsp;{this.props.studentDetails.studentEducation[this.props.index].yearofpassing}</label>
+                  <label>Year of Passing :&nbsp;{this.props.studentDetails.studentEducation?
+                  this.props.studentDetails.studentEducation[this.props.index].yearofpassing:null}</label>
                   <br />
-                  <label>CGPA :&nbsp;{this.props.studentDetails.studentEducation[this.props.index].cgpa}</label>    
+                  <label>CGPA :&nbsp;{this.props.studentDetails.studentEducation?
+                  this.props.studentDetails.studentEducation[this.props.index].cgpa:null}</label>    
           </React.Fragment>
         )
     }

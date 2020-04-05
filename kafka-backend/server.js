@@ -14,7 +14,6 @@ function handleTopicRequest(topic_name,fname){
     console.log('server is running ');
     consumer.on('message', function (message) {
         console.log('message received for ' + topic_name +" ", fname);
-        console.log(JSON.stringify(message.value));
         var data = JSON.parse(message.value);
         
         fname.handle_request(data.data, function(err,res){
