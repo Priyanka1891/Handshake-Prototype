@@ -1,6 +1,34 @@
+"use strict";
 const express = require('express');
 const router = express.Router();
-// var conn = require('../../constants')
+var kafka = require('../kafka/client');
+
+
+
+// post job by employer
+router.post('/postjob',function(req,res) {
+  console.log("Req Body post job: ", req.body);
+  kafka.make_request('postjob', req.body, function(err,results){
+    console.log('in postjob result ', results);
+    if (err){
+        console.log("Inside err");
+        res.writeHead(500, {
+            'Content-Type': 'text/plain'
+        })
+        res.end("Error");
+    } else {
+        res.writeHead(results.code, {
+            'Content-Type': 'text/plain'
+        })
+        res.end(results.value);
+    }           
+  });
+});
+
+
+
+
+
 
 // search jobs with query string
 router.post('/jobsearch', function(req,res){
@@ -104,33 +132,6 @@ router.post('/studentsapplied',function(req,res) {
 });
 
 
-
-// post job by employer
-router.post('/postjob',function(req,res) {
-  console.log("Req Body post job: ", req.body);
-  let join_values = '\',\'';
-  let sql = 'INSERT INTO job_details (jobTitle, createdate, enddate, jobLocation, salary, jobDescription, jobCategory, companyname)' +
-            ' VALUES(\'' + req.body.jobTitle + join_values + req.body.createDate + join_values + req.body.endDate + join_values
-            + req.body.jobLocation + join_values +  req.body.jobSalary +  join_values + req.body.jobDescription + join_values 
-            + req.body.jobCategory + join_values + req.body.companyName +'\')';
-  
-  conn.CONNECTION.query(sql, function (err, result) {
-    if (err) {
-      console.log(err);
-      res.writeHead(500,{
-        'Content-Type' : 'text/json'
-      })
-      res.end('End Failure');
-      return;
-    }
-
-    res.writeHead(200,{
-      'Content-Type' : 'text/json'
-    })
-    let response_data = JSON.stringify(result);
-    res.end(response_data);
-  });
-});
 
 
 // employer search students with query string

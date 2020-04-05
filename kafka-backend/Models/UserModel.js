@@ -35,8 +35,13 @@ var usersSchema = new Schema({
     startdate : {type: String, required: false},
     enddate : {type: String, required: false},
     jobdetails : {type: String, required: false}
-    }]
-    
+    }],
+
+    // job id of jobs applied by the student.
+    jobsApplied : [{type: String, required: false}],
+
+    // event id of events registered by the student.
+    eventsApplied : [{type: String, required: false}]
 },
 {
   versionKey: false

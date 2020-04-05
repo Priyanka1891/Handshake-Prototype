@@ -5,14 +5,14 @@ import axios from 'axios';
 
 const initialState={
   jobPosted : false,
-  jobTitle : '',
-  createDate : '',
-  endDate : '',
-  jobLocation : '',
-  jobSalary : '',
-  jobDescription : '',
-  jobCategory: '',
-  companyName : ''
+  title : '',
+  createdate : '',
+  enddate : '',
+  location : '',
+  salary : '',
+  description : '',
+  type : '',
+  companyname : ''
 }
 
 class PostJob extends Component{
@@ -20,67 +20,66 @@ class PostJob extends Component{
   constructor(props){
       super(props);
       this.state= initialState;
-      this.state.companyName = this.props.employerDetails.name;
+      this.state.companyname = this.props.employerDetails.name;
       this.jobTitleChangeHandler = this.jobTitleChangeHandler.bind(this);
       this.createDateChangeHandler = this.createDateChangeHandler.bind(this);
       this.endDateChangeHandler = this.endDateChangeHandler.bind(this);
       this.jobLocationChangeHandler = this.jobLocationChangeHandler.bind(this);
       this.jobSalaryChangeHandler = this.jobSalaryChangeHandler.bind(this);
       this.jobDescriptionChangeHandler = this.jobDescriptionChangeHandler.bind(this);
-      this.jobCategoryChangeHandler = this.jobCategoryChangeHandler.bind(this);
+      this.jobTypeChangeHandler = this.jobTypeChangeHandler.bind(this);
       this.postJobDetails = this.postJobDetails.bind(this);
   }
 
   jobTitleChangeHandler = (e) => {
     this.setState({
-      jobTitle : e.target.value
+      title : e.target.value
     })
   }
 
   createDateChangeHandler = (e) => {
     this.setState({
-      createDate : e.target.value
+      createdate : e.target.value
     })
   }
 
   endDateChangeHandler = (e) => {
     this.setState({
-      endDate : e.target.value
+      enddate : e.target.value
     })
   }
 
   jobLocationChangeHandler = (e) => {
     this.setState({
-      jobLocation : e.target.value
+      location : e.target.value
     })
   }
 
   jobSalaryChangeHandler = (e) => {
     this.setState({
-      jobSalary : e.target.value
+      salary : e.target.value
     })
   }
 
   jobDescriptionChangeHandler = (e) => {
     this.setState({
-      jobDescription : e.target.value
+      description : e.target.value
     })
   }
 
-  jobCategoryChangeHandler = (e) => {
+  jobTypeChangeHandler = (e) => {
     this.setState({
-      jobCategory : e.target.value
+      type : e.target.value
     })
   }
 
   postJobDetails = (e) => {
     e.preventDefault();
-    console.log("HERE", this.state, this.props.employerDetails)
     for (let [key, value] of Object.entries(this.state)) {
       if (key === 'jobPosted') continue;
       if (!value) {
         var msg;
-        if (key === 'companyName') msg = 'Please login and try again...';
+        if (key === 'companyname') msg = 'Please login and try again...';
         else msg = 'Enter all required fields';
         window.alert(msg);
         return;
@@ -120,37 +119,37 @@ class PostJob extends Component{
               </div>
               <div className="form-group">
                 <label>Job Title*</label>
-                <input onChange = {this.jobTitleChangeHandler}value={this.state.jobTitle} 
+                <input onChange = {this.jobTitleChangeHandler}value={this.state.title} 
                 type="text" className="form-control" name="colgname" />
               </div>
               <div className="form-group">
                 <label>Create Date*</label>
-                <input onChange = {this.createDateChangeHandler}value={this.state.createDate} 
+                <input onChange = {this.createDateChangeHandler}value={this.state.createdate} 
                 type="text" className="form-control" name="dob" />
               </div>
               <div className="form-group">
                 <label>End Date*</label>
-                <input onChange = {this.endDateChangeHandler}value={this.state.endDate} 
+                <input onChange = {this.endDateChangeHandler}value={this.state.enddate} 
                 type="text" className="form-control" name="city" />
               </div>
               <div className="form-group">
                 <label>Location*</label>
-                <input onChange = {this.jobLocationChangeHandler}value={this.state.jobLocation} 
+                <input onChange = {this.jobLocationChangeHandler}value={this.state.location} 
                 type="text" className="form-control" name="state" />
               </div>
               <div className="form-group">
                 <label>Salary*</label>
-                <input onChange = {this.jobSalaryChangeHandler}value={this.state.jobSalary} 
+                <input onChange = {this.jobSalaryChangeHandler}value={this.state.salary} 
                 type="text" className="form-control" name="country" />
               </div>
               <div className="form-group">
                 <label>Job Description*</label>
-                <input onChange = {this.jobDescriptionChangeHandler}value={this.state.jobDescription} 
+                <input onChange = {this.jobDescriptionChangeHandler}value={this.state.description} 
                 type="text" className="form-control" name="objective" />
               </div>
               <div className="form-group">
                 <label>Job Type*</label>
-                <select id="types" onChange = {this.jobCategoryChangeHandler} value={this.state.jobCategory}>
+                <select id="types" onChange = {this.jobTypeChangeHandler} value={this.state.type}>
                   <option value="">----Job Type----</option>
                   <option value="fulltime">Full Time</option>
                   <option value="parttime">Part Time</option>
