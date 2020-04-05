@@ -4,7 +4,7 @@ const router = express.Router();
 var kafka = require('../kafka/client');
 
 router.post('/employersignup',function(req,res){
-  kafka.make_request('studentsignup', req.body, function(err,results){
+  kafka.make_request('employersignup', req.body, function(err,results){
     console.log('in result');
     console.log(results);
     if (err){

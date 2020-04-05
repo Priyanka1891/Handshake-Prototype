@@ -22,7 +22,7 @@ class EmployerProfilePage extends Component {
                 </div>
                 <div className="profile-usertitle">
                   <div className="profile-usertitle-name">
-                    {this.props.employerDetails.companyname}
+                    {this.props.employerDetails.username}
                   </div>
                 </div>
                 <div className="profile-usermenu">

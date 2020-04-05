@@ -9,7 +9,7 @@ const jwt_decode = require('jwt-decode');
 const initialState={
   username : "",
   password : "",
-  token: "",
+  token: ""
 }
 
 class StudentSignIn extends Component{

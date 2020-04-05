@@ -3,10 +3,13 @@ import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import { fillEmployerDetails } from "../../common_store/actions/index";
 import axios from 'axios';
+const jwt_decode = require('jwt-decode');
+
 
 const initialState={
   username : "",
-  password : ""
+  password : "", 
+  token: ""
 }
 
 
@@ -47,22 +50,23 @@ class EmployerSignIn extends Component{
     console.log("Sending Data "+JSON.stringify(data));
     axios.post('http://localhost:3001/employersignin',data)
     .then(response => {
-    console.log("Entered inside axios post req", response);
-    if(response.data.employersignin_successful){
-      console.log("Result signin :", response.data.details)
-        this.dispatch(response.data.details)
-          .then(result => {
-            console.log("Employer details: ", result);
-        })
-      }
-      else{
-        window.alert("Invalid username or password");
-      }
+      console.log("Response received ", response);
+      this.dispatch(response.data.details)
+        .then(result => {
+          this.setState({
+            token: response.data.value
+          });
+          console.log("Employer details:", result);
+      });
   })
 } 
 render(){
  let redirectVar = null;
-    if (this.props.employerDetails) {
+    if (this.state.token.length > 0) {
+      localStorage.setItem("token", this.state.token);
+      var decoded = jwt_decode(this.state.token.split(' ')[1]);
+      localStorage.setItem("user_id", decoded._id);
+      localStorage.setItem("username", decoded.username);
       redirectVar = <Redirect to="/employerprofilepage" />
     }
     else{

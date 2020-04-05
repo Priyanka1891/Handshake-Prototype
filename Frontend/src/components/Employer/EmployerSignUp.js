@@ -8,7 +8,8 @@ const initialState={
   username : "",
   password : "",
   email : "",
-  location : ""
+  location : "",
+  signUpDone : false
 }
 
 class EmployerSignUp extends Component{
@@ -59,19 +60,16 @@ class EmployerSignUp extends Component{
   console.log("Sending Data " + JSON.stringify(data));
     axios.post('http://localhost:3001/employersignup',data)
       .then(response => {
-        console.log("Entered inside axios post req");
-          if(!response.data.signup_fail){
-            this.props.fillEmployerDetails(response.data.details);
-          }
-          else{
-            window.alert("User already exists");
-          }
+        this.setState({
+          signUpDone : true
+        });
+        window.alert(response.data);
       });
   }
   render(){
     let redirectVar = null;
-    if (this.props.employerDetails) {
-      redirectVar = <Redirect to="/employerprofilepage" />
+    if (this.state.signUpDone) {
+      redirectVar = <Redirect to="/employer" />
     }
     return(
       <div>
