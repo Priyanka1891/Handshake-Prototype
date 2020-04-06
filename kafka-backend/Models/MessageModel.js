@@ -13,7 +13,6 @@ var messagesSchema = new Schema({
     versionKey: false
 });
 
-
 module.exports = {
     Messages : mongoose.model('message', messagesSchema)
 }
