@@ -7,10 +7,12 @@ import Details from './Details';
 import Education from './Education';
 import Experience from './Experience';
 import Resume from './Resume';
+import MessageApp from '../Message/MessageApp';
 
 const initialState={
   addEducation : false,
-  addExperience : false
+  addExperience : false,
+  openMessageBox : false
 }
 
 class StudentProfilePage extends Component {
@@ -31,6 +33,11 @@ class StudentProfilePage extends Component {
     })
   }
 
+  openMessageBox = (e) => {
+    this.setState({
+      openMessageBox : true
+    })
+  }
 
 
   render() {
@@ -41,7 +48,6 @@ class StudentProfilePage extends Component {
       if (this.state.addExperience) {
         redirectVar = <Redirect to='/addexperience' />
       }
-
     return(
       <React.Fragment>
       {redirectVar}
@@ -69,8 +75,8 @@ class StudentProfilePage extends Component {
                   </div>
                 </div>
                 <div className="profile-userbuttons">
-                  {/* <button type="button" className="btn btn-success btn-sm">Connect</button> */}
-                  <button type="button" className="btn btn-primary btn-lg">Message</button>
+                  {/* {this.props.studentDetails.editmode ? <div/> : <button type="button" className="btn btn-primary btn-lg" onClick = {this.openMessageBox} >Message</button> } */}
+                  <button type="button" className="btn btn-primary btn-lg" onClick = {this.openMessageBox} >Message</button>
                 </div>
                 <div className="profile-usermenu">
                   <ul className="nav">
@@ -131,8 +137,12 @@ class StudentProfilePage extends Component {
                 <h2 id='Resume'>Upload Resume</h2>
                 <div ><Resume /></div>
                 </div>
+                <div className="col-md-offset-5">
+                  {this.state.openMessageBox ? <div style={{"height" : "40%", "width" : "40%"}}><MessageApp /> </div> : <div/> }
+                </div>
               </div>
             </div>
+
           </div>
         </div>
       </React.Fragment>
