@@ -12,6 +12,8 @@ var EmployerSignIn = require('./services/employersignin');
 var EditEmployerDetails = require('./services/editemployerdetails');
 var PostJob = require('./services/postjob');
 
+var Messages = require('./services/messages');
+
 
 function handleTopicRequest(topic_name,fname){
     //var topic_name = 'root_topic';
@@ -72,3 +74,4 @@ handleTopicRequest("employersignin", EmployerSignIn);
 handleTopicRequest("editemployerdetails", EditEmployerDetails);
 handleTopicRequest("postjob", PostJob);
 
+handleTopicRequest("messages", Messages);

@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var messagesSchema = new Schema({
-    student : {type: String, required: true},
-    employer : {type: String, required: true},
+    usera : {type: String, required: true},
+    userb : {type: String, required: true},
     messages : [{
       sender : {type: String, required: false},
       content : {type: String, required: false},
@@ -15,5 +15,5 @@ var messagesSchema = new Schema({
 
 
 module.exports = {
-    Employers : mongoose.model('message', messagesSchema)
+    Messages : mongoose.model('message', messagesSchema)
 }

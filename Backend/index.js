@@ -20,6 +20,7 @@ const EmployerSignUp = require('./routes/EmployerSignUp');
 const EmployerSignIn = require('./routes/EmployerSignIn');
 const EditEmployerDetails = require('./routes/EditEmployerDetails');
 
+const Messages = require('./routes/Messages');
 
 app.set('view engine', 'ejs');
 
@@ -51,6 +52,8 @@ app.use('/', EmployerSignIn);
 app.use('/', EmployerSignUp);
 app.use('/', EditEmployerDetails);
 
+
+app.use('/messages', Messages);
 //Allow Access Control
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', frontendURL);
