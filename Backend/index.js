@@ -15,6 +15,7 @@ const Jobs = require('./routes/Jobs');
 const Events = require('./routes/Events');
 
 
+
 // Route path handler employer specific
 const EmployerSignUp = require('./routes/EmployerSignUp');
 const EmployerSignIn = require('./routes/EmployerSignIn');

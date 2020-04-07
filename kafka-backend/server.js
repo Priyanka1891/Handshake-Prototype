@@ -10,7 +10,9 @@ var EditStudentDetails = require('./services/editstudentdetails.js');
 var EmployerSignUp = require('./services/employersignup');
 var EmployerSignIn = require('./services/employersignin');
 var EditEmployerDetails = require('./services/editemployerdetails');
-var PostJob = require('./services/postjob');
+var Job = require('./services/job');
+var Event = require('./services/event');
+
 
 var Messages = require('./services/messages');
 
@@ -72,6 +74,7 @@ handleTopicRequest("editstudentdetails", EditStudentDetails);
 handleTopicRequest("employersignup", EmployerSignUp);
 handleTopicRequest("employersignin", EmployerSignIn);
 handleTopicRequest("editemployerdetails", EditEmployerDetails);
-handleTopicRequest("postjob", PostJob);
+handleTopicRequest("job", Job);
+handleTopicRequest("postevent", Event);
 
 handleTopicRequest("messages", Messages);

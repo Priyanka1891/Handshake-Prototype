@@ -24,6 +24,8 @@ class Editdetails extends Component{
       this.objectiveChangeHandler = this.objectiveChangeHandler.bind(this);
       this.contactnoChangeHandler = this.contactnoChangeHandler.bind(this);
       this.submitStudentDetails = this.submitStudentDetails.bind(this);
+      this.skillsChangeHandler = this.skillsChangeHandler.bind(this);
+
   }
 
   nameChangeHandler = (e) => {
@@ -83,6 +85,16 @@ class Editdetails extends Component{
     this.setState({studentDetails : newStudentDetails});
   }
 
+  skillsChangeHandler = (e) => {
+    var newStudentDetails = this.state.studentDetails;
+    newStudentDetails.basicDetails  =  this.state.studentDetails.basicDetails ? 
+    this.state.studentDetails.basicDetails  : {};
+    newStudentDetails.basicDetails.skills = e.target.value;
+    console.log("HERE ", newStudentDetails);
+    this.setState({studentDetails : newStudentDetails});
+  }
+
+
   dispatch = async (state) => {
     await this.props.fillStudentDetails(state)
     return this.props.studentDetails;
@@ -123,7 +135,6 @@ class Editdetails extends Component{
         <div className="col-md-offset-0">
            <div className="profile-content">
               <div className="col-md-offset-4">
-
                 <h2>Edit Profile</h2>
                 <label>Name</label>
                 <input style={{width:"300px"}} onChange = {this.nameChangeHandler}placeholder=
@@ -150,6 +161,10 @@ class Editdetails extends Component{
                 <label>Contact No:</label>
                 <input style={{width:"300px"}} onChange = {this.contactnoChangeHandler}placeholder={this.props.studentDetails.basicDetails?this.props.studentDetails.basicDetails.contactno:null} value={this.state.contactno}
                 type="number" className="form-control" name="contactno" />
+                <br/>
+                <label>Skills</label>
+                <input style={{width:"300px"}} onChange = {this.skillsChangeHandler}value={this.state.skills} placeholder={this.props.studentDetails.basicDetails?this.props.studentDetails.basicDetails.skills:null}
+                type="text" className="form-control" name="skills" />
                 <br/>
                 <label>Objective</label>
                 <input  style={{width:"300px"}} onChange = {this.objectiveChangeHandler}placeholder={this.props.studentDetails.basicDetails?this.props.studentDetails.basicDetails.objective:null} value={this.state.objective}

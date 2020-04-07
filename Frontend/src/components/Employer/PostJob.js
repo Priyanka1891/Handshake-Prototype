@@ -91,7 +91,7 @@ class PostJob extends Component{
     console.log("Sending Data ", data);
     axios.post('http://localhost:3001/jobs/postjob', data)
       .then(response => {
-        console.log("Edit Education Response: ", response);
+        console.log("Edit Response: ", response);
         if (response.status === 200) {
           this.setState({
             jobPosted : true
@@ -111,41 +111,39 @@ class PostJob extends Component{
       {redirectVar}
       <br />
       <React.Fragment>
-        <div className="container">
-          <div className="login-form">
-            <div className="main-div">
-              <div className="panel">
-                <h2>Job Details</h2>
-              </div>
+      <div className="col-md-offset-5">
+              <div className="profile-content">
+              {/* <div className="col-md-offset-4"> */}
+                <h2>Fill job Details</h2>
               <div className="form-group">
                 <label>Job Title*</label>
-                <input onChange = {this.jobTitleChangeHandler}value={this.state.title} 
+                <input style={{width:"300px"}} onChange = {this.jobTitleChangeHandler}value={this.state.title} 
                 type="text" className="form-control" name="colgname" />
               </div>
               <div className="form-group">
                 <label>Create Date*</label>
-                <input onChange = {this.createDateChangeHandler}value={this.state.createdate} 
+                <input  style={{width:"300px"}} onChange = {this.createDateChangeHandler}value={this.state.createdate} 
                 type="text" className="form-control" name="dob" />
               </div>
               <div className="form-group">
                 <label>End Date*</label>
-                <input onChange = {this.endDateChangeHandler}value={this.state.enddate} 
-                type="text" className="form-control" name="city" />
+                <input style={{width:"300px"}} onChange = {this.endDateChangeHandler}value={this.state.enddate} 
+                type="text" className="form-control" />
               </div>
               <div className="form-group">
                 <label>Location*</label>
-                <input onChange = {this.jobLocationChangeHandler}value={this.state.location} 
-                type="text" className="form-control" name="state" />
+                <input style={{width:"300px"}} onChange = {this.jobLocationChangeHandler}value={this.state.location} 
+                type="text" className="form-control" />
               </div>
               <div className="form-group">
                 <label>Salary*</label>
-                <input onChange = {this.jobSalaryChangeHandler}value={this.state.salary} 
-                type="text" className="form-control" name="country" />
+                <input style={{width:"300px"}} onChange = {this.jobSalaryChangeHandler}value={this.state.salary} 
+                type="text" className="form-control"  />
               </div>
               <div className="form-group">
                 <label>Job Description*</label>
-                <input onChange = {this.jobDescriptionChangeHandler}value={this.state.description} 
-                type="text" className="form-control" name="objective" />
+                <input style={{width:"300px"}} onChange = {this.jobDescriptionChangeHandler}value={this.state.description} 
+                type="text" className="form-control"  />
               </div>
               <div className="form-group">
                 <label>Job Type*</label>
@@ -157,10 +155,9 @@ class PostJob extends Component{
                   <option value="internship">Internship</option>
                 </select>
               </div>
-              <button type="button" onClick={this.postJobDetails} className="btn btn-primary">Post Job</button>    
+              <button type="button" onClick={this.postJobDetails} className="btn btn-success">Post Job</button>    
             </div>
           </div>
-        </div>
       </React.Fragment> 
       </div>
     )   

@@ -2,13 +2,15 @@
 const express = require('express');
 const router = express.Router();
 var kafka = require('../kafka/client');
+const actions = require('../Utils/constant');
 
 
 
 // post job by employer
 router.post('/postjob',function(req,res) {
   console.log("Req Body post job: ", req.body);
-  kafka.make_request('postjob', req.body, function(err,results){
+  var msg = { action : actions.POSTJOB , body : req.body};
+  kafka.make_request('job', msg, function(err,results){
     console.log('in postjob result ', results);
     if (err){
         console.log("Inside err");
@@ -20,65 +22,59 @@ router.post('/postjob',function(req,res) {
         res.writeHead(results.code, {
             'Content-Type': 'text/plain'
         })
-        res.end(results.value);
+        res.end(JSON.stringify(results.value));
     }           
   });
 });
 
 
-
-
-
-
 // search jobs with query string
-router.post('/jobsearch', function(req,res){
-  console.log("Inside job search post Request", req.body);
-  let jobarr = null;
-  let sql = null;
-  if (req.body.jobQuery) {
-    jobarr = req.body.jobQuery.split("\,");
-    sql =  'SELECT * FROM job_details WHERE companyname like \'\%' + jobarr[0] + '\%\'' + ' or jobTitle like \'\%' + jobarr[0] + '\%\' order by enddate';
-    console.log(sql);
-  } else {
-    sql = 'SELECT * FROM job_details order by enddate'
-  }
-  // conn.CONNECTION.query(sql, function (err, result) {
-  //   if (err) {
-  //     console.log(err);
-  //     res.writeHead(500,{
-  //       'Content-Type' : 'text/json'
-  //     })
-  //     res.end('End Failure');
-  //     return;
-  //   }
 
-  //   let sql_query_result = JSON.parse(JSON.stringify(result));
-  //   for (idx = 0; idx < sql_query_result.length; ++idx) {
-  //     sql_query_result[idx].createdate = sql_query_result[idx].createdate.split('T')[0];  
-  //     sql_query_result[idx].enddate = sql_query_result[idx].enddate.split('T')[0];  
-  //   }  
+router.post('/jobsearch',function(req,res) {
+  console.log("Req Body search job: ", req.body);
+  var msg = { action : actions.LISTJOB , body : req.body};
+  kafka.make_request('job', msg, function(err,results){
+    console.log('in listjob result ', results);
+    if (err){
+        console.log("Inside err");
+        res.writeHead(500, {
+            'Content-Type': 'text/plain'
+        })
+        res.end("Error");
+    } else {
+        res.writeHead(results.code, {
+            'Content-Type': 'text/plain'
+        })
+        res.end(JSON.stringify(results.value));
+    }           
+  });
+});
 
-  //   if (!jobarr) {
-  //     res.end(JSON.stringify(sql_query_result));
-  //     return;
-  //   }
-
-  //   let filtered_result = [];
-  //   for (idx = 0; idx < sql_query_result.length; ++idx) {
-  //     let row = JSON.stringify(sql_query_result[idx]);
-  //     let found = true;
-  //     for (i =1; i < jobarr.length; ++i) {
-  //       if(!row.includes(jobarr[i])) {
-  //         found = false;
-  //       }
-  //     }
-  //     if (found) {
-  //       filtered_result.push(JSON.parse(row));
-  //     }
-  //   }
-  //   res.end(JSON.stringify(filtered_result));
-  // });
+// employer search students with query string
+router.post('/studentsearch', function(req,res){
+  console.log("Req Body student search: ", req.body);
+  var msg = { action : actions.STUDENTSEARCH , body : req.body};
+  kafka.make_request('job', msg, function(err,results){
+    // console.log('in student search result ', results);
+    if (err){
+        console.log("Inside err");
+        res.writeHead(500, {
+            'Content-Type': 'text/plain'
+        })
+        res.end("Error");
+    } else {
+        res.writeHead(results.code, {
+            'Content-Type': 'text/plain'
+        })
+        res.end(JSON.stringify(results.value));
+    }           
+  });
 }); 
+
+
+
+
+
 
 
 // used by students to search jobs applied
@@ -134,31 +130,6 @@ router.post('/studentsapplied',function(req,res) {
 
 
 
-// employer search students with query string
-router.post('/studentsearch', function(req,res){
-  console.log("Inside student search post Request", req.body);
-  let jobarr = null;
-  let sql = null;
-  if (req.body.studentQuery) {
-    jobarr = req.body.studentQuery.split("\,");
-    sql =  'SELECT * FROM student_experience_details WHERE skills like \'\%' + jobarr[0] + '\%\'' + ' or title like \'\%' + jobarr[0] + '\%\'';
-    console.log(sql);
-  } else {
-    res.end("Query is Empty");
-    return;
-  }
-  conn.CONNECTION.query(sql, function (err, result) {
-    if (err) {
-      console.log(err);
-      res.writeHead(500,{
-        'Content-Type' : 'text/json'
-      })
-      res.end('End Failure');
-      return;
-    }
-    res.end(JSON.stringify(result));
-  });
-}); 
 
 module.exports = router;
 

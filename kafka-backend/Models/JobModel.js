@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var jobsSchema = new Schema({
-    title: {type: String, required: true},
+    title : {type: String, required: true},
     createdate : {type: String, required: true},
-    enddate: {type: String, required: true},
+    enddate : {type: String, required: true},
     location : {type: String, required : true},
     salary :  {type: String, required : true},
     description :  {type: String, required : true},

@@ -21,7 +21,6 @@ class EditExperiencedetails extends Component{
       this.startdateChangeHandler = this.startdateChangeHandler.bind(this);
       this.enddateChangeHandler = this.enddateChangeHandler.bind(this);
       this.jobdetailsChangeHandler = this.jobdetailsChangeHandler.bind(this);
-      this.skillsChangeHandler = this.skillsChangeHandler.bind(this);
       this.submitStudentDetails = this.submitStudentDetails.bind(this);
   }
 
@@ -61,11 +60,6 @@ class EditExperiencedetails extends Component{
     this.setState({studentDetails: newstudentDetails})
   }
 
-  skillsChangeHandler = (e) => {
-    var newstudentDetails = this.state.studentDetails;
-    newstudentDetails.studentExperience[this.props.location.state].skills = e.target.value;
-    this.setState({studentDetails: newstudentDetails})
-  }
 
   dispatch = async (state) => {
     await this.props.fillStudentDetails(state)
@@ -131,10 +125,6 @@ class EditExperiencedetails extends Component{
                 <br/>
                 <label>Job Details</label>
                 <input style={{width:"300px"}} onChange = {this.jobdetailsChangeHandler}value={this.state.jobdetails} placeholder={this.props.studentDetails.studentExperience[this.props.location.state].jobdetails}
-                type="text" className="form-control" name="objective" />
-                <br/>
-                <label>Skills</label>
-                <input style={{width:"300px"}} onChange = {this.skillsChangeHandler}value={this.state.skills} placeholder={this.props.studentDetails.studentDetails.skills}
                 type="text" className="form-control" name="objective" />
                 <br/>
               <button type="button" onClick={this.submitStudentDetails} className="btn btn-success">Save</button>    

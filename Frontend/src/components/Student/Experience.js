@@ -27,7 +27,9 @@ class Experience extends Component{
       return(
         <React.Fragment>
         {redirectVar}
-        {this.props.studentDetails.editmode?(<button type="button" onClick={this.editStudentDetails} className="btn btn-default btn-sm"><span class="glyphicon glyphicon-pencil"></span>
+        <br />
+
+        {this.props.studentDetails.editmode?(<button type="button" onClick={this.editStudentDetails} className="btn btn-default btn-sm"><span className="glyphicon glyphicon-pencil"></span>
                   </button>) :(<div></div>)} 
                   <br />
                   <label>Company Name :&nbsp;{this.props.studentDetails.studentExperience[this.props.index].companyname}</label>
@@ -41,8 +43,6 @@ class Experience extends Component{
                   <label>End Date :&nbsp;{this.props.studentDetails.studentExperience[this.props.index].enddate}</label>
                   <br />
                   <label>Job Details :&nbsp;{this.props.studentDetails.studentExperience[this.props.index].jobdetails}</label>
-                  <br />
-                  <label>Skills :&nbsp;{this.props.studentDetails.studentExperience[this.props.index].skills}</label>
         </React.Fragment>
         )
     }

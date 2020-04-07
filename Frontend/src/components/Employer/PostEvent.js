@@ -67,7 +67,7 @@ class PostEvent extends Component{
     console.log("Sending Data ", data);
     axios.post('http://localhost:3001/events/postevent', data)
       .then(response => {
-        console.log("Edit Education Response: ", response);
+        console.log("Edit Response: ", response);
         if (response.status === 200) {
           this.setState({
             eventPosted : true
@@ -87,35 +87,31 @@ class PostEvent extends Component{
       {redirectVar}
       <br />
       <React.Fragment>
-        <div className="container">
-          <div className="login-form">
-            <div className="main-div">
-              <div className="panel">
+      <div className="col-md-offset-5">
+              <div className="profile-content">
                 <h2>Event Details</h2>
-              </div>
               <div className="form-group">
                 <label>Event Title*</label>
-                <input onChange = {this.eventTitleChangeHandler}value={this.state.eventTitle} 
-                type="text" className="form-control" name="colgname" />
+                <input style={{width:"300px"}} onChange = {this.eventTitleChangeHandler}value={this.state.eventTitle} 
+                type="text" className="form-control"  />
               </div>
               <div className="form-group">
                 <label>Event Date*</label>
-                <input onChange = {this.eventDateChangeHandler}value={this.state.eventDate} 
-                type="text" className="form-control" name="dob" />
+                <input style={{width:"300px"}} onChange = {this.eventDateChangeHandler}value={this.state.eventDate} 
+                type="text" className="form-control"  />
               </div>
               <div className="form-group">
                 <label>Event Detail*</label>
-                <input onChange = {this.eventDetailChangeHandler}value={this.state.eventDetail} 
-                type="text" className="form-control" name="city" />
+                <input  style={{width:"300px"}} onChange = {this.eventDetailChangeHandler}value={this.state.eventDetail} 
+                type="text" className="form-control"  />
               </div>
               <div className="form-group">
                 <label>Location*</label>
-                <input onChange = {this.eventLocationChangeHandler}value={this.state.eventLocation} 
-                type="text" className="form-control" name="state" />
+                <input style={{width:"300px"}} onChange = {this.eventLocationChangeHandler}value={this.state.eventLocation} 
+                type="text" className="form-control" />
               </div>
-              <button type="button" onClick={this.postEventDetails} className="btn btn-primary">Post Event</button>    
+              <button type="button" onClick={this.postEventDetails} className="btn btn-success">Post Event</button>    
             </div>
-          </div>
         </div>
       </React.Fragment> 
       </div>

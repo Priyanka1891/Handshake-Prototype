@@ -51,11 +51,15 @@ class JobResultPage extends Component {
       }
       const jobs = this.props.jobDetails.map((job, index) => {
          return ( 
-                <div key={job.jobId}>
-                <div><h2>{job.jobTitle}</h2></div>
-                <p>{job.companyname},
-                &nbsp;{job.jobLocation},
-                &nbsp;{job.createdate}-{job.enddate}
+          // title: "Quality Assurance Engineer"
+          // location: "CA"
+          // salary: "30000"
+          // description: "NA"
+                <div key={job._id}>
+                <div><h2>{job.title}</h2></div>
+                <p>{job.createdby},
+                &nbsp;{job.location},
+                &nbsp;{job.createdate}&nbsp;-&nbsp;{job.enddate}
                 &nbsp;<button type="submit" 
                 value={job.jobId} onClick={this.getStudentDetails}>
                 Details

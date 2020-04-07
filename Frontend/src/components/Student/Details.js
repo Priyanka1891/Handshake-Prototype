@@ -53,8 +53,12 @@ class Details extends Component{
                 <label>Contact No :&nbsp;{this.props.studentDetails.basicDetails ?
                 this.props.studentDetails.basicDetails.contactno : null}</label>
                 <br/>
+                <label>Skills :&nbsp;{this.props.studentDetails.basicDetails?
+                this.props.studentDetails.basicDetails.skills : null}</label>
+                <br/>
                 <label>Objective :&nbsp;{this.props.studentDetails.basicDetails ?
                 this.props.studentDetails.basicDetails.objective : null}</label>
+                {/* <br /> */}
         </div>
         ) 
     }

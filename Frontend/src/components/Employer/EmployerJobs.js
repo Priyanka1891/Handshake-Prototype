@@ -36,7 +36,7 @@ class EmployerJobs extends Component {
       return;
     }
     axios.defaults.withCredentials = true;
-    console.log("Sending Data "+ JSON.stringify(data));
+    console.log("Sending Data for job search"+ JSON.stringify(data));
     axios.post('http://localhost:3001/jobs/jobsearch',data)
       .then(response => {
         console.log("Result job search :", response.data)
