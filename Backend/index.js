@@ -30,7 +30,9 @@ app.use(session({
     activeDuration      :  5 * 60 * 1000
 }));
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50MB' }));
+// app.use(express.json({limit: '50mb', extended: true}));
+// app.use(express.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 
 app.use('/employer', Employer);
 app.use('/student', Student);

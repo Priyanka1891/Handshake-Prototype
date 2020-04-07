@@ -15,17 +15,24 @@ class Resume extends Component {
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (e) => {
-      console.warn(e.target.result);
       this.setState({
         readData: e.target.result
       })
     } 
   }
+  
   onClickHandler = () => {
-    console.log("Sending data from upload resume: ", this.props.studentDetails);
-    axios.post('http://localhost:3001/jobs/uploadresume',this.state.readData)
+    var studentDetails = this.props.studentDetails;
+    studentDetails.resume = this.state.readData;
+    const data = {details : studentDetails , upload_resume : true};
+    console.log("Sending data with resume: ", data);
+    axios.post('http://localhost:3001/student/editdetails', data)
       .then(response => {
-        console.log("Success",response.data);
+        if (response.data.code==200) {
+          window.alert("Resume uploaded successfully");
+        } else {
+          window.alert("Resume upload failed");
+        }
     })
   }
   render(){

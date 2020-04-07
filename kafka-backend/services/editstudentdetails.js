@@ -10,7 +10,7 @@ function handle_request(msg, callback){
         }
         else {
             res.code = 200;
-            res.value = data;
+            res.value = "Success";
             callback(null, res);
         }
     });
