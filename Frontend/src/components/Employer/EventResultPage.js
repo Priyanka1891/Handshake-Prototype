@@ -51,15 +51,15 @@ class EventResultPage extends Component {
       }
       const events = this.props.eventDetails.map((event, index) => {
          return ( 
-                <div key={event.eventId}>
-                <div><h2>{event.eventTitle}</h2></div>
+                <div key={event._id}>
+                <div><h2>{event.title}</h2></div>
                 <p>
                   {/* {event.companyname}, */}
-                &nbsp;{event.eventLocation},
-                &nbsp;{event.eventDate},
-                &nbsp;{event.eventDetail},
+                &nbsp;{event.location},
+                &nbsp;{event.date},
+                &nbsp;{event.detail}
                 &nbsp;<button type="submit" 
-                value={event.eventId} onClick={this.getRegisteredStudentDetails}>
+                value={event._id} onClick={this.getRegisteredStudentDetails}>
                 Details
                 </button></p>
                 </div>

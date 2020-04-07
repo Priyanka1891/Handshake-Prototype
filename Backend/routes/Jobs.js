@@ -8,7 +8,7 @@ const actions = require('../Utils/constant');
 
 // post job by employer
 router.post('/postjob',function(req,res) {
-  console.log("Req Body post job: ", req.body);
+  // console.log("Req Body post job: ", req.body);
   var msg = { action : actions.POSTJOB , body : req.body};
   kafka.make_request('job', msg, function(err,results){
     console.log('in postjob result ', results);
@@ -34,7 +34,7 @@ router.post('/jobsearch',function(req,res) {
   console.log("Req Body search job: ", req.body);
   var msg = { action : actions.LISTJOB , body : req.body};
   kafka.make_request('job', msg, function(err,results){
-    console.log('in listjob result ', results);
+    console.log('in list job result ', results);
     if (err){
         console.log("Inside err");
         res.writeHead(500, {

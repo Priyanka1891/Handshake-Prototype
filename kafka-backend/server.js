@@ -75,6 +75,6 @@ handleTopicRequest("employersignup", EmployerSignUp);
 handleTopicRequest("employersignin", EmployerSignIn);
 handleTopicRequest("editemployerdetails", EditEmployerDetails);
 handleTopicRequest("job", Job);
-handleTopicRequest("postevent", Event);
+handleTopicRequest("event", Event);
 
 handleTopicRequest("messages", Messages);

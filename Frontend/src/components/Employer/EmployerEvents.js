@@ -38,6 +38,7 @@ class EmployerEvents extends Component {
     console.log("Sending Data "+ JSON.stringify(data));
     axios.post('http://localhost:3001/events/list', data)
       .then(response => {
+        console.log("Event lists:", response);
         this.setState({
           eventsList : response.data
         });

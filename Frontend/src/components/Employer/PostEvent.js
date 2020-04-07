@@ -98,7 +98,7 @@ class PostEvent extends Component{
               <div className="form-group">
                 <label>Event Date*</label>
                 <input style={{width:"300px"}} onChange = {this.eventDateChangeHandler}value={this.state.eventDate} 
-                type="text" className="form-control"  />
+                type="date" className="form-control"  />
               </div>
               <div className="form-group">
                 <label>Event Detail*</label>

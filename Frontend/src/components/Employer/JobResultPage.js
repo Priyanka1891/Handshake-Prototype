@@ -61,7 +61,7 @@ class JobResultPage extends Component {
                 &nbsp;{job.location},
                 &nbsp;{job.createdate}&nbsp;-&nbsp;{job.enddate}
                 &nbsp;<button type="submit" 
-                value={job.jobId} onClick={this.getStudentDetails}>
+                value={job._id} onClick={this.getStudentDetails}>
                 Details
                 </button></p>
                 </div>
