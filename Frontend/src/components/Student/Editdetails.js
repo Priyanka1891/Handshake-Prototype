@@ -116,7 +116,7 @@ class Editdetails extends Component{
     console.log("Sending Data ", this.state.studentDetails, axios.defaults.headers);
     const data = {details : this.state.studentDetails , edit_details : true}
                   // edit_education_details : false, edit_experience_details : false}
-    axios.post('http://localhost:3001/editstudentdetails', data)
+    axios.post('http://localhost:3001/student/editdetails', data)
       .then(response => {
         console.log("Edit Response: ", response);
         if (response.status === 200) {

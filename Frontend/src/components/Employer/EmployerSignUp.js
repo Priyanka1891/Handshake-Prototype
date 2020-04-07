@@ -58,7 +58,7 @@ class EmployerSignUp extends Component{
 
   axios.defaults.withCredentials = true;
   console.log("Sending Data " + JSON.stringify(data));
-    axios.post('http://localhost:3001/employersignup',data)
+    axios.post('http://localhost:3001/employer/signup',data)
       .then(response => {
         this.setState({
           signUpDone : true

@@ -8,19 +8,10 @@ const { mongoDB, frontendURL } = require('../kafka-backend/Utils/config');
 var cors = require('cors');
 
 // Route path handlers student specific
-const StudentSignUp  = require('./routes/StudentSignUp');
-const StudentSignIn = require('./routes/StudentSignIn');
-const EditStudentDetails = require('./routes/EditStudentDetails');
+const Student = require('./routes/Student');
+const Employer = require('./routes/Employer');
 const Jobs = require('./routes/Jobs');
 const Events = require('./routes/Events');
-
-
-
-// Route path handler employer specific
-const EmployerSignUp = require('./routes/EmployerSignUp');
-const EmployerSignIn = require('./routes/EmployerSignIn');
-const EditEmployerDetails = require('./routes/EditEmployerDetails');
-
 const Messages = require('./routes/Messages');
 
 app.set('view engine', 'ejs');
@@ -41,20 +32,12 @@ app.use(session({
 
 app.use(bodyParser.json());
 
-// Student specifice routes
-app.use('/', StudentSignUp);
-app.use('/', StudentSignIn);
-app.use('/', EditStudentDetails);
+app.use('/employer', Employer);
+app.use('/student', Student);
 app.use('/jobs', Jobs);
 app.use('/events', Events);
-
-// Employer specific routes
-app.use('/', EmployerSignIn);
-app.use('/', EmployerSignUp);
-app.use('/', EditEmployerDetails);
-
-
 app.use('/messages', Messages);
+
 //Allow Access Control
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', frontendURL);

@@ -65,7 +65,7 @@ submitDetails = (e) => {
 
   axios.defaults.withCredentials = true;
   console.log("Sending Data "+JSON.stringify(data));
-  axios.post('http://localhost:3001/studentsignup',data)
+  axios.post('http://localhost:3001/student/signup',data)
     .then(response => {
       this.setState({
         signUpDone : true

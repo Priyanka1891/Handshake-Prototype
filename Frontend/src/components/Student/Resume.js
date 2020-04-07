@@ -7,19 +7,23 @@ class Resume extends Component {
   constructor(props) {
     super(props);
       this.state = {
-        selectedFile: null
+        readData: null
       }
   }
-  onChangeHandler = event=>{
-    this.setState({
-      selectedFile: event.target.files[0],
-      loaded: 0,
-    })
+  onChangeHandler = (e) => {
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (e) => {
+      console.warn(e.target.result);
+      this.setState({
+        readData: e.target.result
+      })
+    } 
   }
   onClickHandler = () => {
-    const data = new FormData()
-    data.append('file', this.state.selectedFile)
-    axios.post('http://localhost:3001/studentsignin/resume',data)
+    console.log("Sending data from upload resume: ", this.props.studentDetails);
+    axios.post('http://localhost:3001/jobs/uploadresume',this.state.readData)
       .then(response => {
         console.log("Success",response.data);
     })

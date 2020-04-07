@@ -74,7 +74,7 @@ class EditExperiencedetails extends Component{
     const data = {details : this.state.studentDetails,
                   edit_experience_details : true}
     console.log("Sending Data ", data,  axios.defaults.headers);
-    axios.post('http://localhost:3001/editstudentdetails', data)
+    axios.post('http://localhost:3001/student/editdetails', data)
       .then(response => {
         console.log("Edit Experience Response: ", response);
         if (response.status === 200) {

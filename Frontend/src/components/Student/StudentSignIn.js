@@ -49,7 +49,7 @@ login = (e) => {
   }
   axios.defaults.withCredentials = true;
   console.log("Sending Data "+ JSON.stringify(data));
-  axios.post('http://localhost:3001/studentsignin',data)
+  axios.post('http://localhost:3001/student/signin',data)
     .then(response => {
       const newStudentDetails={...response.data.details,
         editmode : true};

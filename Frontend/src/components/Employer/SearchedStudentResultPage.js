@@ -32,7 +32,7 @@ class SearchedStudentResultPage extends Component {
       editmode : false
     };
     console.log("Data being sent is"+ JSON.stringify(data));
-    axios.post('http://localhost:3001/studentsignin', data)
+    axios.post('http://localhost:3001/student/signin', data)
       .then(response=>{
         console.log("Entered inside axios post req", response);
         if(response.data.details){

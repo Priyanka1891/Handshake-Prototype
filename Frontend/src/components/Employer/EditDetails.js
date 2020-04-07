@@ -56,7 +56,7 @@ class EditEmployerDetails extends Component{
     axios.defaults.withCredentials = true;
     console.log("Sending Data ", this.state.employerDetails);
     const data = {details : this.state.employerDetails , edit_details : true}
-    axios.post('http://localhost:3001/editemployerdetails', data)
+    axios.post('http://localhost:3001/employer/editdetails', data)
       .then(response => {
         console.log("Edit Response: ", response);
         if (response.status === 200) {

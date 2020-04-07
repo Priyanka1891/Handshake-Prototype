@@ -5,7 +5,6 @@ var kafka = require('../kafka/client');
 const actions = require('../Utils/constant');
 
 
-
 // post job by employer
 router.post('/postjob',function(req,res) {
   // console.log("Req Body post job: ", req.body);
@@ -29,7 +28,6 @@ router.post('/postjob',function(req,res) {
 
 
 // search jobs with query string
-
 router.post('/jobsearch',function(req,res) {
   console.log("Req Body search job: ", req.body);
   var msg = { action : actions.LISTJOB , body : req.body};
@@ -49,6 +47,7 @@ router.post('/jobsearch',function(req,res) {
     }           
   });
 });
+
 
 // employer search students with query string
 router.post('/studentsearch', function(req,res){
@@ -70,10 +69,6 @@ router.post('/studentsearch', function(req,res){
     }           
   });
 }); 
-
-
-
-
 
 
 

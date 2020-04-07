@@ -8,7 +8,7 @@ const { auth } = require("../../Backend/Utils/passport");
 auth();
 
 //Route to handle Post Request Call
-router.post('/employersignin', (req, res) => {
+router.post('/signin', (req, res) => {
     kafka.make_request('employersignin', req.body, function(err,results){
         console.log('in  employersignin result',results);
         if (err){
@@ -36,6 +36,45 @@ router.post('/employersignin', (req, res) => {
             res.end("Invalid credentials");
         } 
     });
+});
+
+
+router.post('/signup',function(req,res){
+  kafka.make_request('employersignup', req.body, function(err,results){
+    console.log('in result');
+    console.log(results);
+    if (err){
+        console.log("Inside err");
+        res.writeHead(500, {
+            'Content-Type': 'text/plain'
+        })
+        res.end("Error");
+    }else{
+        res.writeHead(results.code, {
+            'Content-Type': 'text/plain'
+        })
+        res.end(results.value);
+    }           
+  });
+}); 
+
+
+router.post('/editdetails', function(req, res) {
+  kafka.make_request('editemployerdetails', req.body, function(err,results){
+    // console.log('in result',results);
+    if (err){
+        console.log("Inside err");
+        res.writeHead(500, {
+            'Content-Type': 'text/plain'
+        });
+        res.end("Error");
+    }else{
+        res.writeHead(results.code, {
+            'Content-Type': 'text/plain'
+        })
+        res.end(JSON.stringify(results));
+    }    
+  });
 });
 
 module.exports = router;
