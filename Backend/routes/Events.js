@@ -4,7 +4,7 @@ const router = express.Router();
 var kafka = require('../kafka/client');
 const actions = require('../Utils/constant');
 
-
+//events registered
 
 // post event by employer
 router.post('/postevent',function(req,res) {

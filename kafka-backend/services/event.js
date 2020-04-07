@@ -13,7 +13,13 @@ function listEvent(msg, callback) {
     }
     else {
       res.code = 200;
-      res.value = data;
+      var sdata = data;
+      sdata.sort((a,b) => {
+        var _a = new Date(a.date);
+        var _b = new Date(b.date);
+        return _a.getTime() - _b.getTime();
+      });
+      res.value = sdata;
       callback(null, res);
     }
   }); 

@@ -105,7 +105,8 @@ class EditEmployerDetails extends Component{
               <div className="form-group">
                 <label>Contact No.</label>
                 <input onChange = {this.contactNoChangeHandler}value={this.state.contactno} placeholder={this.props.employerDetails.contactno} 
-                type="number" className="form-control" />
+                type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                required className="form-control" />
               </div>
               <button type="button" onClick={this.submitEmployerDetails} className="btn btn-primary">Save</button>    
             </div>

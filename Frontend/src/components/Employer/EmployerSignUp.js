@@ -95,7 +95,7 @@ class EmployerSignUp extends Component{
                 <div className="form-group">
                   <label>Email</label>
                   <input onChange = {this.emailChangeHandler}value={this.state.email}  
-                  type="text" className="form-control" name="email" placeholder="Email" />
+                  type="email" className="form-control" name="email" placeholder="Email" />
                 </div>
                 <div className="form-group">
                   <label>Location</label>

@@ -51,10 +51,6 @@ class JobResultPage extends Component {
       }
       const jobs = this.props.jobDetails.map((job, index) => {
          return ( 
-          // title: "Quality Assurance Engineer"
-          // location: "CA"
-          // salary: "30000"
-          // description: "NA"
                 <div key={job._id}>
                 <div><h2>{job.title}</h2></div>
                 <p>{job.createdby},

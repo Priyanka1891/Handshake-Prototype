@@ -169,11 +169,12 @@ class Editdetails extends Component{
                 <br/>
                 <label>Contact No:</label>
                 <input style={{width:"300px"}} onChange = {this.contactnoChangeHandler}placeholder={this.props.studentDetails.basicDetails?this.props.studentDetails.basicDetails.contactno:null} value={this.state.contactno}
-                type="number" className="form-control" name="contactno" />
+                type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                required className="form-control" name="contactno" />
                 <br/>
                 <label>Email:</label>
                 <input style={{width:"300px"}} onChange = {this.emailChangeHandler}placeholder={this.props.studentDetails.email?this.props.studentDetails.email:null} value={this.state.email}
-                type="text" className="form-control" name="email" />
+                type="email" className="form-control" name="email" multiple />
                 <br/>
                 <label>Skills</label>
                 <input style={{width:"300px"}} onChange = {this.skillsChangeHandler}value={this.state.skills} placeholder={this.props.studentDetails.basicDetails?this.props.studentDetails.basicDetails.skills:null}
