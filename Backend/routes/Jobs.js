@@ -49,7 +49,7 @@ router.post('/jobsearch',function(req,res) {
 });
 
 
-// employer search students with query string
+//students tab to search and look out for other student's profile
 router.post('/studentsearch', function(req,res){
   console.log("Req Body student search: ", req.body);
   var msg = { action : actions.STUDENTSEARCH , body : req.body};
@@ -68,58 +68,56 @@ router.post('/studentsearch', function(req,res){
         res.end(JSON.stringify(results.value));
     }           
   });
-}); 
-
-
+});
 
 // used by students to search jobs applied
 router.post('/jobsapplied',function(req,res) {
-  console.log("Inside jobs applied Post Request");
-  var data_insert = false;
-  let sql = 'INSERT INTO jobs_applied (jobid,username) VALUES(\'' 
-        + req.body.jobId +'\',\'' +req.body.username+'\')';
-  conn.CONNECTION.query(sql, function (err, result) {
-    if (err) {
-      console.log("Data insertion failed"+err)
-      res.writeHead(500,{
-        'Content-Type' : 'text/json'
-      })
-      res.end('End Failure');
-      return;
-    }
-    res.writeHead(200,{
-      'Content-Type' : 'text/json'
-    })
-    let response_data = JSON.stringify({data_inserted : true});
-    res.end(response_data);
-  });
+  // console.log("Inside jobs applied Post Request");
+  // var data_insert = false;
+  // let sql = 'INSERT INTO jobs_applied (jobid,username) VALUES(\'' 
+  //       + req.body.jobId +'\',\'' +req.body.username+'\')';
+  // conn.CONNECTION.query(sql, function (err, result) {
+  //   if (err) {
+  //     console.log("Data insertion failed"+err)
+  //     res.writeHead(500,{
+  //       'Content-Type' : 'text/json'
+  //     })
+  //     res.end('End Failure');
+  //     return;
+  //   }
+  //   res.writeHead(200,{
+  //     'Content-Type' : 'text/json'
+  //   })
+  //   let response_data = JSON.stringify({data_inserted : true});
+  //   res.end(response_data);
+  // });
 });
 
 
 // Students applied for the particular job
 router.post('/studentsapplied',function(req,res) {
-  console.log("Req Body Students applied: ", req.body);
-  let sql = '';
-  if (req.body.status) {
-    sql =  'UPDATE jobs_applied SET status=\'' + req.body.status + '\' WHERE username=\'' + req.body.username + '\';';
-  } 
-  sql =  sql + 'SELECT * from jobs_applied WHERE jobid=\'' + req.body.jobId + '\'';
-  conn.CONNECTION.query(sql, function (err, result) {
-    if (err) {
-      console.log(err);
-      res.writeHead(500,{
-        'Content-Type' : 'text/json'
-      })
-      res.end('End Failure');
-      return;
-    }
+  // console.log("Req Body Students applied: ", req.body);
+  // let sql = '';
+  // if (req.body.status) {
+  //   sql =  'UPDATE jobs_applied SET status=\'' + req.body.status + '\' WHERE username=\'' + req.body.username + '\';';
+  // } 
+  // sql =  sql + 'SELECT * from jobs_applied WHERE jobid=\'' + req.body.jobId + '\'';
+  // conn.CONNECTION.query(sql, function (err, result) {
+  //   if (err) {
+  //     console.log(err);
+  //     res.writeHead(500,{
+  //       'Content-Type' : 'text/json'
+  //     })
+  //     res.end('End Failure');
+  //     return;
+  //   }
 
-    res.writeHead(200,{
-      'Content-Type' : 'text/json'
-    })
-    let response_data = JSON.stringify(result);
-    res.end(response_data);
-  });
+  //   res.writeHead(200,{
+  //     'Content-Type' : 'text/json'
+  //   })
+  //   let response_data = JSON.stringify(result);
+  //   res.end(response_data);
+  // });
 });
 
 

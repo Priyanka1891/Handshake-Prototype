@@ -5,6 +5,8 @@ const { tokenSecret } = require('../Utils/config');
 const router = express.Router();
 var kafka = require('../kafka/client');
 const { auth } = require("../../Backend/Utils/passport");
+const actions = require('../Utils/constant');
+
 auth();
 
 //Route to handle Post Request Call
@@ -79,26 +81,5 @@ router.post('/editdetails', (req, res) => {
   });
 });
 
-
-// student upload resume via this request.
-router.post('/uploadresume', function(req,res){
-  console.log("Req Body student search: ", req.body);
-  var msg = { action : actions.STUDENTSEARCH , body : req.body};
-  kafka.make_request('job', msg, function(err,results){
-    // console.log('in student search result ', results);
-    if (err){
-        console.log("Inside err");
-        res.writeHead(500, {
-            'Content-Type': 'text/plain'
-        })
-        res.end("Error");
-    } else {
-        res.writeHead(results.code, {
-            'Content-Type': 'text/plain'
-        })
-        res.end(JSON.stringify(results.value));
-    }           
-  });
-}); 
 
 module.exports = router;

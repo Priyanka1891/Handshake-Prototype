@@ -34,7 +34,7 @@ class EmployerSearchStudent extends Component {
     };
     axios.defaults.withCredentials = true;
     console.log("Sending Data "+JSON.stringify(data));
-    axios.post('http://localhost:3001/jobs/studentsearch', data)
+    axios.post('http://localhost:3001/jobs/studentsearch',data)
       .then(response => {
         console.log("Result students :", response.data)
         this.setState({
