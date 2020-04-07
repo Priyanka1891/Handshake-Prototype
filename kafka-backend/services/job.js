@@ -28,9 +28,6 @@ function listJob(msg, callback) {
 
 function studentSearch(msg, callback) {
   var res = {};
-  // console.log("Inside search student request");
-  // {$or: [{'basicDetails.name': /ridya/},{'basicDetails.skills':/ava/}]}
-  console.log('Here \/' + msg.studentQuery + '\/');
   Users.find({$or: [{'basicDetails.name': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'}}, 
                     {'studentEducation.colgname': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'} },
                     {'basicDetails.skills': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'}}]}, (error, data) => {

@@ -80,8 +80,7 @@ class StudentProfilePage extends Component {
                   </div>
                 </div>
                 <div className="profile-userbuttons">
-                  {/* {this.props.studentDetails.editmode ? <div/> : <button type="button" className="btn btn-primary btn-lg" onClick = {this.openMessageBox} >Message</button> } */}
-                  <button type="button" className="btn btn-primary btn-lg" onClick = {this.openMessageBox} >Message</button>
+                  {this.props.studentDetails.editmode ? <div/> : <button type="button" className="btn btn-primary btn-lg" onClick = {this.openMessageBox} >Message</button> }
                 </div>
                 <div className="profile-usermenu">
                   <ul className="nav">
@@ -122,7 +121,8 @@ class StudentProfilePage extends Component {
               <div className="col-md-offset-4">
                 <div id='Details'><Details /></div>
                 <h2  id='Education'>Education Overview&nbsp;&nbsp;
-                <button type="button" onClick = {this.addStudentEducation} className="btn btn-default btn-sm"><span className="glyphicon glyphicon-plus-sign"></span></button></h2>
+                {this.props.studentDetails.editmode ?
+                 <button type="button" onClick = {this.addStudentEducation} className="btn btn-default btn-sm"><span className="glyphicon glyphicon-plus-sign"></span></button> : <div/>}</h2>
                 <div>
                   {
                     this.props.studentDetails.studentEducation.map((education,index) => (
@@ -131,7 +131,8 @@ class StudentProfilePage extends Component {
                   }
                 </div>
                 <h2 id='Experience'>Experience Overview&nbsp;&nbsp;
-                <button type="button" onClick = {this.addStudentExperience} className="btn btn-default btn-sm"><span className="glyphicon glyphicon-plus-sign"></span></button></h2>
+                {this.props.studentDetails.editmode ? 
+                  <button type="button" onClick = {this.addStudentExperience} className="btn btn-default btn-sm"><span className="glyphicon glyphicon-plus-sign"></span></button> :<div/>}</h2>
                   <div>
                   {
                     this.props.studentDetails.studentExperience.map((experience,index) => (
@@ -139,8 +140,9 @@ class StudentProfilePage extends Component {
                     ))
                   }
                 </div>
-                <h2 id='Resume'>Upload Resume</h2>
-                <div ><Resume /></div>
+                {this.props.studentDetails.editmode ?
+                  <div><h2 id='Resume'>Upload Resume</h2>
+                  <div ><Resume /></div></div> : <div/>}
                 </div>
                 <div className="col-md-offset-5">
                   {this.state.openMessageBox ? <div style={{"height" : "40%", "width" : "40%"}}><MessageApp closeMessageBox = {this.closeMessageBox}/> </div> : <div/> }

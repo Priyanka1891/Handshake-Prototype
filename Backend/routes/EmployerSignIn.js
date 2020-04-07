@@ -33,7 +33,7 @@ router.post('/employersignin', (req, res) => {
             res.writeHead(results.code, {
                 'Content-Type': 'text/plain'
             });
-            res.end();
+            res.end("Invalid credentials");
         } 
     });
 });

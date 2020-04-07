@@ -14,8 +14,8 @@ function handle_request(msg, callback){
         if (user) {
             var dcPasswd = CryptoJS.AES.decrypt(user.password, secret);
             dcPasswd = dcPasswd.toString(CryptoJS.enc.Utf8);
-            console.log("Pass :" ,dcPasswd , msg.password)
-            if (dcPasswd != msg.password) {
+            console.log("Password compare signin :" ,dcPasswd , msg.password)
+            if (dcPasswd != msg.password && msg.editmode) {
                 res.code = 401;
                 res.value = "Invalid password";
                 callback(null, res);
