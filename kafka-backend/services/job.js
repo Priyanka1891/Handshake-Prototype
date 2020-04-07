@@ -2,6 +2,7 @@ const { Jobs } = require('../Models/JobModel');
 const { Users } = require('../Models/UserModel');
 const actions = require('../../Backend/Utils/constant');
  
+
 function listJob(msg, callback) {
   var res = {};
   console.log("Inside list job request");
@@ -13,7 +14,13 @@ function listJob(msg, callback) {
     }
     else {
       res.code = 200;
-      res.value = data;
+      var sdata = data;
+      sdata.sort((a,b) => {
+        var _a = new Date(a.enddate);
+        var _b = new Date(b.enddate);
+        return _a.getTime() - _b.getTime();
+      });
+      res.value = sdata;
       callback(null, res);
     }
   }); 
