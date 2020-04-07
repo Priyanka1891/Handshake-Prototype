@@ -4,8 +4,8 @@ const actions = require('../../Backend/Utils/constant');
  
 function listJob(msg, callback) {
   var res = {};
-  console.log("Inside search job request");
-  Jobs.find({ createdby: msg.jobQuery}, (error, data) => {
+  console.log("Inside list job request");
+  Jobs.find( {createdby: msg.jobQuery }, (error, data) => {
     if (error) {
       res.code = 401;
       res.value=error;

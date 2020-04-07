@@ -123,12 +123,12 @@ class PostJob extends Component{
               <div className="form-group">
                 <label>Create Date*</label>
                 <input  style={{width:"300px"}} onChange = {this.createDateChangeHandler}value={this.state.createdate} 
-                type="text" className="form-control" name="dob" />
+                type="date" className="form-control" name="dob" />
               </div>
               <div className="form-group">
                 <label>End Date*</label>
                 <input style={{width:"300px"}} onChange = {this.endDateChangeHandler}value={this.state.enddate} 
-                type="text" className="form-control" />
+                type="date" className="form-control" />
               </div>
               <div className="form-group">
                 <label>Location*</label>

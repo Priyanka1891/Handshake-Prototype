@@ -94,6 +94,15 @@ class Editdetails extends Component{
     this.setState({studentDetails : newStudentDetails});
   }
 
+  emailChangeHandler = (e) => {
+    var newStudentDetails = this.state.studentDetails;
+    newStudentDetails.email  =  this.state.studentDetails.email ? 
+    this.state.studentDetails.basicDetails  : {};
+    newStudentDetails.email = e.target.value;
+    console.log("HERE ", newStudentDetails);
+    this.setState({studentDetails : newStudentDetails});
+  }
+
 
   dispatch = async (state) => {
     await this.props.fillStudentDetails(state)
@@ -161,6 +170,10 @@ class Editdetails extends Component{
                 <label>Contact No:</label>
                 <input style={{width:"300px"}} onChange = {this.contactnoChangeHandler}placeholder={this.props.studentDetails.basicDetails?this.props.studentDetails.basicDetails.contactno:null} value={this.state.contactno}
                 type="number" className="form-control" name="contactno" />
+                <br/>
+                <label>Email:</label>
+                <input style={{width:"300px"}} onChange = {this.emailChangeHandler}placeholder={this.props.studentDetails.email?this.props.studentDetails.email:null} value={this.state.email}
+                type="text" className="form-control" name="email" />
                 <br/>
                 <label>Skills</label>
                 <input style={{width:"300px"}} onChange = {this.skillsChangeHandler}value={this.state.skills} placeholder={this.props.studentDetails.basicDetails?this.props.studentDetails.basicDetails.skills:null}
