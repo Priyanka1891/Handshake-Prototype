@@ -140,10 +140,7 @@ class StudentProfilePage extends Component {
                     ))
                   }
                 </div>
-                {this.props.studentDetails.editmode ?
-                  <div><h2 id='Resume'>Upload Resume</h2>
-                  <div ><Resume /></div></div> : <div/>}
-                </div>
+                <div ><Resume /></div></div> 
                 <div className="col-md-offset-5">
                   {this.state.openMessageBox ? <div style={{"height" : "40%", "width" : "40%"}}><MessageApp closeMessageBox = {this.closeMessageBox}/> </div> : <div/> }
                 </div>
