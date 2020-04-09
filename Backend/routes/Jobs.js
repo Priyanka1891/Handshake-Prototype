@@ -51,7 +51,7 @@ router.post('/jobsearch',function(req,res) {
 
 //students tab to search and look out for other student's profile
 router.post('/studentsearch', function(req,res){
-  console.log("Req Body student search: ", req.body);
+  // console.log("Req Body student search: ", req.body);
   var msg = { action : actions.STUDENTSEARCH , body : req.body};
   kafka.make_request('job', msg, function(err,results){
     // console.log('in student search result ', results);
@@ -65,6 +65,7 @@ router.post('/studentsearch', function(req,res){
         res.writeHead(results.code, {
             'Content-Type': 'text/plain'
         })
+        // console.log("Value returned is",JSON.stringify(results.value));
         res.end(JSON.stringify(results.value));
     }           
   });

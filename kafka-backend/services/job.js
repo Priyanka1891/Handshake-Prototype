@@ -27,10 +27,13 @@ function listJob(msg, callback) {
 }
 
 function studentSearch(msg, callback) {
-  var res = {};
-  Users.find({$or: [{'basicDetails.name': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'}}, 
-                    {'studentEducation.colgname': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'} },
-                    {'basicDetails.skills': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'}}]}, (error, data) => {
+  var res= {},query={};
+  if(msg.studentQuery){  
+    query = {$or: [{'basicDetails.name': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'}}, 
+            {'studentEducation.colgname': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'} },
+            {'basicDetails.skills': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'}}]};
+  }
+  Users.find(query, (error, data) => {
     if (error) {
       res.code = 401;
       res.value=error;    

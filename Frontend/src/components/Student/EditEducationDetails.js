@@ -81,7 +81,7 @@ class EditEducationDetails extends Component{
               this.setState({
                 detailsSubmitted : true
               })
-             console.log("Edited details: ", JSON.stringify(result));
+            //  console.log("Edited details: ", JSON.stringify(result));
             })
         }
     });
@@ -113,9 +113,20 @@ class EditEducationDetails extends Component{
                 <input style={{width:"300px"}} onChange = {this.degreeChangeHandler}value={this.state.degree} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].degree}
                 type="text" className="form-control" />
                 <br />
-                <label>Major</label>
+                {/* <label>Major</label>
                 <input style={{width:"300px"}} onChange = {this.majorChangeHandler}value={this.state.major} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].major}
-                type="text" className="form-control" />
+                type="text" className="form-control" /> */}
+                <div className="form-group">
+                  <label>Major*</label>
+                  <select className="form-control" style={{width:"300px"}} id="types" onChange = {this.majorChangeHandler} value={this.state.major}>
+                  <option value="">All</option>
+                    <option value="SE">Software Engineering</option>
+                    <option value="CE">Computer Engineering</option>
+                    <option value="EE">Electrical Engineering</option>
+                    <option value="DA">Data Analytics</option>
+                  </select>
+                </div>
+
                 <br />
                 <label>Year of Passing</label>
                 <input style={{width:"300px"}} onChange = {this.yearofpassingChangeHandler}value={this.state.yearofpassing} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].yearofpassing}

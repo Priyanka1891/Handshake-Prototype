@@ -13,7 +13,7 @@ class StudentNavbar extends Component {
               </div>
               <ul className="nav navbar-nav">
                 <li><Link to="/studentprofilepage"><span className="glyphicon glyphicon-home" /></Link></li>
-                <li><Link to="/students">Students</Link></li>
+                <li><Link to="/studentlist">Students</Link></li>
                 <li><Link to="/studentjobs">Jobs</Link></li>
                 <li><Link to="/studentevents">Events</Link></li>
                 <li><Link to="/studentapps">Applications</Link></li>

@@ -13,6 +13,7 @@ import EditEducationDetails from './Student/EditEducationDetails';
 import EditExperiencedetails from './Student/EditExperiencedetails';
 import AddEducationDetails from './Student/AddEducationDetails';
 import AddExperinceDetails from './Student/AddExperienceDetails';
+import StudentList from './Student/StudentList';
 
 import EmployerProfilePage from './Employer/EmployerProfilePage';
 import EditEmployerDetails from  './Employer/EditDetails';
@@ -41,6 +42,7 @@ class Main extends Component {
         <Route path='/editexperiencedetails' component={EditExperiencedetails} />
         <Route path='/addeducation' component={AddEducationDetails} />
         <Route path='/addexperience' component={AddExperinceDetails} />
+        <Route path='/studentlist' component={StudentList} />
 
 
         {/* Employer pages routing */}

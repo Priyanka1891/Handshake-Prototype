@@ -49,7 +49,7 @@ class StudentJobs extends Component {
       return;
     }
     for(let i=0;i<this.state.jobList.length;i++){
-      if(this.state.jobList[i].jobCategory.toLowerCase() === e.target.value.toLowerCase()){
+      if(this.state.jobList[i].type.toLowerCase() === e.target.value.toLowerCase()){
         filteredJobList.push(this.state.jobList[i]);
       }
     }

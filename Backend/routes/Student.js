@@ -5,7 +5,6 @@ const { tokenSecret } = require('../Utils/config');
 const router = express.Router();
 var kafka = require('../kafka/client');
 const { auth } = require("../../Backend/Utils/passport");
-const actions = require('../Utils/constant');
 
 auth();
 
@@ -20,7 +19,7 @@ router.post('/signin', (req, res) => {
             res.end("Error");
         } else if (results.code == 200){
             const payload = {_id: results.details._id, username: results.details.username};
-            console.log("token " ,tokenSecret);
+            // console.log("token " ,tokenSecret);
             const token = jwt.sign(payload, tokenSecret, {
                 expiresIn: 1008000
             });
@@ -44,7 +43,6 @@ router.post('/signin', (req, res) => {
 router.post('/signup',(req,res) => {
   kafka.make_request('studentsignup', req.body, function(err,results){
     console.log('in result');
-    console.log(results);
     if (err){
         console.log("Inside err");
         res.writeHead(500, {
