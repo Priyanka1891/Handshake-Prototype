@@ -149,10 +149,10 @@ class PostJob extends Component{
                 <label>Job Type*</label>
                 <select id="types" onChange = {this.jobTypeChangeHandler} value={this.state.type}>
                   <option value="">----Job Type----</option>
-                  <option value="fulltime">Full Time</option>
-                  <option value="parttime">Part Time</option>
-                  <option value="oncampus">On Campus</option>
-                  <option value="internship">Internship</option>
+                  <option value="Full Time">Full Time</option>
+                  <option value="Part Time">Part Time</option>
+                  <option value="On Campus">On Campus</option>
+                  <option value="Internship">Internship</option>
                 </select>
               </div>
               <button type="button" onClick={this.postJobDetails} className="btn btn-success">Post Job</button>    

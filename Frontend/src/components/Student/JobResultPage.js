@@ -34,21 +34,23 @@ class JobResultPage extends Component {
   }
 
   searchedJobs(){
-      console.log("JOB DETAIL list:", this.props.jobDetails);
       const jobs = this.props.jobDetails.map((job, index) => {
          return ( 
-                  <div key={job.jobId}>
-                  <div><h2>{job.jobTitle}</h2>
-                  {job.companyname},
-                  &nbsp;{job.jobLocation},
-                  &nbsp;{job.salary},
-                  &nbsp;{job.jobDescription},
-                  &nbsp;{job.jobCategory},
-                  &nbsp;{job.createdate}&nbsp;-&nbsp;{job.enddate}
-                  &nbsp;<button type="submit" value={job.jobId} onClick={this.applyJobs}>Apply
-                  </button></div>
-                  <br />
-                  </div> 
+           <React.Fragment>
+          {/* <div key={job._id}/> */}
+                  <tr>
+                    <th scope="row" className="text-center">{job.title}</th>
+                    <td>{job.createdby}</td>
+                    <td>{job.location}</td>
+                    <td>{job.salary}</td>
+                    {/* <td>{job.description}</td> */}
+                    <td>{job.type}</td>
+                    <td>{job.createdate}</td>
+                    <td>{job.enddate}</td>
+                    <td><button type="submit" value={job._id} onClick={this.applyJobs}>Apply</button></td>
+                    <td><button type="submit" value={job._id} onClick={this.showModal()}>View</button></td>
+                  </tr>
+              </React.Fragment>
                 );
       });
      return jobs;
@@ -57,12 +59,26 @@ class JobResultPage extends Component {
   render() {
     return(
       <React.Fragment>
-        <div className="container" />
-        <div className="login-form" />
-        <div className="panel" />
         <div><h2 style={{align:'center'}}>Jobs matching your search criteria</h2></div>
         <br />
-        <div className="row-container">{this.searchedJobs()}</div>
+        <table className="table table-borderless table-hover">
+         <thead className="thead-dark">
+          <tr>
+            <th className="text-center">Job Title</th>
+            <th className="text-center">Company Name</th>
+            <th className="text-center">Location</th>
+            <th className="text-center">Salary</th>
+            {/* <th className="text-center">Details</th> */}
+            <th className="text-center">Job Type</th>
+            <th className="text-center">Create Date</th>
+            <th className="text-center">End Date</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+            {this.searchedJobs()}
+          </tbody>
+        </table>
       </React.Fragment> 
     )
   }    
