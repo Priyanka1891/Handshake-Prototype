@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 const { tokenSecret } = require('../Utils/config');
 const router = express.Router();
 var kafka = require('../kafka/client');
-const { auth } = require("../../Backend/Utils/passport");
-auth();
+const passport = require('passport');
+require('../Utils/passport')(passport);
 
 //Route to handle Post Request Call
 router.post('/signin', (req, res) => {
@@ -42,7 +42,6 @@ router.post('/signin', (req, res) => {
 router.post('/signup',function(req,res){
   kafka.make_request('employersignup', req.body, function(err,results){
     console.log('in result');
-    console.log(results);
     if (err){
         console.log("Inside err");
         res.writeHead(500, {
@@ -59,7 +58,7 @@ router.post('/signup',function(req,res){
 }); 
 
 
-router.post('/editdetails', function(req, res) {
+router.post('/editdetails', passport.authenticate('jwt', { session: false }), function(req, res) {
   kafka.make_request('editemployerdetails', req.body, function(err,results){
     // console.log('in result',results);
     if (err){

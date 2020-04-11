@@ -87,6 +87,7 @@ class PostJob extends Component{
     }
 
     axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     const data = this.state;
     console.log("Sending Data ", data);
     axios.post('http://localhost:3001/jobs/postjob', data)

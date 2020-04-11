@@ -51,6 +51,7 @@ class MessageApp extends Component {
     this.props.closeMessageBox();
     e.preventDefault(); 
     axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     var data = {
      participants : ['usera', 'userb'],
      messages : this.state.backendmsgs

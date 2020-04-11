@@ -2,10 +2,12 @@
 const express = require('express');
 const router = express.Router();
 var kafka = require('../kafka/client');
+const passport = require('passport');
+require('../Utils/passport')(passport);
 
 
 //Route to handle Post Request Call
-router.post('/post',(req,res) => {  
+router.post('/post', passport.authenticate('jwt', { session: false }), (req,res) => {  
   kafka.make_request('messages', req.body, function(err,results){
     console.log(results);
     if (err){

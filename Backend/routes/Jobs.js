@@ -3,10 +3,12 @@ const express = require('express');
 const router = express.Router();
 var kafka = require('../kafka/client');
 const actions = require('../Utils/constant');
+const passport = require('passport');
+require('../Utils/passport')(passport);
 
 
 // post job by employer
-router.post('/postjob',function(req,res) {
+router.post('/postjob', passport.authenticate('jwt', { session: false }), function(req,res) {
   // console.log("Req Body post job: ", req.body);
   var msg = { action : actions.POSTJOB , body : req.body};
   kafka.make_request('job', msg, function(err,results){
@@ -28,7 +30,7 @@ router.post('/postjob',function(req,res) {
 
 
 // search jobs with query string
-router.post('/jobsearch',function(req,res) {
+router.post('/jobsearch', passport.authenticate('jwt', { session: false }), function(req,res) {
   console.log("Req Body search job: ", req.body);
   var msg = { action : actions.LISTJOB , body : req.body};
   kafka.make_request('job', msg, function(err,results){
@@ -50,7 +52,7 @@ router.post('/jobsearch',function(req,res) {
 
 
 //students tab to search and look out for other student's profile
-router.post('/studentsearch', function(req,res){
+router.post('/studentsearch', passport.authenticate('jwt', { session: false }), function(req,res){
   // console.log("Req Body student search: ", req.body);
   var msg = { action : actions.STUDENTSEARCH , body : req.body};
   kafka.make_request('job', msg, function(err,results){
@@ -72,7 +74,7 @@ router.post('/studentsearch', function(req,res){
 });
 
 // used by students to apply & search jobs applied
-router.post('/jobsapplied',function(req,res) {
+router.post('/jobsapplied', passport.authenticate('jwt', { session: false }),function(req,res) {
   var msg = { action : actions.JOBSAPPLIED , body : req.body};
   kafka.make_request('job', msg, function(err,results){
     if (err){
@@ -92,7 +94,7 @@ router.post('/jobsapplied',function(req,res) {
 
 
 // Students applied for the particular job
-router.post('/studentsapplied',function(req,res) {
+router.post('/studentsapplied',passport.authenticate('jwt', { session: false }),function(req,res) {
 });
 
 

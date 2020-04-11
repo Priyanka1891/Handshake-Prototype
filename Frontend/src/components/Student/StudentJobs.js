@@ -4,7 +4,6 @@ import axios from 'axios';
 import JobResultPage from './JobResultPage';
 
 const initialState={
- // jobListsFetched : false,
   jobQuery : null,
   jobList : null,
   jobType : null,
@@ -24,10 +23,10 @@ class StudentJobs extends Component {
     const data = {
     };
     axios.defaults.withCredentials = true;
-    console.log("Sending Data "+JSON.stringify(data));
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
+    console.log("Sending Data " + JSON.stringify(data));
     axios.post('http://localhost:3001/jobs/jobsearch',data)
       .then(response => {
-        console.log("Result jobs :", response.data)
         this.setState({
           jobList : response.data
         })
@@ -60,28 +59,27 @@ class StudentJobs extends Component {
   }
 
   sortChangeHandler = (e) => {
-    let sortedJobList=[];
+    let jobList = this.state.jobList;
     if (e.target.value === "createdate") {
-      this.state.jobList.sort((a,b) => {
+      jobList.sort((a,b) => {
           var _a = new Date(a.createdate);
           var _b = new Date(b.createdate);
           return _a.getTime() - _b.getTime();
         });
     }
     else if (e.target.value === "enddate") {
-      this.state.jobList.sort((a,b) => {
+      jobList.sort((a,b) => {
         var _a = new Date(a.enddate);
         var _b = new Date(b.enddate);
         return _a.getTime() - _b.getTime();
       });
     }
     else if (e.target.value === "location") {
-      this.state.jobList.sort((a, b) => a.location.localeCompare(b.location))
+      jobList.sort((a, b) => a.location.localeCompare(b.location))
     }
     this.setState({
-      sortedJobList:this.state.jobList,
+      sortedJobList : jobList
     });
-    console.log("Sorted jobList is",this.state.sortedJobList);
   }
 
   listJobResults = (e) => {
@@ -90,15 +88,14 @@ class StudentJobs extends Component {
       jobQuery:this.state.jobQuery,
     };
     axios.defaults.withCredentials = true;
-    console.log("Sending Data "+JSON.stringify(data));
-    axios.post('http://localhost:3001/jobs/jobsearch',data)
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
+    console.log("Sending Data " + JSON.stringify(data));
+    axios.post('http://localhost:3001/jobs/jobsearch', data)
       .then(response => {
-        console.log("Result jobs :", response.data)
         this.setState({
-          //jobListsFetched : true,
           jobList : response.data
-        })
-    })
+        });
+    });
   }
   
   render() {
@@ -106,8 +103,9 @@ class StudentJobs extends Component {
     if (this.state.filteredJobList) {
       resultPage = (<JobResultPage jobDetails = {this.state.filteredJobList}></JobResultPage>)
     } else if (this.state.sortedJobList) {
+      console.log("Sorted jobList is ", this.state.sortedJobList);
       resultPage = (<JobResultPage jobDetails = {this.state.sortedJobList}></JobResultPage>)
-    }else if (this.state.jobList) {
+    } else if (this.state.jobList) {
       resultPage = (<JobResultPage jobDetails = {this.state.jobList}></JobResultPage>)
     }
 

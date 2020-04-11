@@ -3,11 +3,13 @@ const express = require('express');
 const router = express.Router();
 var kafka = require('../kafka/client');
 const actions = require('../Utils/constant');
+const passport = require('passport');
+require('../Utils/passport')(passport);
 
 //events registered
 
 // post event by employer
-router.post('/postevent',function(req,res) {
+router.post('/postevent', passport.authenticate('jwt', { session: false }),function(req,res) {
   var msg = { action : actions.POSTEVENT , body : req.body};
   kafka.make_request('event', msg, function(err,results){
     console.log('in postevent result ', results);
@@ -26,7 +28,7 @@ router.post('/postevent',function(req,res) {
   });
 });
 
-router.post('/list',function(req,res) {
+router.post('/list', passport.authenticate('jwt', { session: false }), function(req,res) {
   var msg = { action : actions.LISTEVENT , body : req.body};
   kafka.make_request('event', msg, function(err,results){
     if (err){

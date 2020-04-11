@@ -1,36 +1,25 @@
 "use strict";
-var JwtStrategy = require("passport-jwt").Strategy;
-var ExtractJwt = require("passport-jwt").ExtractJwt;
-const passport = require("passport");
-var { secret } = require("../../kafka-backend/Utils/config");
-const Users = require('../../kafka-backend/Models/UserModel');
+var JwtStrategy = require('passport-jwt').Strategy;
+var ExtractJwt = require('passport-jwt').ExtractJwt;
+var { tokenSecret } = require('../Utils/config');
+const kafka = require('../kafka/client');
 
 // Setup work and export for the JWT passport strategy
-function auth() {
-    var opts = {
-        jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("jwt"),
-        secretOrKey: secret
-    };
-    passport.use(
-        new JwtStrategy(opts, (jwt_payload, callback) => {
-            console.log("JWT PAYLOAD: ". jwt_payload);
-            const user_id = jwt_payload._id;
-            Users.findById(user_id, (err, results) => {
-                console.log("Found user");
-                if (err) {
-                    console.log("Invalid ", err);
-                    return callback(err, false);
-                }
-                if (results) {
-                    callback(null, results);
-                }
-                else {
-                    callback(null, false);
-                }
-            });
-        })
-    )
-}
-
-exports.auth = auth;
-exports.checkAuth = passport.authenticate("jwt", { session: false });
+module.exports = function(passport) {
+  var opts = {};
+  opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme("jwt");
+  opts.secretOrKey = tokenSecret;
+  passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+    kafka.make_request('passport', jwt_payload.id, function (err, results) {
+      if (err) {
+        return done(err, false);
+      }
+      if(results){
+        done(null, results);
+      }
+      else {
+        done(null, false);
+      }
+    });
+  }));
+};

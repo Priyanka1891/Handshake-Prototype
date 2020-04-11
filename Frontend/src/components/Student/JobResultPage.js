@@ -23,6 +23,7 @@ class JobResultPage extends Component {
     };
 
     axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data "+ JSON.stringify(data));
     axios.post('http://localhost:3001/jobs/jobsapplied',data)
       .then(response => {
@@ -33,7 +34,7 @@ class JobResultPage extends Component {
     });
   }
 
-  searchedJobs(){
+  searchedJobs = (e) => {
       const jobs = this.props.jobDetails.map((job, index) => {
          return ( 
            <React.Fragment>
@@ -48,7 +49,7 @@ class JobResultPage extends Component {
                     <td>{job.createdate}</td>
                     <td>{job.enddate}</td>
                     <td><button type="submit" value={job._id} onClick={this.applyJobs}>Apply</button></td>
-                    <td><button type="submit" value={job._id} onClick={this.showModal()}>View</button></td>
+                    {/* <td><button type="submit" value={job._id} onClick={this.showModal()}>View</button></td> */}
                   </tr>
               </React.Fragment>
                 );
@@ -68,7 +69,6 @@ class JobResultPage extends Component {
             <th className="text-center">Company Name</th>
             <th className="text-center">Location</th>
             <th className="text-center">Salary</th>
-            {/* <th className="text-center">Details</th> */}
             <th className="text-center">Job Type</th>
             <th className="text-center">Create Date</th>
             <th className="text-center">End Date</th>
@@ -82,7 +82,7 @@ class JobResultPage extends Component {
       </React.Fragment> 
     )
   }    
-}
+} 
 
 function mapStateToProps(state) {
   return {

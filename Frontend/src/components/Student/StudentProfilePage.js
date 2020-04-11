@@ -46,7 +46,8 @@ class StudentProfilePage extends Component {
       var studentDetails = this.props.studentDetails;
       studentDetails.image = e.target.result;
       const data = {details : studentDetails , upload_image : true};
-      console.log("Sending data with image: ", data);
+      axios.defaults.withCredentials = true;
+      axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
       axios.post('http://localhost:3001/student/editdetails', data)
         .then(response => {
           if (response.data.code==200) {
@@ -93,7 +94,7 @@ class StudentProfilePage extends Component {
     if (this.state.addExperience) {
       redirectVar = <Redirect to='/addexperience' />
     }
-    console.log("Here ", this.props.studentDetails);
+    // console.log("Here ", this.props.studentDetails);
     return(
       <React.Fragment>
       {redirectVar}

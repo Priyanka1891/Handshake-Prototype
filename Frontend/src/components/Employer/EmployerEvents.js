@@ -35,6 +35,7 @@ class EmployerEvents extends Component {
       return;
     }
     axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data "+ JSON.stringify(data));
     axios.post('http://localhost:3001/events/list', data)
       .then(response => {
