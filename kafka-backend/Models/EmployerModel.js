@@ -8,7 +8,8 @@ var employersSchema = new Schema({
     location : {type: String, required : true},
     name :  {type: String, required : false},
     description :  {type: String, required : false},
-    contactno :  {type: String, required : false}
+    contactno :  {type: String, required : false},
+    image : {type: String, required: false}
 },
 {
     versionKey: false

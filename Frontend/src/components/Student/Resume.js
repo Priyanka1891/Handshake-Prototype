@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import { Document, Page } from 'react-pdf';
+import { fillStudentDetails } from "../../common_store/actions/index";
 
 class Resume extends Component {
 
@@ -26,6 +27,11 @@ class Resume extends Component {
     } 
   }
   
+  dispatch = async (state) => {
+    await this.props.fillStudentDetails(state)
+    return this.props.studentDetails;
+  }
+
   onClickHandler = () => {
     if (!this.state.readData) {
       window.alert("Resume upload failed, either path is empty or some error happened");
@@ -38,6 +44,7 @@ class Resume extends Component {
     axios.post('http://localhost:3001/student/editdetails', data)
       .then(response => {
         if (response.data.code==200) {
+          this.dispatch(studentDetails).then((result) => {});
           window.alert("Resume uploaded successfully");
         } else {
           window.alert("Resume upload failed");
@@ -81,6 +88,8 @@ class Resume extends Component {
   render(){
     return(
       <React.Fragment>
+        {this.state.viewResume ? this.pdfViewer(this.props.studentDetails.resume): <div/>}  
+        <button type="button" className="btn btn-success" onClick={this.viewResumeHandler}>{this.state.buttonValue}</button>
         {this.props.studentDetails.editmode ? (
           <div><h2 id='Resume'>Upload Resume</h2>
             <input type="file" name="file" onChange={this.onChangeHandler} />
@@ -88,9 +97,7 @@ class Resume extends Component {
             <button type="button" className="btn btn-success" onClick={this.onClickHandler}>Upload</button> 
             <br />
           </div>) : 
-          <div/>}
-        {this.state.viewResume ? this.pdfViewer(this.props.studentDetails.resume): <div/>}  
-        <button type="button" className="btn btn-success" onClick={this.viewResumeHandler}>{this.state.buttonValue}</button> 
+          <div/>} 
       </React.Fragment>
     )
   }
@@ -99,6 +106,12 @@ class Resume extends Component {
 function mapStateToProps(state) {
   return {
     studentDetails : state.studentDetails
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fillStudentDetails : (details) => dispatch(fillStudentDetails(details))
   }
 }
 
