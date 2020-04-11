@@ -5,8 +5,15 @@ const actions = require('../../Backend/Utils/constant');
 
 function listJob(msg, callback) {
   var res = {};
-  console.log("Inside list job request");
-  Jobs.find( {createdby: msg.jobQuery }, (error, data) => {
+  // console.log("Inside list job request");
+ var query={};
+  if(msg.jobQuery)
+  {
+    query={$or: [{'title': {$regex: '.*' + msg.jobQuery + '.*', $options:'i'}}, 
+    {'createdby': {$regex: '.*' + msg.jobQuery + '.*', $options:'i'} },
+    ]};
+  }
+  Jobs.find(  query , (error, data) => {
     if (error) {
       res.code = 401;
       res.value=error;
@@ -75,6 +82,22 @@ function postJob(msg, callback) {
     }
   }); 
 }
+function jobsApplied(msg, callback) {
+var res = {};
+console.log("Inside jobs applied ",msg);
+  Jobs.updateOne({ _id : msg.jobId}, {$addToSet : {studentsapplied : msg.username}} ,(error,data) => {
+    if (error) {
+      res.code = 401;
+      res.value=error;
+      callback(null, res);
+    }
+    else {
+      res.code = 200;
+      res.value = "Job applied successfully";
+      callback(null, res);
+    }
+  }); 
+}
 
 
 function handle_request(msg, callback){
@@ -92,6 +115,10 @@ function handle_request(msg, callback){
     else if(msg.action == actions.STUDENTSEARCH){
       // console.log("Inside student search");
       studentSearch(msg.body, callback);
+      return;
+    }
+    else if(msg.action == actions.JOBSAPPLIED){
+      jobsApplied(msg.body, callback);
       return;
     }
 }

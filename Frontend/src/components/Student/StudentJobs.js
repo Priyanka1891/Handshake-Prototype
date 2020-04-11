@@ -8,7 +8,8 @@ const initialState={
   jobQuery : null,
   jobList : null,
   jobType : null,
-  filteredJobList : null
+  filteredJobList : null,
+  sortedJobList : null
 }
 
 class StudentJobs extends Component {
@@ -31,7 +32,6 @@ class StudentJobs extends Component {
           jobList : response.data
         })
     });
-
   }
 
   queryChangeHandler = (e) => {
@@ -53,11 +53,35 @@ class StudentJobs extends Component {
         filteredJobList.push(this.state.jobList[i]);
       }
     }
-    console.log(filteredJobList);
     this.setState({
       jobType : e.target.value,
       filteredJobList : filteredJobList,
     });
+  }
+
+  sortChangeHandler = (e) => {
+    let sortedJobList=[];
+    if (e.target.value === "createdate") {
+      this.state.jobList.sort((a,b) => {
+          var _a = new Date(a.createdate);
+          var _b = new Date(b.createdate);
+          return _a.getTime() - _b.getTime();
+        });
+    }
+    else if (e.target.value === "enddate") {
+      this.state.jobList.sort((a,b) => {
+        var _a = new Date(a.enddate);
+        var _b = new Date(b.enddate);
+        return _a.getTime() - _b.getTime();
+      });
+    }
+    else if (e.target.value === "location") {
+      this.state.jobList.sort((a, b) => a.location.localeCompare(b.location))
+    }
+    this.setState({
+      sortedJobList:this.state.jobList,
+    });
+    console.log("Sorted jobList is",this.state.sortedJobList);
   }
 
   listJobResults = (e) => {
@@ -79,10 +103,11 @@ class StudentJobs extends Component {
   
   render() {
     let resultPage = null;
-    
     if (this.state.filteredJobList) {
       resultPage = (<JobResultPage jobDetails = {this.state.filteredJobList}></JobResultPage>)
-    } else if (this.state.jobList) {
+    } else if (this.state.sortedJobList) {
+      resultPage = (<JobResultPage jobDetails = {this.state.sortedJobList}></JobResultPage>)
+    }else if (this.state.jobList) {
       resultPage = (<JobResultPage jobDetails = {this.state.jobList}></JobResultPage>)
     }
 
@@ -102,16 +127,22 @@ class StudentJobs extends Component {
                     <br />
                     <input onChange = {this.queryChangeHandler} 
                     type ='text' style={{width:'70%'}}type="text" placeholder="Enter Job Title or Company Name to Search"/>
-                    <button type='submit'onClick={this.listJobResults}><i className="fa fa-search"></i></button>
+                    &nbsp;&nbsp;<button type='submit'onClick={this.listJobResults}><i className="fa fa-search"></i></button>
                     <br />
                     <br />
                     <i className="glyphicon glyphicon-filter" /><label>Job Type:&nbsp;&nbsp;</label>
                     <select id="types" onChangeCapture = {this.jobTypeChangeHandler} value={this.state.jobType}>
                       <option value="">All</option>
-                      <option value="fulltime">Full Time</option>
-                      <option value="parttime">Part Time</option>
-                      <option value="oncampus">On Campus</option>
-                      <option value="internship">Internship</option>
+                      <option value="Full Time">Full Time</option>
+                      <option value="Part Time">Part Time</option>
+                      <option value="On Campus">On Campus</option>
+                      <option value="Internship">Internship</option>
+                    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <select id="relevance" onChangeCapture = {this.sortChangeHandler} value={this.state.sort}>
+                      <option>Sort By:</option>
+                      <option value="location">Location</option>
+                      <option value="createdate">Posting Date</option>
+                      <option value="enddate">Deadline</option>
                     </select>
                     <br />
                     <br />
