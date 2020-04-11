@@ -15,6 +15,7 @@ const initialState={
   addEducation : false,
   addExperience : false,
   openMessageBox : false,
+  reRender : false
 }
 var inputFile = createRef(null) 
 
@@ -34,7 +35,10 @@ class StudentProfilePage extends Component {
   }
 
   imageChangeHandler = (e) => {
-    console.log(e.target.files[0]);
+    if (!e.target.files[0]) {
+      window.alert("Resume upload failed, either path is empty or some error happened");
+      return;
+    }
     let file = e.target.files[0];
     let reader = new FileReader();
     reader.readAsDataURL(file);
@@ -46,7 +50,8 @@ class StudentProfilePage extends Component {
       axios.post('http://localhost:3001/student/editdetails', data)
         .then(response => {
           if (response.data.code==200) {
-            this.dispatch(studentDetails).then((result) => {});
+            this.dispatch(studentDetails).then((result) => { 
+              this.setState({reRender: true})});
             window.alert("Image uploaded successfully");
           } else {
             window.alert("Image upload failed");
