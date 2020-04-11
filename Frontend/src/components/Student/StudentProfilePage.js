@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import {connect} from 'react-redux';
+import axios from 'axios';
 import {Redirect} from 'react-router';
 import StudentNavbar from './StudentNavbar';
 import EmployerNavbar from '../Employer/EmployerNavbar'
@@ -8,17 +9,49 @@ import Education from './Education';
 import Experience from './Experience';
 import Resume from './Resume';
 import MessageApp from '../Message/MessageApp';
+import { fillStudentDetails } from "../../common_store/actions/index";
 
 const initialState={
   addEducation : false,
   addExperience : false,
-  openMessageBox : false
+  openMessageBox : false,
 }
+var inputFile = createRef(null) 
 
 class StudentProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
+  }
+
+  imageButtonHandler = (e)=> {
+    inputFile.current.click();
+  }
+
+  dispatch = async (state) => {
+    await this.props.fillStudentDetails(state)
+    return this.props.studentDetails;
+  }
+
+  imageChangeHandler = (e) => {
+    console.log(e.target.files[0]);
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (e) => {
+      var studentDetails = this.props.studentDetails;
+      studentDetails.image = e.target.result;
+      const data = {details : studentDetails , upload_image : true};
+      console.log("Sending data with image: ", data);
+      axios.post('http://localhost:3001/student/editdetails', data)
+        .then(response => {
+          if (response.data.code==200) {
+            this.dispatch(studentDetails).then((result) => {});
+            window.alert("Image uploaded successfully");
+          } else {
+            window.alert("Image upload failed");
+          }});
+      } 
   }
 
   addStudentEducation = (e) =>{
@@ -45,14 +78,17 @@ class StudentProfilePage extends Component {
     })
   }
 
+
+
   render() {
     let redirectVar = null;
-      if (this.state.addEducation) {
-        redirectVar = <Redirect to='/addeducation' />
-      }
-      if (this.state.addExperience) {
-        redirectVar = <Redirect to='/addexperience' />
-      }
+    if (this.state.addEducation) {
+      redirectVar = <Redirect to='/addeducation' />
+    }
+    if (this.state.addExperience) {
+      redirectVar = <Redirect to='/addexperience' />
+    }
+    console.log("Here ", this.props.studentDetails);
     return(
       <React.Fragment>
       {redirectVar}
@@ -67,9 +103,16 @@ class StudentProfilePage extends Component {
             <div className="col-md-3">
               <div className="profile-sidebar">
                 <div className="profile-userpic">
-                  <img src="https://static.change.org/profile-img/default-user-profile.svg" className="img-responsive" alt="" />
+                  {this.props.studentDetails.image ?
+                    <img src={this.props.studentDetails.image} className="img-responsive" alt="" /> :
+                    <img src="https://static.change.org/profile-img/default-user-profile.svg" className="img-responsive" alt="" />
+                  } 
+                </div> 
+                <div className="profile-userbuttons">
+                <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={this.imageChangeHandler}/>
+                {this.props.studentDetails.editmode?(<button onClick={this.imageButtonHandler} type="button" className="glyphicon glyphicon-camera btn btn-info">
+                </button>):(<div></div>)}
                 </div>
-        
                 <div className="profile-usertitle">
                   <div className="profile-usertitle-name">
                     Welcome&nbsp;{this.props.studentDetails.username}
@@ -140,6 +183,7 @@ class StudentProfilePage extends Component {
                     ))
                   }
                 </div>
+                <br/>
                 <div ><Resume /></div></div> 
                 <div className="col-md-offset-5">
                   {this.state.openMessageBox ? <div style={{"height" : "40%", "width" : "40%"}}><MessageApp closeMessageBox = {this.closeMessageBox}/> </div> : <div/> }
@@ -161,8 +205,14 @@ function mapStateToProps(state) {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    fillStudentDetails : (details) => dispatch(fillStudentDetails(details))
+  }
+}
+
 // export StudentProfilePage Component
-export default connect(mapStateToProps, null)(StudentProfilePage);
+export default connect(mapStateToProps, mapDispatchToProps)(StudentProfilePage);
 
 
 

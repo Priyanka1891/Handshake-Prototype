@@ -45,7 +45,8 @@ var usersSchema = new Schema({
     // event id of events registered by the student.
     eventsApplied : [{type: String, required: false}],
 
-    resume : {type: String, required: false}
+    resume : {type: String, required: false},
+    image : {type: String, required: false}
 },
 {
   versionKey: false
