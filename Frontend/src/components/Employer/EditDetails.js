@@ -54,6 +54,7 @@ class EditEmployerDetails extends Component{
   submitEmployerDetails = (e) => {
     e.preventDefault();
     axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data ", this.state.employerDetails);
     const data = {details : this.state.employerDetails , edit_details : true}
     axios.post('http://localhost:3001/employer/editdetails', data)

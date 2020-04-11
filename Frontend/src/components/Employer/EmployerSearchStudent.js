@@ -33,6 +33,7 @@ class EmployerSearchStudent extends Component {
       studentQuery : this.state.studentQuery,
     };
     axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data "+JSON.stringify(data));
     axios.post('http://localhost:3001/jobs/studentsearch', data)
       .then(response => {

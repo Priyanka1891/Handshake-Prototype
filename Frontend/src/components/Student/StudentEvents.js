@@ -25,6 +25,7 @@ class StudentEvents extends Component {
 
   componentWillMount = () => {
     axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     axios.post('http://localhost:3001/events/liststudentevent')
       .then(response => {
         // console.log("Result event query :", response)
@@ -63,6 +64,7 @@ class StudentEvents extends Component {
   registeredEvents = (e) => {
     const data={username : this.props.studentDetails.username}
     axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     axios.post('http://localhost:3001/events/listregisterstudentevent',data)
       .then(response => {
         console.log("Result event query :", JSON.stringify(response.data))

@@ -5,19 +5,15 @@ const { mongoDB } = require('./Utils/config');
 var SignIn = require('./services/signin.js');
 var StudentSignUp = require('./services/studentsignup.js');
 var EditStudentDetails = require('./services/editstudentdetails.js');
-
-
 var EmployerSignUp = require('./services/employersignup');
 var EmployerSignIn = require('./services/employersignin');
 var EditEmployerDetails = require('./services/editemployerdetails');
 var Job = require('./services/job');
 var Event = require('./services/event');
-
-
 var Messages = require('./services/messages');
+var Passport = require('./services/passport')
 
-
-function handleTopicRequest(topic_name,fname){
+function handleTopicRequest(topic_name,fname) {
     //var topic_name = 'root_topic';
     var consumer = connection.getConsumer(topic_name);
     var producer = connection.getProducer();
@@ -27,7 +23,6 @@ function handleTopicRequest(topic_name,fname){
         var data = JSON.parse(message.value);
         
         fname.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
             var payloads = [
                 { topic: data.replyTo,
                     messages:JSON.stringify({
@@ -78,3 +73,4 @@ handleTopicRequest("job", Job);
 handleTopicRequest("event", Event);
 
 handleTopicRequest("messages", Messages);
+handleTopicRequest("passport", Passport);

@@ -34,6 +34,7 @@ class JobResultPage extends Component {
       jobId : e.target.value,
     };
     axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data "+ JSON.stringify(data));
     axios.post('http://localhost:3001/jobs/studentsapplied',data)
       .then(response => {

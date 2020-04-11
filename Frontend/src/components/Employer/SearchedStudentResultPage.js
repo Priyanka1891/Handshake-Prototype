@@ -31,6 +31,8 @@ class SearchedStudentResultPage extends Component {
       username : e.target.value,
       editmode : false
     };
+    axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Data being sent is"+ JSON.stringify(data));
     axios.post('http://localhost:3001/student/signin', data)
       .then(response=>{

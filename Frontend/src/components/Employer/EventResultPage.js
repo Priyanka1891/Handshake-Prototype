@@ -34,6 +34,7 @@ class EventResultPage extends Component {
       eventId : e.target.value,
     };
     axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data "+ JSON.stringify(data));
     axios.post('http://localhost:3001/events/studentsregistered',data)
       .then(response => {

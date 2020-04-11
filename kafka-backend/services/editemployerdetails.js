@@ -2,7 +2,6 @@ const { Employers } = require('../Models/EmployerModel');
 
 
 function handle_request(msg, callback){
-    console.log("Received msg: ", msg);
     Employers.replaceOne({"username" : msg.details.username}, msg.details, (error, data) => {
       var res = {};
         if (error) {

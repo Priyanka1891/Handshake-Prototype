@@ -41,6 +41,8 @@ class Resume extends Component {
     studentDetails.resume = this.state.readData;
     const data = {details : studentDetails , upload_resume : true};
     console.log("Sending data with resume: ", data);
+    axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     axios.post('http://localhost:3001/student/editdetails', data)
       .then(response => {
         if (response.data.code==200) {
