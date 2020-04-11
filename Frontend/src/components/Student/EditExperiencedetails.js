@@ -83,8 +83,7 @@ class EditExperiencedetails extends Component{
               this.setState({
                 detailsSubmitted : true
               })
-             console.log("Edited details: ", result.details);
-            })
+            });
         }
     });
   }

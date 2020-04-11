@@ -36,7 +36,7 @@ class StudentProfilePage extends Component {
 
   imageChangeHandler = (e) => {
     if (!e.target.files[0]) {
-      window.alert("Resume upload failed, either path is empty or some error happened");
+      window.alert("Image upload failed, either path is empty or some error happened");
       return;
     }
     let file = e.target.files[0];
@@ -115,9 +115,9 @@ class StudentProfilePage extends Component {
                   } 
                 </div> 
                 <div className="profile-userbuttons">
-                <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={this.imageChangeHandler}/>
-                {this.props.studentDetails.editmode?(<button onClick={this.imageButtonHandler} type="button" className="glyphicon glyphicon-camera btn btn-info">
-                </button>):(<div></div>)}
+                  <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={this.imageChangeHandler}/>
+                  {this.props.studentDetails.editmode?(<button onClick={this.imageButtonHandler} type="button" className="glyphicon glyphicon-camera btn btn-info">
+                  </button>):(<div></div>)}
                 </div>
                 <div className="profile-usertitle">
                   <div className="profile-usertitle-name">
@@ -157,7 +157,7 @@ class StudentProfilePage extends Component {
                     <li>
                       <a href="#Resume">
                         <i className="glyphicon glyphicon-file" />
-                        Upload Resume
+                        {this.props.studentDetails.editmode ? "Upload Resume" : "View Resume"}
                         {' '}
                       </a>
                     </li>
@@ -190,7 +190,7 @@ class StudentProfilePage extends Component {
                   }
                 </div>
                 <br/>
-                <div ><Resume /></div></div> 
+                <div id="Resume"><Resume /></div></div> 
                 <div className="col-md-offset-5">
                   {this.state.openMessageBox ? <div style={{"height" : "40%", "width" : "40%"}}><MessageApp closeMessageBox = {this.closeMessageBox}/> </div> : <div/> }
                 </div>

@@ -1,10 +1,57 @@
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import {connect} from 'react-redux';
+import axios from 'axios';
 import EmployerNavbar from './EmployerNavbar';
 import Details from  './Details';
+import { fillEmployerDetails } from "../../common_store/actions/index";
+
+const initialState={
+  reRender : false
+}
+var inputFile = createRef(null) 
 
 
 class EmployerProfilePage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = initialState;
+  }
+
+  imageButtonHandler = (e)=> {
+    inputFile.current.click();
+  }
+
+  dispatch = async (state) => {
+    await this.props.fillEmployerDetails(state)
+    return this.props.employerDetails;
+  }
+
+  imageChangeHandler = (e) => {
+    if (!e.target.files[0]) {
+      window.alert("Image upload failed, either path is empty or some error happened");
+      return;
+    }
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (e) => {
+      var employerDetails = this.props.employerDetails;
+      employerDetails.image = e.target.result;
+      const data = {details : employerDetails , upload_image : true};
+      axios.defaults.withCredentials = true;
+      axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
+      axios.post('http://localhost:3001/employer/editdetails', data)
+        .then(response => {
+          if (response.data.code==200) {
+            this.dispatch(employerDetails).then((result) => { 
+              this.setState({reRender: true})});
+            window.alert("Image uploaded successfully");
+          } else {
+            window.alert("Image upload failed");
+          }});
+      } 
+  }
+
   render() {
     return(
       <React.Fragment>
@@ -17,8 +64,16 @@ class EmployerProfilePage extends Component {
           <div className="row profile">
             <div className="col-md-3">
               <div className="profile-sidebar">
-                <div className="profile-userpic">
-                  <img src="https://static.change.org/profile-img/default-user-profile.svg" className="img-responsive" alt="" />
+              <div className="profile-userpic">
+                  {this.props.employerDetails.image ?
+                    <img src={this.props.employerDetails.image} className="img-responsive" alt="" /> :
+                    <img src="https://static.change.org/profile-img/default-user-profile.svg" className="img-responsive" alt="" />
+                  } 
+                </div> 
+                <div className="profile-userbuttons">
+                  <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={this.imageChangeHandler}/>
+                  <button onClick={this.imageButtonHandler} type="button" className="glyphicon glyphicon-camera btn btn-info">
+                  </button>
                 </div>
                 <div className="profile-usertitle">
                   <div className="profile-usertitle-name">
@@ -59,7 +114,13 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, null)(EmployerProfilePage);
+function mapDispatchToProps(dispatch) {
+  return {
+    fillEmployerDetails : (details) => dispatch(fillEmployerDetails(details))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EmployerProfilePage);
 
 
 
