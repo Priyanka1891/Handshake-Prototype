@@ -10,7 +10,6 @@ require('../Utils/passport')(passport);
 //Route to handle Post Request Call
 router.post('/signin', (req, res) => {
     kafka.make_request('employersignin', req.body, function(err,results){
-        console.log('in  employersignin result',results);
         if (err){
             console.log("Inside err");
             res.writeHead(500, {
@@ -60,7 +59,6 @@ router.post('/signup',function(req,res){
 
 router.post('/editdetails', passport.authenticate('jwt', { session: false }), function(req, res) {
   kafka.make_request('editemployerdetails', req.body, function(err,results){
-    // console.log('in result',results);
     if (err){
         console.log("Inside err");
         res.writeHead(500, {

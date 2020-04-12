@@ -34,11 +34,11 @@ class JobResultPage extends Component {
     });
   }
 
-  searchedJobs = (e) => {
+  searchedJobs = () => {
       const jobs = this.props.jobDetails.map((job, index) => {
          return ( 
-           <React.Fragment>
-          {/* <div key={job._id}/> */}
+            <React.Fragment>
+              {/* <div key={job._id}> */}
                   <tr>
                     <th scope="row" className="text-center">{job.title}</th>
                     <td>{job.createdby}</td>
@@ -51,7 +51,8 @@ class JobResultPage extends Component {
                     <td><button type="submit" value={job._id} onClick={this.applyJobs}>Apply</button></td>
                     {/* <td><button type="submit" value={job._id} onClick={this.showModal()}>View</button></td> */}
                   </tr>
-              </React.Fragment>
+              {/* </div> */}
+            </React.Fragment>
                 );
       });
      return jobs;
