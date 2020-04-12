@@ -5,10 +5,10 @@ import JobResultPage from './JobResultPage';
 
 const initialState={
   jobQuery : null,
+  initialJobList : null,
   jobList : null,
   jobType : null,
-  filteredJobList : null,
-  sortedJobList : null
+  sortedBy : null,
 }
 
 class StudentJobs extends Component {
@@ -17,6 +17,8 @@ class StudentJobs extends Component {
     super(props);
     this.state = initialState;
     this.listJobResults = this.listJobResults.bind(this);
+    this.jobTypeChangeHandler = this.jobTypeChangeHandler.bind(this);
+    this.sortChangeHandler = this.sortChangeHandler.bind(this);
   }
 
   componentWillMount() {
@@ -28,57 +30,64 @@ class StudentJobs extends Component {
     axios.post('http://localhost:3001/jobs/jobsearch',data)
       .then(response => {
         this.setState({
+          initialJobList : response.data,
           jobList : response.data
         })
     });
   }
 
   queryChangeHandler = (e) => {
+    e.preventDefault();
     this.setState({
       jobQuery : e.target.value
     })
   }
 
   jobTypeChangeHandler = (e) => {
+    e.preventDefault();
     let filteredJobList=[];
     if (e.target.value === "") {
       this.setState({
-        filteredJobList : null
-      })
+        jobType : "All",
+        jobList : this.state.initialJobList
+      });
       return;
     }
-    for(let i=0;i<this.state.jobList.length;i++){
-      if(this.state.jobList[i].type.toLowerCase() === e.target.value.toLowerCase()){
-        filteredJobList.push(this.state.jobList[i]);
+    for(let i=0;i < this.state.initialJobList.length;i++){
+      if(this.state.initialJobList[i].type.toLowerCase() === e.target.value.toLowerCase()){
+        filteredJobList.push(this.state.initialJobList[i]);
       }
     }
     this.setState({
       jobType : e.target.value,
-      filteredJobList : filteredJobList,
+      jobList : filteredJobList
     });
   }
 
   sortChangeHandler = (e) => {
-    let jobList = this.state.jobList;
+    e.preventDefault();
+    let sortedJobList = this.state.jobList;
     if (e.target.value === "createdate") {
-      jobList.sort((a,b) => {
+      sortedJobList = this.state.jobList.sort((a,b) => {
           var _a = new Date(a.createdate);
           var _b = new Date(b.createdate);
           return _a.getTime() - _b.getTime();
         });
     }
     else if (e.target.value === "enddate") {
-      jobList.sort((a,b) => {
+      sortedJobList = this.state.jobList.sort((a,b) => {
         var _a = new Date(a.enddate);
         var _b = new Date(b.enddate);
         return _a.getTime() - _b.getTime();
       });
     }
     else if (e.target.value === "location") {
-      jobList.sort((a, b) => a.location.localeCompare(b.location))
+      sortedJobList = this.state.jobList.sort((a, b) => a.location.localeCompare(b.location))
     }
+
     this.setState({
-      sortedJobList : jobList
+      sortedBy : e.target.value,
+      jobList : sortedJobList
     });
   }
 
@@ -93,6 +102,7 @@ class StudentJobs extends Component {
     axios.post('http://localhost:3001/jobs/jobsearch', data)
       .then(response => {
         this.setState({
+          initialJobList : response.data,
           jobList : response.data
         });
     });
@@ -100,15 +110,10 @@ class StudentJobs extends Component {
   
   render() {
     let resultPage = null;
-    if (this.state.filteredJobList) {
-      resultPage = (<JobResultPage jobDetails = {this.state.filteredJobList}></JobResultPage>)
-    } else if (this.state.sortedJobList) {
-      console.log("Sorted jobList is ", this.state.sortedJobList);
-      resultPage = (<JobResultPage jobDetails = {this.state.sortedJobList}></JobResultPage>)
-    } else if (this.state.jobList) {
+    if (this.state.jobList) {
+      console.log("reached here ", this.state.jobList);
       resultPage = (<JobResultPage jobDetails = {this.state.jobList}></JobResultPage>)
     }
-
     return(
       <React.Fragment>
         <StudentNavbar />
@@ -136,7 +141,7 @@ class StudentJobs extends Component {
                       <option value="On Campus">On Campus</option>
                       <option value="Internship">Internship</option>
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <select id="relevance" onChangeCapture = {this.sortChangeHandler} value={this.state.sort}>
+                    <select id="relevance" onChangeCapture = {this.sortChangeHandler} value={this.state.sortedBy}>
                       <option>Sort By:</option>
                       <option value="location">Location</option>
                       <option value="createdate">Posting Date</option>
