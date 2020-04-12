@@ -17,7 +17,7 @@ class StudentNavbar extends Component {
                 <li><Link to="/studentjobs">Jobs</Link></li>
                 <li><Link to="/studentevents">Events</Link></li>
                 <li><Link to="/studentapps">Applications</Link></li>
-                {/* <li><Link to="/student_messages">Messages&nbsp;&nbsp;<span className="glyphicon glyphicon-comment"/></Link></li> */}
+                <li><Link to="/messages">Messages&nbsp;&nbsp;<span className="glyphicon glyphicon-comment"/></Link></li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li>

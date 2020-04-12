@@ -23,6 +23,8 @@ import EmployerSearchStudent from './Employer/EmployerSearchStudent';
 import PostJob from './Employer/PostJob';
 import PostEvent from './Employer/PostEvent';
 
+import ListAllMessages from './Message/ListAllMessages';
+
 // Create a Main Component
 class Main extends Component {
   render() {
@@ -44,7 +46,6 @@ class Main extends Component {
         <Route path='/addexperience' component={AddExperinceDetails} />
         <Route path='/studentlist' component={StudentList} />
 
-
         {/* Employer pages routing */}
         <Route path="/employerprofilepage" component={EmployerProfilePage} />
         <Route path="/editemployerdetails" component={EditEmployerDetails} />
@@ -53,6 +54,8 @@ class Main extends Component {
         <Route path="/employersearchstudents" component={EmployerSearchStudent} />
         <Route path="/postjob" component ={PostJob} />
         <Route path="/postevent" component ={PostEvent} />
+
+        <Route path="/messages" component = {ListAllMessages} />
       </div>
         )
     }
