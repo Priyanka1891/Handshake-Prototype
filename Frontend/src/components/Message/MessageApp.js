@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './MessageApp.css';
 import Messages from "./Messages";
+import {connect} from 'react-redux';
 import Input from "./Input";
 import axios from 'axios';
 
@@ -39,7 +40,8 @@ class MessageApp extends Component {
       this.setState({messages});
       var msgdetail = {
         sender : member.clientData.username,
-        content : data
+        content : data,
+        timestamp : new Date().getTime()
       }
       const backendmsgs = this.state.backendmsgs;
       backendmsgs.push(msgdetail);
@@ -49,11 +51,15 @@ class MessageApp extends Component {
 
   saveMessages = (e) => {
     this.props.closeMessageBox();
-    e.preventDefault(); 
+    e.preventDefault();
+    if (this.state.backendmsgs.length < 1) {
+      console.log("Skip posting message since no msg to be posted");
+      return
+    }
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     var data = {
-     participants : ['usera', 'userb'],
+     participants : [this.props.studentDetails.username , this.props.employerDetails.username],
      messages : this.state.backendmsgs
     }
     console.log("Sending Data " + JSON.stringify(data));
@@ -89,4 +95,11 @@ class MessageApp extends Component {
 
 }
 
-export default MessageApp;
+function mapStateToProps(state) {
+  return {
+    employerDetails : state.employerDetails,
+    studentDetails : state.studentDetails
+  }
+}
+
+export default connect(mapStateToProps, null)(MessageApp);

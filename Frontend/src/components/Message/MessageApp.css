@@ -103,3 +103,10 @@ button {
   border-radius: 8px;
   margin-left: 10px;
 }
+
+box {
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+  float: left;
+}
