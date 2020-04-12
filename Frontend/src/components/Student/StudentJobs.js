@@ -111,8 +111,7 @@ class StudentJobs extends Component {
   render() {
     let resultPage = null;
     if (this.state.jobList) {
-      console.log("reached here ", this.state.jobList);
-      resultPage = (<JobResultPage jobDetails = {this.state.jobList}></JobResultPage>)
+      resultPage = (<JobResultPage jobDetails = {this.state.jobList} refresh={this.state.sortedBy + this.state.jobType}></JobResultPage>)
     }
     return(
       <React.Fragment>

@@ -34,8 +34,7 @@ class JobResultPage extends Component {
     });
   }
 
-  searchedJobs = (e) => {
-      console.log("Reaching here with ", this.props.jobDetails)
+  searchedJobs = () => {
       const jobs = this.props.jobDetails.map((job, index) => {
          return ( 
             <React.Fragment>
