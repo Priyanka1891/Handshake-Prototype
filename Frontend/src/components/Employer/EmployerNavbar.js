@@ -20,7 +20,7 @@ class EmployerNavbar extends Component {
               <ul className="nav navbar-nav navbar-right">
                 <li>
                   <Link to="/">
-                    <span className="glyphicon glyphicon-user" />
+                    <span className="glyphicon glyphicon-off" />
                     &nbsp;Logout
                   </Link>
                 </li>

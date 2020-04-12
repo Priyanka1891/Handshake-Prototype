@@ -125,11 +125,11 @@ class AddExperienceDetails extends Component{
                 <br />
                 <label>Start Date</label>
                 <input style={{width:"300px"}} onChange = {this.startdateChangeHandler}value={this.state.startdate} 
-                type="text" className="form-control" placeholder="Start Date" />
+                type="date" className="form-control" placeholder="Start Date" />
                 <br/>
                 <label>End Date</label>
                 <input style={{width:"300px"}} onChange = {this.enddateChangeHandler}value={this.state.enddate} 
-                type="text" className="form-control" placeholder="End Date" />
+                type="date" className="form-control" placeholder="End Date" />
                 <br/>
                 <label>Job Details</label>
                 <input style={{width:"300px"}} onChange = {this.jobdetailsChangeHandler}value={this.state.jobdetails} 

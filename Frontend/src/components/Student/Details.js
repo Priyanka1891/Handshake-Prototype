@@ -33,7 +33,8 @@ class Details extends Component{
                 {/* <ul class="nav navbar-nav navbar-right"> */}
                   &nbsp;&nbsp;{this.props.studentDetails.editmode?(<button onClick={this.editStudentDetails} type="button" className="btn btn-default btn-sm">
                   <span className="glyphicon glyphicon-pencil"></span>
-                  </button>):(<div></div>)} </h2> 
+                  </button>):(<div></div>)} 
+                </h2> 
                 {/* </ul> */}
                 <label>Name : &nbsp;{this.props.studentDetails.basicDetails ?
                 this.props.studentDetails.basicDetails.name : null}</label>

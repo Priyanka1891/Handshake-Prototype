@@ -76,5 +76,24 @@ router.post('/editdetails', passport.authenticate('jwt', { session: false }), (r
   });
 });
 
+router.post('/deletedetails', passport.authenticate('jwt', { session: false }), (req, res) => {
+  // console.log("Reached Here ");
+  kafka.make_request('deletestudentdetails', req.body, function(err,results){
+      // console.log('in result',results);
+      if (err){
+          console.log("Inside err");
+          res.writeHead(500, {
+              'Content-Type': 'text/plain'
+          });
+          res.end("Error");
+      }else{
+          res.writeHead(results.code, {
+              'Content-Type': 'text/plain'
+          })
+          res.end(JSON.stringify(results));
+      }    
+  });
+});
+
 
 module.exports = router;

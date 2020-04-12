@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router';
+
 
 const initialState={
   jobId : null,
   username : null,
+  viewJob : false
 }
 class JobResultPage extends Component {
 
@@ -16,26 +19,37 @@ class JobResultPage extends Component {
   }
 
   applyJobs = (e) => {
-    e.preventDefault();
-    const data = {
-      jobId : e.target.value,
-      username : this.props.studentDetails.username
-    };
+    this.setState({
+      viewJob : true
+    })
 
-    axios.defaults.withCredentials = true;
-    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-    console.log("Sending Data "+ JSON.stringify(data));
-    axios.post('http://localhost:3001/jobs/jobsapplied',data)
-      .then(response => {
-        console.log("Entered inside axios post req");
-        if(response.data){
-          window.alert("Job applied successfully");
-        }
-    });
-  }
+    }
+    // e.preventDefault();
+    // const data = {
+    //   jobId : e.target.value,
+    //   username : this.props.studentDetails.username
+    // };
+
+    // axios.defaults.withCredentials = true;
+    // axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
+    // console.log("Sending Data "+ JSON.stringify(data));
+    // axios.post('http://localhost:3001/jobs/jobsapplied',data)
+    //   .then(response => {
+    //     console.log("Entered inside axios post req");
+    //     if(response.data){
+    //       window.alert("Job applied successfully");
+    //     }
+    // });
+  // }
+
 
   searchedJobs = () => {
+
+    let redirectVar = null;
       const jobs = this.props.jobDetails.map((job, index) => {
+        if (this.state.viewJob) {
+          redirectVar = <Redirect to={{pathname :'/viewjobdetails',state:this.props.jobDetails}}/>
+        }    
          return ( 
             <React.Fragment>
               {/* <div key={job._id}> */}
@@ -48,7 +62,7 @@ class JobResultPage extends Component {
                     <td>{job.type}</td>
                     <td>{job.createdate}</td>
                     <td>{job.enddate}</td>
-                    <td><button type="submit" value={job._id} onClick={this.applyJobs}>Apply</button></td>
+                    <td><button type="submit" value={job._id} onClick={this.applyJobs}>View</button></td>
                     {/* <td><button type="submit" value={job._id} onClick={this.showModal()}>View</button></td> */}
                   </tr>
               {/* </div> */}

@@ -101,9 +101,19 @@ class EditEducationDetails extends Component{
            <div className="profile-content">
               <div className="col-md-offset-4">
                 <h2>Edit Education</h2>
-                <label>College Name</label>
+                {/* <label>College Name</label>
                 <input style={{width:"300px"}} onChange = {this.colgnameChangeHandler}value={this.state.colgname} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].colgname}
-                type="text" className="form-control" name="colgname" />
+                type="text" className="form-control" name="colgname" /> */}
+                <br/>
+                <select style={{width:"300px"}}  className="form-control"
+                  onChangeCapture = {this.colgnameChangeHandler} value={this.state.colgname}>
+                    <option>-----Choose your University-----</option>
+                    <option>UCLA</option>
+                    <option>University of Hogwarts</option>
+                    <option>UC Davis</option>
+                    <option>UC Berkley</option>
+                    <option>Stanford University</option>
+                </select>
                 <br />
                 <label>Location</label>
                 <input style={{width:"300px"}} onChange = {this.locationChangeHandler}value={this.state.location} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].location}

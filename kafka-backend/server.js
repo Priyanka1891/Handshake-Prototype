@@ -5,6 +5,7 @@ const { mongoDB } = require('./Utils/config');
 var SignIn = require('./services/signin.js');
 var StudentSignUp = require('./services/studentsignup.js');
 var EditStudentDetails = require('./services/editstudentdetails.js');
+var DeleteStudentDetails = require('./services/deletestudentdetails.js');
 var EmployerSignUp = require('./services/employersignup');
 var EmployerSignIn = require('./services/employersignin');
 var EditEmployerDetails = require('./services/editemployerdetails');
@@ -64,7 +65,7 @@ mongoose.connect(mongoDB, options, (err, res) => {
 handleTopicRequest("signin", SignIn);
 handleTopicRequest("studentsignup", StudentSignUp);
 handleTopicRequest("editstudentdetails", EditStudentDetails);
-
+handleTopicRequest("deletestudentdetails", DeleteStudentDetails);
 
 handleTopicRequest("employersignup", EmployerSignUp);
 handleTopicRequest("employersignin", EmployerSignIn);

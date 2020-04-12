@@ -109,6 +109,10 @@ class Editdetails extends Component{
     return this.props.studentDetails;
   }
 
+  // cancelStudentDetails=()=>{
+
+  // }
+
   submitStudentDetails = (e) => {
     e.preventDefault();
     axios.defaults.withCredentials = true;
@@ -183,6 +187,7 @@ class Editdetails extends Component{
                 type="text" className="form-control" name="objective" />
                 <br />
               <button type="button" onClick={this.submitStudentDetails} className="btn btn-success">Save</button> 
+              {/* <button type="button" onClick={this.cancelStudentDetails} className="btn btn-success">Cancel</button>  */}
             </div>
           </div>
         </div>   
