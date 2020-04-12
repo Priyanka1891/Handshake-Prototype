@@ -2,10 +2,16 @@ const { Events } = require('../Models/EventModel');
 // const { Users } = require('../Models/UserModel');
 const actions = require('../../Backend/Utils/constant');
 
+try{
 function listEvent(msg, callback) {
   var res = {};
-  // console.log("Inside list event request");
-  Events.find( {createdby: msg.eventQuery }, (error, data) => {
+  var query = {};
+  if(msg.eventQuery){
+    query = {$or: [{'title': {$regex: '.*' + msg.eventQuery + '.*', $options:'i'}}, 
+    {'createdby': {$regex: '.*' + msg.eventQuery + '.*', $options:'i'} }
+    ]};
+  }
+  Events.find(query, (error, data) => {
     if (error) {
       res.code = 401;
       res.value=error;
@@ -23,6 +29,9 @@ function listEvent(msg, callback) {
       callback(null, res);
     }
   }); 
+}}
+catch(err){
+  console.log("Caught in error",err);
 }
 function postEvent(msg, callback){
     // console.log("Job event Req Body : ", msg);

@@ -52,16 +52,17 @@ class JobResultPage extends Component {
       }
       const jobs = this.props.jobDetails.map((job, index) => {
          return ( 
-                <div key={job._id}>
-                <div><h2>{job.title}</h2></div>
-                <p>{job.createdby},
-                &nbsp;{job.location},
-                &nbsp;{job.createdate}&nbsp;-&nbsp;{job.enddate}
-                &nbsp;<button type="submit" 
-                value={job._id} onClick={this.getStudentDetails}>
-                Details
-                </button></p>
-                </div>
+                // <div key={job._id}>
+                <tr>
+                <th scope="row" className="text-center">{job.title}</th>
+                <td>{job.createdby}</td>
+                <td>{job.location}</td>
+                <td>{job.salary}</td>
+                <td>{job.type}</td>
+                <td>{job.createdate}</td>
+                <td>{job.enddate}</td>
+                <td><button type="submit" value={job._id} onClick={this.getStudentDetails}>View Details</button></td>
+              </tr>
            );
      });
      return jobs;
@@ -149,10 +150,26 @@ class JobResultPage extends Component {
     return(
       <React.Fragment>
         {redirectVar}
-        <div className="container" />
-        <div className="login-form" />
-        <div className="panel" />
-        <div className="row-container">{this.searchedJobs()}</div>
+        <br />
+        <div><h2 style={{align:'center'}}>Jobs :</h2></div>
+        <br />
+        <table className="table table-borderless table-hover">
+         <thead className="thead-dark">
+          <tr>
+            <th className="text-center">Job Title</th>
+            <th className="text-center">Company Name</th>
+            <th className="text-center">Location</th>
+            <th className="text-center">Salary</th>
+            <th className="text-center">Job Type</th>
+            <th className="text-center">Create Date</th>
+            <th className="text-center">End Date</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+            {this.searchedJobs()}
+          </tbody>
+        </table>
         <div className="row-container">{this.studentsApplied()}</div>
       </React.Fragment> 
     )
