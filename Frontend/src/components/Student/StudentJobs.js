@@ -91,30 +91,6 @@ class StudentJobs extends Component {
     });
   }
 
-  sortChangeHandler = (e) => {
-    let jobList = this.state.jobList;
-    if (e.target.value === "createdate") {
-      jobList.sort((a,b) => {
-          var _a = new Date(a.createdate);
-          var _b = new Date(b.createdate);
-          return _a.getTime() - _b.getTime();
-        });
-    }
-    else if (e.target.value === "enddate") {
-      jobList.sort((a,b) => {
-        var _a = new Date(a.enddate);
-        var _b = new Date(b.enddate);
-        return _a.getTime() - _b.getTime();
-      });
-    }
-    else if (e.target.value === "location") {
-      jobList.sort((a, b) => a.location.localeCompare(b.location))
-    }
-    this.setState({
-      sortedJobList : jobList
-    });
-  }
-
   listJobResults = (e) => {
     e.preventDefault();
     const data = {
