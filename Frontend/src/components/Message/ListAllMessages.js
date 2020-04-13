@@ -2,24 +2,25 @@ import {Component} from "react";
 import React from "react";
 import {Redirect} from 'react-router';
 import axios from 'axios';
-import {connect} from 'react-redux';
 import './MessageApp.css';
-import { Button, Card, Col, Row, Form, Image, Alert } from "react-bootstrap";
+import { Button, Card, Col, Row, Form} from "react-bootstrap";
 
 const initialState={
   messageList : null,
-  messageCards : null
+  messageCards : null,
+  currentMsg : null
 }
 
 class ListAllMessages extends Component {
   constructor (props) {
     super(props);
     this.state = initialState;
+    this.textInput = React.createRef(null);
   }
 
   componentWillMount() {
     const data = {
-      username : this.props.studentDetails.username
+      username : localStorage.getItem('username')
     };
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
@@ -32,18 +33,55 @@ class ListAllMessages extends Component {
     });
   }
 
+  msgChangeHandler = (e) => {
+     var msg  = {};
+     msg.sender = localStorage.getItem('username');
+     msg.content = e.target.value;
+     msg.timestamp = new Date().getTime()
+     this.setState({
+       currentMsg : msg
+     })
+  } 
+
+  sendMessage = (e) => {
+    var index =e.target.id;
+    var messageList = this.state.messageList;
+    messageList[index].messages.push(this.state.currentMsg);
+
+    var msgDump = {};
+    var userb = messageList[index].userb;
+    msgDump.usera = localStorage.getItem('username');
+    msgDump.userb =  (localStorage.getItem('username') === userb)? this.state.messageList[index].usera : userb;
+
+    axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
+    var data = {
+     participants : [msgDump.usera , msgDump.userb],
+     messages : [this.state.currentMsg]
+    }
+    console.log("Sending Data " + JSON.stringify(data));
+    axios.post('http://localhost:3001/messages/post', data)
+      .then(response => {
+        console.log(response);
+        console.log("here ", messageList)
+        this.setState({
+          messageList : messageList
+        });
+        this.textInput.current.reset();
+    });    
+  }
+
   renderMessage = (e) => {
     let messageCards = null;
     let messageCard;
     var index = e.target.id;
-    console.log("Reached here ", this.state.messageList, index)
 
-    if (this.state.messageList && index) {
+    if (this.state.messageList[index]) {
         let messages = this.state.messageList[index].messages;
         messageCards = [];
         for (let i = 0; i < messages.length; i++) {
             var timestamp=(messages[i].timestamp);
-            timestamp = new Date(parseInt(timestamp));
+            timestamp = new Date(parseInt(timestamp, 10));
             timestamp = timestamp.toLocaleString();
 
             messageCard = (
@@ -87,11 +125,21 @@ class ListAllMessages extends Component {
                 );
             }
         }
+        messageCards.push(
+          <Form ref={this.textInput} >
+          <Form.Control as="textarea" rows="3" id={index}  placeholder="Type your message..." onChange={this.msgChangeHandler} pattern="^[A-Za-z0-9 ,.-]+$" required />
+          <br />
+          <center>
+              <Button variant="success" id={index} onClick={this.sendMessage} >Send</Button>{"  "}
+          </center>
+          </Form>
+        )
     }
-      this.setState({
-        messageCards : messageCards
-      })
+    this.setState({
+      messageCards : messageCards
+    })
   }
+
 
   listMessageHistory = () => {
     if (!this.state.messageList) { 
@@ -127,33 +175,20 @@ class ListAllMessages extends Component {
         <div>
             {redirectVar}
             <div style={{display:'flex'}} >
-            <div className="col col-md-offset-2"></div>
+              <div className="col col-md-offset-2"></div>
 
-            <div className="row-container">
-            {this.listMessageHistory()}
-            </div>
-            <div className="class col-md-offset-2"></div>
-            <div className="justify-content" >
-                {this.state.messageCards}
-                <Form onSubmit={this.sendMessage} >
-                    <Form.Control as="textarea" rows="3" name="input_message" placeholder="Type your message..." onChange={this.onChange} pattern="^[A-Za-z0-9 ,.-]+$" required />
-                    <br />
-                    <center>
-                        <Button type="submit" variant="success">Send</Button>{"  "}
-                    </center>
-                </Form>
-            </div>
+              <div className="row-container">
+              {this.listMessageHistory()}
+              </div>
+              <div className="class col-md-offset-2"></div>
+              <div className="justify-content" >
+                  {this.state.messageCards}
+              </div>
             </div>
         </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    employerDetails : state.employerDetails,
-    studentDetails : state.studentDetails
-  }
-}
 
-export default connect(mapStateToProps, null)(ListAllMessages); 
+export default ListAllMessages; 
