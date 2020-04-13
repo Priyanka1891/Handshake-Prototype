@@ -84,7 +84,15 @@ function postJob(msg, callback) {
 function jobsApplied(msg, callback) {
 var res = {};
 console.log("Inside jobs applied ",msg);
-  Jobs.updateOne({ _id : msg.jobId}, {$addToSet : {studentsapplied : msg.username}} ,(error,data) => {
+var today = new Date();
+
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+
+today = mm + '/' + dd + '/' + yyyy;
+console.log("date is",today);
+  Jobs.updateOne({ _id : msg.jobId}, {$addToSet : {'studentsapplied.username': msg.username}} ,(error,data) => {
     if (error) {
       res.code = 401;
       res.value=error;

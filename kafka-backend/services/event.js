@@ -2,7 +2,6 @@ const { Events } = require('../Models/EventModel');
 // const { Users } = require('../Models/UserModel');
 const actions = require('../../Backend/Utils/constant');
 
-try{
 function listEvent(msg, callback) {
   var res = {};
   var query = {};
@@ -29,10 +28,8 @@ function listEvent(msg, callback) {
       callback(null, res);
     }
   }); 
-}}
-catch(err){
-  console.log("Caught in error",err);
 }
+
 function postEvent(msg, callback){
     // console.log("Job event Req Body : ", msg);
     var res = {};

@@ -48,7 +48,7 @@ class Resume extends Component {
         if (response.data.code===200) {
           this.dispatch(studentDetails).then((result) => {});
           window.alert("Resume uploaded successfully");
-          this.props.enableApply()
+          this.props.enableapply()
         } else {
           window.alert("Resume upload failed");
         }
@@ -67,7 +67,7 @@ class Resume extends Component {
         buttonValue: "View Resume"
       })
     }
-    this.props.enableApply()
+    this.props.enableapply()
   }
 
   onDocumentLoadSuccess = ({ numPages }) => {

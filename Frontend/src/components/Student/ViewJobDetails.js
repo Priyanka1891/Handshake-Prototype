@@ -1,54 +1,72 @@
 import React, {Component} from 'react';
 import StudentNavbar from './StudentNavbar';
 import Resume from './Resume';
+import axios from 'axios';
+import {Redirect} from 'react-router';
+import {connect} from 'react-redux';
+
 
 
 const initialState={
-  applyjob : false,
-  enableApply : false
+  uploadresume : false,
+  enableapply : false,
+  canceljob : false
 }
-
 
 class ViewJobDetails extends Component {
   constructor(props){
     super(props);
     this.state=initialState;
-    this.uploadresume = this.uploadresume.bind(this);
+    this.uploadResume = this.uploadResume.bind(this);
+    this.applyJob = this.applyJob.bind(this);
+    this.cancelJob = this.cancelJob.bind(this);
+    this.enableApply = this.enableApply.bind(this);
   }
-  uploadresume = (e) => {
-    console.log("here");
+  uploadResume = (e) => {
     e.preventDefault();
     this.setState({
-      applyjob : true
+      uploadresume : true
     }) 
   }
-    // e.preventDefault();
-    // const data = {
-    //   jobId : e.target.value,
-    //   username : this.props.studentDetails.username
-    // };
 
-    // axios.defaults.withCredentials = true;
-    // axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-    // console.log("Sending Data "+ JSON.stringify(data));
-    // axios.post('http://localhost:3004/jobs/jobsapplied',data)
-    //   .then(response => {
-    //     console.log("Entered inside axios post req");
-    //     if(response.data){
-    //       window.alert("Job applied successfully");
-    //     }
-    // });}
+  applyJob = (e) =>{
+    e.preventDefault();
+    const data = {
+      jobId : this.props.location.state._id,
+      username : this.props.studentDetails.username
+    };
+    axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
+    console.log("Sending Data "+ JSON.stringify(data));
+    axios.post('http://localhost:3001/jobs/jobsapplied',data)
+      .then(response => {
+        console.log("Entered inside axios post req");
+        if(response.data){
+          window.alert("Job applied successfully");
+        }
+    });
+  }
+
   enableApply = ()=> {
-    console.log("Reached here enable apply")
     this.setState({
-      enableApply : true
+      enableapply : true
+    })
+  }
+  cancelJob=()=>{
+    this.setState({
+      canceljob : true
     })
   }
 
   render() {
-    // console.log("REACHED HERE ", this.props.location.state);
+    let redirectVar = null;
+    if (this.state.canceljob) {
+      redirectVar = <Redirect to='/studentjobs' />
+    }    
+
       return(
         <React.Fragment>
+          {redirectVar}
         <StudentNavbar/>
         <div class="container">
           <h2>{this.props.location.state.title}</h2>
@@ -62,19 +80,19 @@ class ViewJobDetails extends Component {
             <label for="usr">Job Type :&nbsp;&nbsp;&nbsp;{this.props.location.state.type}</label>
             <label for="usr">Company Name :&nbsp;&nbsp;&nbsp;{this.props.location.state.createdby}</label>
             <br/>
-            {this.state.enableApply ?
-              <button type="button" className="btn btn-success">Apply</button>
+            {this.state.enableapply ?
+              <button type="button" onClick={this.applyJob}className="btn btn-success">Apply</button>
               :
               <button type="button" className="btn btn-success" disabled>Apply</button>
             }
-            <button type="button"className="btn btn-danger">Cancel</button>  
-            <button type="button" onClick={this.uploadresume}className="btn btn-warning">Upload Resume</button>      
+            <button type="button"onClick={this.cancelJob}className="btn btn-danger">Cancel</button>  
+            <button type="button" onClick={this.uploadResume}className="btn btn-warning">Upload Resume</button>      
            </div>
           </div>
           <br/>
           <br/>
-          {this.state.applyjob ?
-         <Resume enableApply = {this.enableApply}/> : <div/>}
+          {this.state.uploadresume ?
+         <Resume enableapply = {this.enableApply}/> : <div/>}
         </div>
         </React.Fragment>
       )
@@ -82,6 +100,11 @@ class ViewJobDetails extends Component {
 }
 
 
-export default ViewJobDetails;
+function mapStateToProps(state) {
+  return {
+    studentDetails : state.studentDetails
+  }
+}
+export default connect(mapStateToProps, null)(ViewJobDetails);
 
 

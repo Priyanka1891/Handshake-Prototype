@@ -50,7 +50,7 @@ class StudentProfilePage extends Component {
       axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
       axios.post('http://localhost:3001/student/editdetails', data)
         .then(response => {
-          if (response.data.code==200) {
+          if (response.data.code===200) {
             this.dispatch(studentDetails).then((result) => { 
               this.setState({reRender: true})});
             window.alert("Image uploaded successfully");
