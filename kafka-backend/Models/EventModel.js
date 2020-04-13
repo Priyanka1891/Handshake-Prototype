@@ -8,7 +8,11 @@ var eventsSchema = new Schema({
     location : {type: String, required : true},
     createdby : {type: String, required : true},
     // username/id of students applied
-    studentsregistered : [{type: String, required : true}]
+    studentsregistered : 
+    [{
+      username : {type: String, required : true},
+      filter : {type: String, required : true}
+    }]
 },
 {
     versionKey: false

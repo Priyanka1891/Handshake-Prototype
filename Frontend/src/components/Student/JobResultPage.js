@@ -75,7 +75,7 @@ class JobResultPage extends Component {
   render() {
     return(
       <React.Fragment>
-        <div><h2 style={{align:'center'}}>Jobs matching your search criteria</h2></div>
+        <div><h2 style={{align:'center'}}>Here are few jobs for you</h2></div>
         <br />
         <table className="table table-borderless table-hover">
          <thead className="thead-dark">

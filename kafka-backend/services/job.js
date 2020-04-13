@@ -5,12 +5,11 @@ const actions = require('../../Backend/Utils/constant');
 
 function listJob(msg, callback) {
   var res = {};
-  // console.log("Inside list job request");
  var query={};
   if(msg.jobQuery)
   {
     query={$or: [{'title': {$regex: '.*' + msg.jobQuery + '.*', $options:'i'}}, 
-    {'createdby': {$regex: '.*' + msg.jobQuery + '.*', $options:'i'} },
+    {'createdby': {$regex: '.*' + msg.jobQuery + '.*', $options:'i'} }
     ]};
   }
   Jobs.find(  query , (error, data) => {

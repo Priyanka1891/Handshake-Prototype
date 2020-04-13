@@ -11,7 +11,11 @@ var jobsSchema = new Schema({
     type :  {type: String, required : true},
     createdby : {type: String, required : true},
     // username/id of students applied
-    studentsapplied : [{type: String, required : true}]
+    studentsapplied : [{
+      username : {type: String, required : true},
+      applicationdate : {type: String, required : true},
+      status : {type: String, required : true}
+    }]
 },
 {
     versionKey: false

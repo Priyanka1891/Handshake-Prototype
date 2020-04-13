@@ -52,18 +52,19 @@ class EventResultPage extends Component {
       }
       const events = this.props.eventDetails.map((event, index) => {
          return ( 
-                <div key={event._id}>
-                <div><h2>{event.title}</h2></div>
-                <p>
-                  {/* {event.companyname}, */}
-                &nbsp;{event.location},
-                &nbsp;{event.date},
-                &nbsp;{event.detail}
-                &nbsp;<button type="submit" 
-                value={event._id} onClick={this.getRegisteredStudentDetails}>
-                Details
-                </button></p>
-                </div>
+                // <div key={event._id}>
+                <React.Fragment>
+                <tr>
+                  <th scope="row" className="text-center">{event.title}</th>
+                  <td>{event.date}</td>
+                  <td>{event.detail}</td>
+                  <td>{event.location}</td>
+                  <td><button type="submit" 
+                      value={event._id} onClick={this.getRegisteredStudentDetails}>
+                      Details
+                    </button></td>
+                </tr>
+                </React.Fragment>
            );
      });
      return events;
@@ -117,10 +118,22 @@ class EventResultPage extends Component {
     return(
       <React.Fragment>
         {redirectVar}
-        <div className="container" />
-        <div className="login-form" />
-        <div className="panel" />
-        <div className="row-container">{this.searchedEvents()}</div>
+        <br/>
+        <div><h2 style={{align:'center'}}>Event List :</h2></div>
+        <br />
+        <table className="table table-borderless table-hover">
+         <thead className="thead-dark">
+          <tr>
+            <th className="text-center">Title</th>
+            <th className="text-center">Date</th>
+            <th className="text-center">Detail</th>
+            <th className="text-center">Location</th>
+          </tr>
+          </thead>
+          <tbody>
+            {this.searchedEvents()}
+          </tbody>
+        </table>
         <div className="row-container">{this.studentsRegistered()}</div>
       </React.Fragment> 
     )

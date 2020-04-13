@@ -4,8 +4,6 @@ import axios from 'axios';
 import ListEvent from './ListEvent';
 import {connect} from 'react-redux';
 
-
-
 const initialState={
   eventQuery : '',
   allEventsBool : false,
@@ -26,9 +24,8 @@ class StudentEvents extends Component {
   componentWillMount = () => {
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-    axios.post('http://localhost:3001/events/liststudentevent')
+    axios.post('http://localhost:3001/events/list')
       .then(response => {
-        // console.log("Result event query :", response)
         this.setState({
           allEventsBool : true,
           filterEventsBool : false,
@@ -47,12 +44,11 @@ class StudentEvents extends Component {
   listSearchedEvents = () => {
     let searchedEvents = [];
     for (let idx = 0; idx < this.state.events.length; ++idx) {
-      if (this.state.events[idx].eventTitle.toLowerCase().includes(
+      if (this.state.events[idx].title.toLowerCase().includes(
         this.state.eventQuery.toLowerCase())) {
         searchedEvents.push(this.state.events[idx]);
       }
     }
-    // console.log(searchedEvents);
     this.setState({
       allEventsBool : false,
       filterEventsBool : true,          
@@ -61,34 +57,34 @@ class StudentEvents extends Component {
     });
   }
   
-  registeredEvents = (e) => {
-    const data={username : this.props.studentDetails.username}
-    axios.defaults.withCredentials = true;
-    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-    axios.post('http://localhost:3001/events/listregisterstudentevent',data)
-      .then(response => {
-        console.log("Result event query :", JSON.stringify(response.data))
-        this.setState({
-          allEventsBool : false,
-          filterEventsBool : false,
-          registeredEventsBool : true,
-          regEvents : response.data
-        })
-    });
-    // console.log("Entered here both values " , this.state.events);
-    // for (let idx = 0; idx < this.state.events.length; ++idx) {
-    //   if (this.props.studentDetails.username === this.state.events[idx].username) {
-    //     regEvents.push(this.state.events[idx]);
-    //   }
-    // }
-    // console.log("username:", this.props.studentDetails.username, " Reg events:", regEvents);
-    // this.setState({
-    //   allEventsBool : false,
-    //   filterEventsBool : false,
-    //   registeredEventsBool : true,
-    //   registeredEvents : this.events
-    // });
-  }
+  // // registeredEvents = (e) => {
+  // //   const data={username : this.props.studentDetails.username}
+  // //   axios.defaults.withCredentials = true;
+  // //   axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
+  // //   axios.post('http://localhost:3001/events/listregisterstudentevent',data)
+  // //     .then(response => {
+  // //       console.log("Result event query :", JSON.stringify(response.data))
+  // //       this.setState({
+  // //         allEventsBool : false,
+  // //         filterEventsBool : false,
+  // //         registeredEventsBool : true,
+  // //         regEvents : response.data
+  // //       })
+  //   });
+  //   // console.log("Entered here both values " , this.state.events);
+  //   // for (let idx = 0; idx < this.state.events.length; ++idx) {
+  //   //   if (this.props.studentDetails.username === this.state.events[idx].username) {
+  //   //     regEvents.push(this.state.events[idx]);
+  //   //   }
+  //   // }
+  //   // console.log("username:", this.props.studentDetails.username, " Reg events:", regEvents);
+  //   // this.setState({
+  //   //   allEventsBool : false,
+  //   //   filterEventsBool : false,
+  //   //   registeredEventsBool : true,
+  //   //   registeredEvents : this.events
+  //   // });
+  // }
 
   render() {
     let eventResult = null;
@@ -113,7 +109,7 @@ class StudentEvents extends Component {
                   <div>
                     <label>Event Search:</label>
                     <br />
-                    <input onChange = {this.eventQueryChangeHandler} type ='text' style={{width:'70%'}} placeholder="Enter Event Name to Search"/>
+                    <input onChange = {this.eventQueryChangeHandler} type ='text' style={{width:'70%'}} placeholder="Enter Event Name to Search"/>&nbsp;&nbsp;
                     <button type='submit'onClick={this.listSearchedEvents}><i className="fa fa-search"></i></button>
                     <br /><br />
                     <button type='submit'onClick={this.registeredEvents}>Registered Events</button>
