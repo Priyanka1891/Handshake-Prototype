@@ -1,6 +1,8 @@
 import {Component} from "react";
 import React from "react";
 import {Redirect} from 'react-router';
+import EmployerNavbar from '../Employer/EmployerNavbar';
+import StudentNavbar from '../Student/StudentNavbar';
 import axios from 'axios';
 import './MessageApp.css';
 import { Button, Card, Col, Row, Form} from "react-bootstrap";
@@ -177,6 +179,7 @@ class ListAllMessages extends Component {
     return (
         <div>
             {redirectVar}
+            {this.props.location.state.isEmployer ? <EmployerNavbar /> : <StudentNavbar/>}
             <div style={{display:'flex'}} >
               <div className="col col-md-offset-2"></div>
 
