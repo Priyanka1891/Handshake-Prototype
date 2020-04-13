@@ -16,6 +16,7 @@ class EmployerNavbar extends Component {
                 <li><Link to="/employerjobs">Jobs</Link></li>
                 <li><Link to="/employerevents">Events</Link></li>
                 <li><Link to="/employersearchstudents">Students</Link></li>
+                <li><Link to="/messages">Messages&nbsp;&nbsp;<span className="glyphicon glyphicon-comment"/></Link></li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li>

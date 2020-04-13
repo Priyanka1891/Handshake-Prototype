@@ -78,6 +78,9 @@ class ListAllMessages extends Component {
 
     if (this.state.messageList[index]) {
         let messages = this.state.messageList[index].messages;
+        messages = messages.sort((msga, msgb) => {
+                    return (msga.timestamp - msgb.timestamp)
+                   })
         messageCards = [];
         for (let i = 0; i < messages.length; i++) {
             var timestamp=(messages[i].timestamp);
@@ -150,7 +153,7 @@ class ListAllMessages extends Component {
         <div style={{height:'80px', width:'200px', background: '#f2f2f2', border: '1px solid grey'}} 
              id = {index} onClick = {this.renderMessage}>
           <tr>
-            <th scope="row" className="text-center">{
+            <th scope="row" className="text-center">{ localStorage.getItem("username")},&nbsp;{
                 (localStorage.getItem("username") === message.usera) ? message.userb : message.usera}:&nbsp;</th>
             <td>{message.messages[message.messages.length -1].content}</td>
           </tr>
