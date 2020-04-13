@@ -22,11 +22,6 @@ class ListEvent extends Component {
       eventId : target.id,
       username : this.props.studentDetails.username
     };
-    // console.log("Here",  (target));
-    // if (target.title.toLowerCase().includes('hardware')) {
-    //   window.alert('Sorry, not eligible to apply for event');
-    //   return;
-    // }
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data "+ JSON.stringify(data));
@@ -40,7 +35,7 @@ class ListEvent extends Component {
   }
 
   listEvents(){
-    // console.log("Inside list event ",this.props.eventDetails);
+    console.log("Inside list event ",this.props.eventDetails);
       const events = this.props.eventDetails.map((event, index) => {
          return ( 
           //  <div key={event._id}>

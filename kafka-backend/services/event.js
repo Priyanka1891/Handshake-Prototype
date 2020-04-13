@@ -58,8 +58,25 @@ function postEvent(msg, callback){
     }); 
 }
 
+function listregisteredstudent(msg,callback){
+  var res = {};
+  console.log('Username is',msg.username);
+  Events.find({'studentsregistered.username' : msg.username}, (error, data) => {
+    if (error) {
+      res.code = 401;
+      res.value=error;
+      callback(null, res);
+    }
+    else {
+      res.code = 200;
+      res.value = data;
+      // console.log("Data here is ",data);
+      callback(null, res);
+    }
+  });
+}
 
-function handle_request(msg, callback){
+  function handle_request(msg, callback){
   console.log("Event Req Body : ", msg);
   if (msg.action == actions.POSTEVENT) {
     postEvent(msg.body, callback);
@@ -67,6 +84,10 @@ function handle_request(msg, callback){
   }
   else if(msg.action == actions.LISTEVENT){
     listEvent(msg.body, callback);
+    return;
+  }
+  else if(msg.action == actions.LISTREGISTEREDSTUDENT){
+    listregisteredstudent(msg.body, callback);
     return;
   }
 }

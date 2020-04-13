@@ -57,34 +57,34 @@ class StudentEvents extends Component {
     });
   }
   
-  // // registeredEvents = (e) => {
-  // //   const data={username : this.props.studentDetails.username}
-  // //   axios.defaults.withCredentials = true;
-  // //   axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-  // //   axios.post('http://localhost:3001/events/listregisterstudentevent',data)
-  // //     .then(response => {
-  // //       console.log("Result event query :", JSON.stringify(response.data))
-  // //       this.setState({
-  // //         allEventsBool : false,
-  // //         filterEventsBool : false,
-  // //         registeredEventsBool : true,
-  // //         regEvents : response.data
-  // //       })
-  //   });
-  //   // console.log("Entered here both values " , this.state.events);
-  //   // for (let idx = 0; idx < this.state.events.length; ++idx) {
-  //   //   if (this.props.studentDetails.username === this.state.events[idx].username) {
-  //   //     regEvents.push(this.state.events[idx]);
-  //   //   }
-  //   // }
-  //   // console.log("username:", this.props.studentDetails.username, " Reg events:", regEvents);
-  //   // this.setState({
-  //   //   allEventsBool : false,
-  //   //   filterEventsBool : false,
-  //   //   registeredEventsBool : true,
-  //   //   registeredEvents : this.events
-  //   // });
-  // }
+  registeredEvents = (e) => {
+    const data={username : this.props.studentDetails.username}//._id
+    axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
+    axios.post('http://localhost:3001/events/listregisteredstudent',data)
+      .then(response => {
+        // console.log("Result event query :", JSON.stringify(response.data))
+        this.setState({
+          allEventsBool : false,
+          filterEventsBool : false,
+          registeredEventsBool : true,
+          regEvents : response.data
+        })
+    });
+    // console.log("Entered here both values " , this.state.events);
+    // for (let idx = 0; idx < this.state.events.length; ++idx) {
+    //   if (this.props.studentDetails.username === this.state.events[idx].username) {
+    //     this.state.regEvents.push(this.state.events[idx]);
+    //   }
+    // }
+    // console.log("username:", this.props.studentDetails.username, " Reg events:", this.state.regEvents);
+    // this.setState({
+    //   allEventsBool : false,
+    //   filterEventsBool : false,
+    //   registeredEventsBool : true,
+    //   registeredEvents : this.events
+    // });
+  }
 
   render() {
     let eventResult = null;
