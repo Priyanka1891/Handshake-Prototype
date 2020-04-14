@@ -74,13 +74,9 @@ class Resume extends Component {
         buttonValue: "View Resume"
       })
     }
-<<<<<<< HEAD
-    this.props.enableapply()
-=======
     if (this.state.currentStudentDetails.editmode) {
       this.props.enableApply()
     }
->>>>>>> view other student profile page
   }
 
   onDocumentLoadSuccess = ({ numPages }) => {
