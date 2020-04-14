@@ -127,9 +127,16 @@ class StudentJobs extends Component {
                   <div>
                     <label>Job Search:</label>
                     <br />
+                    <div display='flex'>
                     <input onChange = {this.queryChangeHandler} 
-                    type ='text' style={{width:'70%'}}type="text" placeholder="Enter Job Title or Company Name to Search"/>
-                    &nbsp;&nbsp;<button type='submit'onClick={this.listJobResults}><i className="fa fa-search"></i></button>
+                      style={{width:'30%'}}type="text" placeholder="Enter Job Title or Company Name to Search"/>&nbsp;
+                      <button type='submit'onClick={this.listJobResults}><i className="fa fa-search"></i></button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <input  
+                      style={{width:'30%'}}type="text" placeholder="Enter city name to filter"/>&nbsp;
+                      <button type='submit'><i className="glyphicon glyphicon-map-marker"></i></button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
                     <br />
                     <br />
                     <i className="glyphicon glyphicon-filter" /><label>Job Type:&nbsp;&nbsp;</label>
@@ -140,12 +147,17 @@ class StudentJobs extends Component {
                       <option value="On Campus">On Campus</option>
                       <option value="Internship">Internship</option>
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <select id="relevance" onChangeCapture = {this.sortChangeHandler} value={this.state.sortedBy}>
-                      <option>Sort By:</option>
+                    <select id="ascdesc">
+                      <option> Sort By: </option>
+                      <option value="location">Ascending</option>
+                      <option value="createdate">Descending</option>
+                    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                    <select  id="relevance" onChangeCapture = {this.sortChangeHandler} value={this.state.sortedBy}>
+                      <option> Choose Value: </option>
                       <option value="location">Location</option>
                       <option value="createdate">Posting Date</option>
                       <option value="enddate">Deadline</option>
-                    </select>
+                    </select>                   
                     <br />
                     <br />
                     {resultPage}

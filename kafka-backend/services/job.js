@@ -14,7 +14,7 @@ function listJob(msg, callback) {
   }
   Jobs.find(  query , (error, data) => {
     if (error) {
-      res.code = 401;
+      res.code = 500;
       res.value=error;
       callback(null, res);
     }
@@ -41,7 +41,7 @@ function studentSearch(msg, callback) {
   }
   Users.find(query, (error, data) => {
     if (error) {
-      res.code = 401;
+      res.code = 500;
       res.value=error;    
       callback(null, res);
     }
@@ -70,7 +70,7 @@ function postJob(msg, callback) {
   
   newJob.save((error, data) => {
     if (error) {
-      res.code = 401;
+      res.code = 500;
       res.value=error;
       callback(null, res);
     }
@@ -91,19 +91,38 @@ var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 var yyyy = today.getFullYear();
 
 today = mm + '/' + dd + '/' + yyyy;
-console.log("date is",today);
-  Jobs.updateOne({ _id : msg.jobId}, {$addToSet : {'studentsapplied.username': msg.username}} ,(error,data) => {
-    if (error) {
-      res.code = 401;
+var studentdetail = {};
+studentdetail.username = msg.username;
+studentdetail.applicationdate = today;
+// studentdetail.
+  // Jobs.find({'studentsapplied.username': msg.username},(error,data) => {
+Jobs.findById({ _id : msg.jobId },(error,data) => {
+    // console.log("data fetched is",data);
+    if (error){
+      res.code = 500;
       res.value=error;
       callback(null, res);
     }
-    else {
-      res.code = 200;
-      res.value = "Job applied successfully";
-      callback(null, res);
+    for(let idx=0;idx<data.studentsapplied.length;idx++){
+      if (data.studentsapplied[idx].username === msg.username){
+        // console.log("Should reach here");
+        res.code = 200;
+        res.value = "Already applied";
+        callback(null, res);}
     }
-  }); 
+      Jobs.updateOne({ _id : msg.jobId}, {$addToSet : {studentsapplied: studentdetail}} ,(error,data) => {
+        if (error) {
+          res.code = 500;
+          res.value=error;
+          callback(null, res);
+        }
+        else{
+          res.code = 200;
+          res.value = "Job applied successfully";
+          callback(null, res);
+        }
+    });
+  });
 }
 
 

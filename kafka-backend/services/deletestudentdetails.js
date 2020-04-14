@@ -5,7 +5,7 @@ function deleteExperience(data,callback){
     var res = {};
       Users.updateOne({}, {$pull : {studentExperience : {_id : data.index}}} ,(error,data) => {
         if (error) {
-          res.code = 401;
+          res.code = 500;
           res.value=error;
           callback(null, res);
         }
@@ -21,7 +21,7 @@ function deleteEducation(data,callback){
   var res = {};
     Users.updateOne({}, {$pull : {studentEducation : {_id : data.index}}} ,(error,data) => {
       if (error) {
-        res.code = 401;
+        res.code = 500;
         res.value=error;
         callback(null, res);
       }

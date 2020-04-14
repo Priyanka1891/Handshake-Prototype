@@ -12,7 +12,7 @@ function listEvent(msg, callback) {
   }
   Events.find(query, (error, data) => {
     if (error) {
-      res.code = 401;
+      res.code = 500;
       res.value=error;
       callback(null, res);
     }
@@ -43,7 +43,7 @@ function postEvent(msg, callback){
     
     newEvent.save((error, data) => {
       if (error) {
-        res.code = 401;
+        res.code = 500;
         res.value=error;
         callback(null, res);
       }
@@ -60,7 +60,7 @@ function listregisteredstudent(msg,callback){
   console.log('Username is',msg.username);
   Events.find({'studentsregistered.username' : msg.username}, (error, data) => {
     if (error) {
-      res.code = 401;
+      res.code = 500;
       res.value=error;
       callback(null, res);
     }

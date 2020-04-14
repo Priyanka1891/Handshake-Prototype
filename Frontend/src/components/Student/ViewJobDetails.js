@@ -33,7 +33,7 @@ class ViewJobDetails extends Component {
     e.preventDefault();
     const data = {
       jobId : this.props.location.state._id,
-      username : this.props.studentDetails.username
+      username : this.props.studentDetails.username,
     };
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
@@ -42,7 +42,7 @@ class ViewJobDetails extends Component {
       .then(response => {
         console.log("Entered inside axios post req");
         if(response.data){
-          window.alert("Job applied successfully");
+          window.alert(response.data);
         }
     });
   }
@@ -83,7 +83,7 @@ class ViewJobDetails extends Component {
             {this.state.enableapply ?
               <button type="button" onClick={this.applyJob}className="btn btn-success">Apply</button>
               :
-              <button type="button" className="btn btn-success" disabled>Apply</button>
+              <button type="button" className="btn btn-success" disabled>Submit</button>
             }
             <button type="button"onClick={this.cancelJob}className="btn btn-danger">Cancel</button>  
             <button type="button" onClick={this.uploadResume}className="btn btn-warning">Upload Resume</button>      
