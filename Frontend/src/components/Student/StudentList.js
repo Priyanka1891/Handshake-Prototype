@@ -24,17 +24,17 @@ class StudentList extends Component {
       studentQuery : e.target.value
     })
   }
-  componentWillMount=()=>{
-    axios.defaults.withCredentials = true;
-    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-    axios.post('http://localhost:3001/jobs/studentsearch', {})
-    .then(response => {
-      this.setState({
-        studentList : response.data
-      })
-  })
+  // componentWillMount=()=>{
+  //   axios.defaults.withCredentials = true;
+  //   axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
+  //   axios.post('http://localhost:3001/jobs/studentsearch', {})
+  //   .then(response => {
+  //     this.setState({
+  //       studentList : response.data
+  //     })
+  // })
 
-  }
+  // }
 
   majorChangeHandler = (e) => {
     let filteredStudentList=[];

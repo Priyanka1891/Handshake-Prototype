@@ -32,7 +32,6 @@ var usersSchema = new Schema({
     companyname : {type: String, required: false},
     companylocation : {type: String, required: false},
     title : {type: String, required: false},
-    companylocation : {type: String, required: false},
     startdate : {type: String, required: false},
     enddate : {type: String, required: false},
     jobdetails : {type: String, required: false},

@@ -4,11 +4,14 @@ import axios from 'axios';
 import JobResultPage from './JobResultPage';
 
 const initialState={
-  jobQuery : null,
+  searchQuery : "",
+  locationQuery : "",
   initialJobList : null,
-  jobList : null,
+  jobList : [],
+  isAscending : true,
   jobType : null,
-  sortedBy : null,
+  sortvalue : true,
+  sortorder : ""
 }
 
 class StudentJobs extends Component {
@@ -18,30 +21,43 @@ class StudentJobs extends Component {
     this.state = initialState;
     this.listJobResults = this.listJobResults.bind(this);
     this.jobTypeChangeHandler = this.jobTypeChangeHandler.bind(this);
-    this.sortChangeHandler = this.sortChangeHandler.bind(this);
+    this.sortValueChangeHandler = this.sortValueChangeHandler.bind(this);
+    this.sortOrderChangeHandler = this.sortOrderChangeHandler.bind(this);
+    this.locationChangeHandler = this.locationChangeHandler.bind(this);
+    this.queryChangeHandler = this.queryChangeHandler.bind(this);
+    this.textInputLocation = React.createRef(null);
+    this.textInputSearch = React.createRef(null);
   }
 
-  componentWillMount() {
-    const data = {
-    };
-    axios.defaults.withCredentials = true;
-    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-    console.log("Sending Data " + JSON.stringify(data));
-    axios.post('http://localhost:3001/jobs/jobsearch',data)
-      .then(response => {
-        this.setState({
-          initialJobList : response.data,
-          jobList : response.data
-        })
-    });
-  }
+  // componentWillMount() {
+  //   const data = {
+  //   };
+  //   axios.defaults.withCredentials = true;
+  //   axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
+  //   console.log("Sending Data " + JSON.stringify(data));
+  //   axios.post('http://localhost:3001/jobs/jobsearch',data)
+  //     .then(response => {
+  //       this.setState({
+  //         initialJobList : response.data,
+  //         jobList : response.data
+  //       })
+  //   });
+  // }
 
   queryChangeHandler = (e) => {
     e.preventDefault();
     this.setState({
-      jobQuery : e.target.value
+      searchQuery : e.target.value
     })
   }
+  locationChangeHandler = (e) => {
+    e.preventDefault();
+    this.setState({
+      locationQuery : e.target.value
+    })
+    // console.log("Searched value is",this.state.searchQuery);
+  }
+
 
   jobTypeChangeHandler = (e) => {
     e.preventDefault();
@@ -64,37 +80,101 @@ class StudentJobs extends Component {
     });
   }
 
-  sortChangeHandler = (e) => {
+  sortOrderChangeHandler = (e) => {
+    e.preventDefault();
+    var isAscending = (e.target.value==="Ascending");
+
+    let sortedJobList = this.state.jobList;
+    if (this.state.sortvalue === "createdate") {
+      sortedJobList = this.state.jobList.sort((a,b) => {
+          var _a = new Date(a.createdate);
+          var _b = new Date(b.createdate);
+          return (isAscending? (_a.getTime() - _b.getTime()):(_b.getTime() - _a.getTime()));
+        });
+    }
+    else if (this.state.sortvalue === "enddate") {
+      sortedJobList = this.state.jobList.sort((a,b) => {
+        var _a = new Date(a.enddate);
+        var _b = new Date(b.enddate);
+        return (isAscending? (_a.getTime() - _b.getTime()):(_b.getTime() - _a.getTime()));
+      });
+    }
+    else if (this.state.sortvalue === "location") {
+      if(!isAscending){
+        sortedJobList = this.state.jobList.sort((a, b) => b.location.localeCompare(a.location));
+      } else {
+        sortedJobList = this.state.jobList.sort((a, b) => a.location.localeCompare(b.location));
+      }
+    }
+
+    this.setState({
+      isAscending : isAscending,
+      jobList : sortedJobList,
+      sortorder : e.target.value
+    });
+
+  }
+
+
+  sortValueChangeHandler = (e) => {
     e.preventDefault();
     let sortedJobList = this.state.jobList;
     if (e.target.value === "createdate") {
       sortedJobList = this.state.jobList.sort((a,b) => {
           var _a = new Date(a.createdate);
           var _b = new Date(b.createdate);
-          return _a.getTime() - _b.getTime();
+          return (this.state.isAscending? (_a.getTime() - _b.getTime()):(_b.getTime() - _a.getTime()));
         });
     }
     else if (e.target.value === "enddate") {
       sortedJobList = this.state.jobList.sort((a,b) => {
         var _a = new Date(a.enddate);
         var _b = new Date(b.enddate);
-        return _a.getTime() - _b.getTime();
+        return (this.state.isAscending? (_a.getTime() - _b.getTime()):(_b.getTime() - _a.getTime()));
       });
     }
     else if (e.target.value === "location") {
-      sortedJobList = this.state.jobList.sort((a, b) => a.location.localeCompare(b.location))
+      if(!this.state.isAscending){
+        sortedJobList = this.state.jobList.sort((a, b) => b.location.localeCompare(a.location));
+      } else {
+        sortedJobList = this.state.jobList.sort((a, b) => a.location.localeCompare(b.location));
+      }
     }
 
     this.setState({
-      sortedBy : e.target.value,
+      sortvalue : e.target.value,
       jobList : sortedJobList
     });
+  }
+
+  locationfilter = (e) =>{
+    e.preventDefault();
+    let locationquery =this.state.locationQuery;
+
+    let filteredJobList=[];
+    if (locationquery === "") {
+      this.setState({
+        jobList : this.state.initialJobList
+      });
+      return;
+    }
+    for(let i=0;i < this.state.initialJobList.length;i++){
+      if(this.state.initialJobList[i].location.toLowerCase().includes(locationquery.toLowerCase())){
+        filteredJobList.push(this.state.initialJobList[i]);
+      }
+    }
+    // console.log("now here",filteredJobList);
+    this.setState({
+      locationQuery : locationquery,
+      jobList : filteredJobList
+    });
+    this.textInputLocation.current.value="";
   }
 
   listJobResults = (e) => {
     e.preventDefault();
     const data = {
-      jobQuery:this.state.jobQuery,
+      jobQuery:this.state.searchQuery,
     };
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
@@ -106,12 +186,13 @@ class StudentJobs extends Component {
           jobList : response.data
         });
     });
+    this.textInputSearch.current.value="";
   }
   
   render() {
     let resultPage = null;
     if (this.state.jobList) {
-      resultPage = (<JobResultPage jobDetails = {this.state.jobList} refresh={this.state.sortedBy + this.state.jobType}></JobResultPage>)
+      resultPage = (<JobResultPage jobDetails = {this.state.jobList} refresh={this.state.sortvalue + this.state.sortorder + this.state.jobType + this.state.locationQuery}></JobResultPage>)
     }
     return(
       <React.Fragment>
@@ -128,13 +209,13 @@ class StudentJobs extends Component {
                     <label>Job Search:</label>
                     <br />
                     <div display='flex'>
-                    <input onChange = {this.queryChangeHandler} 
+                    <input onChange = {this.queryChangeHandler} ref={this.textInputSearch}
                       style={{width:'30%'}}type="text" placeholder="Enter Job Title or Company Name to Search"/>&nbsp;
                       <button type='submit'onClick={this.listJobResults}><i className="fa fa-search"></i></button>
                       &nbsp;&nbsp;&nbsp;&nbsp;
-                      <input  
+                      <input  onChange = {this.locationChangeHandler} ref={this.textInputLocation}
                       style={{width:'30%'}}type="text" placeholder="Enter city name to filter"/>&nbsp;
-                      <button type='submit'><i className="glyphicon glyphicon-map-marker"></i></button>
+                      <button type='submit'onClick={this.locationfilter}><i className="fa fa-search"></i></button>
                       &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <br />
@@ -147,12 +228,12 @@ class StudentJobs extends Component {
                       <option value="On Campus">On Campus</option>
                       <option value="Internship">Internship</option>
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <select id="ascdesc">
+                    <select id="sortorder" onChangeCapture = {this.sortOrderChangeHandler} value={this.state.sortorder}>
                       <option> Sort By: </option>
-                      <option value="location">Ascending</option>
-                      <option value="createdate">Descending</option>
+                      <option value="Ascending">Ascending</option>
+                      <option value="Descending">Descending</option>
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                    <select  id="relevance" onChangeCapture = {this.sortChangeHandler} value={this.state.sortedBy}>
+                    <select  id="sortvalue" onChangeCapture = {this.sortValueChangeHandler} value={this.state.sortvalue}>
                       <option> Choose Value: </option>
                       <option value="location">Location</option>
                       <option value="createdate">Posting Date</option>

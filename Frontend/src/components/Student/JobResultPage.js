@@ -36,7 +36,13 @@ class JobResultPage extends Component {
             <React.Fragment>
               {/* <div key={job._id}/> */}
                   <tr >
-                    <th scope="row">{job.title}</th>
+                    <th className="text-center" scope="row">{job.title}</th>
+                    <td >{job.location}</td>
+                    <td >{job.createdate}</td>
+                    <td >{job.enddate}</td>
+                    <td >{job.salary}</td>
+                    <td >{job.type}</td>
+                    <td >{job.createdby}</td>
                     <td><button type="submit" value={job._id} onClick={this.applyJobs}>View</button></td>
                   </tr>
             </React.Fragment>
@@ -49,22 +55,32 @@ class JobResultPage extends Component {
     let redirectVar = null;
     if (this.state.viewJob) {
       redirectVar = <Redirect to={{pathname : '/viewjobdetails',state: this.state.viewJob} }/>
-    }    
+    }  console.log(this.props.jobDetails);  
     return(
       <React.Fragment>
         {redirectVar}
-        <div><h2 style={{align:'center'}}>Here are few jobs for you</h2></div>
-        <br />
-        <table className="table table-borderless table-hover">
-         <thead >
-          <tr>
-            <th>Job Title</th>
-          </tr>
-          </thead>
-          <tbody>
-            {this.searchedJobs()}
-          </tbody>
-        </table>
+        {
+          this.props.jobDetails.length?<div>
+          <h2 style={{align:'center'}}>Here are few jobs for you</h2>
+          <br />
+          <table className="table table-borderless table-hover">
+            <thead >
+              <tr>
+                <td className="text-center">Job Title</td>
+                <td className="text-center">Location</td>
+                <td className="text-center">Create Date</td>
+                <td className="text-center">End Date</td>
+                <td className="text-center">Salary</td>
+                <td className="text-center">Type</td>
+                <td className="text-center">Company Name</td>
+              </tr>
+            </thead>
+            <tbody>
+              {this.searchedJobs()}
+            </tbody>
+          </table>
+          </div>:<div></div>
+        }
       </React.Fragment> 
     )
   }    
