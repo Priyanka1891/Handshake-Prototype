@@ -26,7 +26,6 @@ class StudentProfilePage extends Component {
     this.state = initialState;
     this.state.currentStudentDetails =
       this.props.otherStudentDetails ? this.props.otherStudentDetails : this.props.studentDetails;
-    console.log(this.state.currentStudentDetails, this.props.studentDetails)
   }
 
   enableApply = ()=> {
@@ -106,7 +105,7 @@ class StudentProfilePage extends Component {
       {redirectVar}
         <br />          
         {this.state.currentStudentDetails.editmode ? (<StudentNavbar />) : 
-          (this.props.otherStudentDetails ? <StudentNavbar/> : <EmployerNavbar />)}
+          ((this.props.otherStudentDetails || this.props.studentDetails.username === localStorage.getItem('username')) ? <StudentNavbar/> : <EmployerNavbar />)}
         <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js" />
         <script src="http://code.jquery.com/jquery-1.11.1.min.js" />

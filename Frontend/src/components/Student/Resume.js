@@ -18,7 +18,6 @@ class Resume extends Component {
       }
       this.state.currentStudentDetails =
         this.props.otherStudentDetails ? this.props.otherStudentDetails : this.props.studentDetails;
-      console.log("HERE RESUME ", this.state.currentStudentDetails,  this.props.otherStudentDetails)  
   }
   onChangeHandler = (e) => {
     let file = e.target.files[0];
@@ -55,7 +54,9 @@ class Resume extends Component {
         if (response.data.code===200) {
           this.dispatch(studentDetails).then((result) => {});
           window.alert("Resume uploaded successfully");
-          this.props.enableapply()
+          if (this.state.currentStudentDetails.editmode) {
+            this.props.enableApply()
+          }
         } else {
           window.alert("Resume upload failed");
         }
