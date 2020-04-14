@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router';
 
 const initialState={
-  editDetails : false
+  editDetails : false,
+  currentStudentDetails : null
 }
 
 class Details extends Component{
@@ -11,12 +12,14 @@ class Details extends Component{
   constructor(props) {
     super(props);
     this.state = initialState;
+    this.state.currentStudentDetails =
+      this.props.otherStudentDetails ? this.props.otherStudentDetails : this.props.studentDetails;
   }
 
   editStudentDetails = (e) =>{
     this.setState({
       editDetails : true
-    })
+    });
   }
 
   render(){
@@ -31,37 +34,37 @@ class Details extends Component{
           <br />
                 <h2>Profile Overview
                 {/* <ul class="nav navbar-nav navbar-right"> */}
-                  &nbsp;&nbsp;{this.props.studentDetails.editmode?(<button onClick={this.editStudentDetails} type="button" className="btn btn-default btn-sm">
+                  &nbsp;&nbsp;{this.state.currentStudentDetails.editmode?(<button onClick={this.editStudentDetails} type="button" className="btn btn-default btn-sm">
                   <span className="glyphicon glyphicon-pencil"></span>
                   </button>):(<div></div>)} 
                 </h2> 
                 {/* </ul> */}
-                <label>Name : &nbsp;{this.props.studentDetails.basicDetails ?
-                this.props.studentDetails.basicDetails.name : null}</label>
+                <label>Name : &nbsp;{this.state.currentStudentDetails.basicDetails ?
+                this.state.currentStudentDetails.basicDetails.name : null}</label>
                 <br />
-                <label>Date Of Birth :&nbsp;{this.props.studentDetails.basicDetails ?
-                  this.props.studentDetails.basicDetails.dob : null}</label>
+                <label>Date Of Birth :&nbsp;{this.state.currentStudentDetails.basicDetails ?
+                  this.state.currentStudentDetails.basicDetails.dob : null}</label>
                 <br />
-                <label>City :&nbsp;{this.props.studentDetails.basicDetails ?
-                this.props.studentDetails.basicDetails.city : null}</label>
+                <label>City :&nbsp;{this.state.currentStudentDetails.basicDetails ?
+                this.state.currentStudentDetails.basicDetails.city : null}</label>
                 <br />
-                <label>State :&nbsp;{this.props.studentDetails.basicDetails ?
-                this.props.studentDetails.basicDetails.state : null }</label>
+                <label>State :&nbsp;{this.state.currentStudentDetails.basicDetails ?
+                this.state.currentStudentDetails.basicDetails.state : null }</label>
                 <br />
-                <label>Country :&nbsp;{this.props.studentDetails.basicDetails ?
-                this.props.studentDetails.basicDetails.country : null}</label>
+                <label>Country :&nbsp;{this.state.currentStudentDetails.basicDetails ?
+                this.state.currentStudentDetails.basicDetails.country : null}</label>
                 <br/>
-                <label>Contact No :&nbsp;{this.props.studentDetails.basicDetails ?
-                this.props.studentDetails.basicDetails.contactno : null}</label>
+                <label>Contact No :&nbsp;{this.state.currentStudentDetails.basicDetails ?
+                this.state.currentStudentDetails.basicDetails.contactno : null}</label>
                 <br/>
-                <label>Email:&nbsp;{this.props.studentDetails.email ?
-                this.props.studentDetails.email : null}</label>
+                <label>Email:&nbsp;{this.state.currentStudentDetails.email ?
+                this.state.currentStudentDetails.email : null}</label>
                 <br/>
-                <label>Skills :&nbsp;{this.props.studentDetails.basicDetails?
-                this.props.studentDetails.basicDetails.skills : null}</label>
+                <label>Skills :&nbsp;{this.state.currentStudentDetails.basicDetails?
+                this.state.currentStudentDetails.basicDetails.skills : null}</label>
                 <br/>
-                <label>Objective :&nbsp;{this.props.studentDetails.basicDetails ?
-                this.props.studentDetails.basicDetails.objective : null}</label>
+                <label>Objective :&nbsp;{this.state.currentStudentDetails.basicDetails ?
+                this.state.currentStudentDetails.basicDetails.objective : null}</label>
                 {/* <br /> */}
         </div>
         ) 
@@ -70,7 +73,8 @@ class Details extends Component{
 
 function mapStateToProps(state) {
   return {
-    studentDetails : state.studentDetails
+    studentDetails : state.studentDetails,
+    otherStudentDetails : state.otherStudentDetails
   }
 }
 

@@ -59,7 +59,9 @@ class MessageApp extends Component {
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     var data = {
-     participants : [this.props.studentDetails.username , this.props.employerDetails.username],
+     participants : [this.props.studentDetails.username ,
+                     (this.props.otherStudentDetails ?  this.props.otherStudentDetails.username :
+                      this.props.employerDetails.username)],
      messages : this.state.backendmsgs
     }
     console.log("Sending Data " + JSON.stringify(data));
@@ -98,7 +100,8 @@ class MessageApp extends Component {
 function mapStateToProps(state) {
   return {
     employerDetails : state.employerDetails,
-    studentDetails : state.studentDetails
+    studentDetails : state.studentDetails,
+    otherStudentDetails : state.otherStudentDetails
   }
 }
 

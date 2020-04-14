@@ -15,7 +15,8 @@ const initialState={
   addEducation : false,
   addExperience : false,
   openMessageBox : false,
-  reRender : false
+  reRender : false,
+  currentStudentDetail : null
 }
 var inputFile = createRef(null) 
 
@@ -23,6 +24,13 @@ class StudentProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
+    this.state.currentStudentDetails =
+      this.props.otherStudentDetails ? this.props.otherStudentDetails : this.props.studentDetails;
+    console.log(this.state.currentStudentDetails, this.props.studentDetails)
+  }
+
+  enableApply = ()=> {
+    console.log("Dummy Enable Apply")
   }
 
   imageButtonHandler = (e)=> {
@@ -85,7 +93,6 @@ class StudentProfilePage extends Component {
   }
 
 
-
   render() {
     let redirectVar = null;
     if (this.state.addEducation) {
@@ -94,12 +101,12 @@ class StudentProfilePage extends Component {
     if (this.state.addExperience) {
       redirectVar = <Redirect to='/addexperience' />
     }
-    // console.log("Here ", this.props.studentDetails);
     return(
       <React.Fragment>
       {redirectVar}
-        <br />              
-        {this.props.studentDetails.editmode ? (<StudentNavbar />) : (<EmployerNavbar />)}
+        <br />          
+        {this.state.currentStudentDetails.editmode ? (<StudentNavbar />) : 
+          (this.props.otherStudentDetails ? <StudentNavbar/> : <EmployerNavbar />)}
         <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js" />
         <script src="http://code.jquery.com/jquery-1.11.1.min.js" />
@@ -109,27 +116,27 @@ class StudentProfilePage extends Component {
             <div className="col-md-3">
               <div className="profile-sidebar">
                 <div className="profile-userpic">
-                  {this.props.studentDetails.image ?
-                    <img src={this.props.studentDetails.image} className="img-responsive" alt="" /> :
+                  {this.state.currentStudentDetails.image ?
+                    <img src={this.state.currentStudentDetails.image} className="img-responsive" alt="" /> :
                     <img src="https://static.change.org/profile-img/default-user-profile.svg" className="img-responsive" alt="" />
                   } 
                 </div> 
                 <div className="profile-userbuttons">
                   <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={this.imageChangeHandler}/>
-                  {this.props.studentDetails.editmode?(<button onClick={this.imageButtonHandler} type="button" className="glyphicon glyphicon-camera btn btn-info">
+                  {this.state.currentStudentDetails.editmode?(<button onClick={this.imageButtonHandler} type="button" className="glyphicon glyphicon-camera btn btn-info">
                   </button>):(<div></div>)}
                 </div>
                 <div className="profile-usertitle">
                   <div className="profile-usertitle-name">
-                    Welcome&nbsp;{this.props.studentDetails.username}
+                    Welcome&nbsp;{this.state.currentStudentDetails.username}
                   </div>
                   <div className="profile-usertitle-job">
-                  {this.props.studentDetails.studentExperience.length ? 
-                    this.props.studentDetails.studentExperience[this.props.studentDetails.studentExperience.length-1].title : null}
+                  {this.state.currentStudentDetails.studentExperience.length ? 
+                    this.state.currentStudentDetails.studentExperience[this.state.currentStudentDetails.studentExperience.length-1].title : null}
                   </div>
                 </div>
                 <div className="profile-userbuttons">
-                  {this.props.studentDetails.editmode ? <div/> : <button type="button" className="btn btn-primary btn-lg" onClick = {this.openMessageBox} >Message</button> }
+                  {this.state.currentStudentDetails.editmode ? <div/> : <button type="button" className="btn btn-primary btn-lg" onClick = {this.openMessageBox} >Message</button> }
                 </div>
                 <div className="profile-usermenu">
                   <ul className="nav">
@@ -157,7 +164,7 @@ class StudentProfilePage extends Component {
                     <li>
                       <a href="#Resume">
                         <i className="glyphicon glyphicon-file" />
-                        {this.props.studentDetails.editmode ? "Upload Resume" : "View Resume"}
+                        {this.state.currentStudentDetails.editmode ? "Upload Resume" : "View Resume"}
                         {' '}
                       </a>
                     </li>
@@ -170,27 +177,27 @@ class StudentProfilePage extends Component {
               <div className="col-md-offset-4">
                 <div id='Details'><Details /></div>
                 <h2  id='Education'>Education Overview&nbsp;&nbsp;
-                {this.props.studentDetails.editmode ?
+                {this.state.currentStudentDetails.editmode ?
                  <button type="button" onClick = {this.addStudentEducation} className="btn btn-default btn-sm"><span className="glyphicon glyphicon-plus-sign"></span></button> : <div/>}</h2>
                 <div>
                   {
-                    this.props.studentDetails.studentEducation.map((education,index) => (
-                      <div><Education index={this.props.studentDetails.studentEducation.length - 1 - index} /></div>
+                    this.state.currentStudentDetails.studentEducation.map((education,index) => (
+                      <div><Education index={this.state.currentStudentDetails.studentEducation.length - 1 - index} /></div>
                     ))
                   }
                 </div>
                 <h2 id='Experience'>Experience Overview&nbsp;&nbsp;
-                {this.props.studentDetails.editmode ? 
+                {this.state.currentStudentDetails.editmode ? 
                   <button type="button" onClick = {this.addStudentExperience} className="btn btn-default btn-sm"><span className="glyphicon glyphicon-plus-sign"></span></button> :<div/>}</h2>
                   <div>
                   {
-                    this.props.studentDetails.studentExperience.map((experience,index) => (
-                      <div><Experience index={this.props.studentDetails.studentExperience.length - 1 - index} /></div>
+                    this.state.currentStudentDetails.studentExperience.map((experience,index) => (
+                      <div><Experience index={this.state.currentStudentDetails.studentExperience.length - 1 - index} /></div>
                     ))
                   }
                 </div>
                 <br/>
-                <div id="Resume"><Resume /></div></div> 
+                <div id="Resume"><Resume enableApply = {this.enableApply}/></div></div> 
                 <div className="col-md-offset-5">
                   {this.state.openMessageBox ? <div style={{"height" : "40%", "width" : "40%"}}><MessageApp closeMessageBox = {this.closeMessageBox}/> </div> : <div/> }
                 </div>
@@ -207,7 +214,8 @@ class StudentProfilePage extends Component {
 
 function mapStateToProps(state) {
   return {
-    studentDetails : state.studentDetails
+    studentDetails : state.studentDetails,
+    otherStudentDetails : state.otherStudentDetails
   }
 }
 

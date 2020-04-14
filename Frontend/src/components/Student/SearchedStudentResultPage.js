@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 // import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
-import { fillBothDetails } from "../../common_store/actions/index";
+import { fillOtherStudentDetails } from "../../common_store/actions/index";
 
 const initialState={
   // listStudentsRegistered : null,
@@ -38,11 +38,9 @@ class SearchedStudentResultPage extends Component {
       .then(response=>{
         console.log("Entered inside axios post req", response);
         if(response.data.details){
-          const newStudentDetails={...response.data.details,
-              editmode : false
-          }
-          const bothDetails = {studentDetails : newStudentDetails, employerDetails : this.props.employerDetails};
-          this.props.fillBothDetails(bothDetails);
+          const bothDetails = {studentDetails : this.props.studentDetails , 
+                               otherStudentDetails : response.data.details};
+          this.props.fillOtherStudentDetails(bothDetails);
         }
       })
   }
@@ -69,8 +67,8 @@ class SearchedStudentResultPage extends Component {
  
   render() {
     let redirectVar = null;
-    if (this.props.studentDetails) {
-      // redirectVar = <Redirect to = '/studentprofilepage' />//Check to filtr others profile
+    if (this.props.otherStudentDetails) {
+      redirectVar = <Redirect to = '/studentprofilepage'/>
     }
     return(
       <React.Fragment>
@@ -86,14 +84,14 @@ class SearchedStudentResultPage extends Component {
 
 function mapStateToProps(state) {
   return {
-    employerDetails : state.employerDetails,
-    studentDetails : state.studentDetails
+    studentDetails : state.studentDetails,
+    otherStudentDetails : state.otherStudentDetails
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fillBothDetails : (details) => dispatch(fillBothDetails(details))
+    fillOtherStudentDetails : (details) => dispatch(fillOtherStudentDetails(details))
   }
 }
 

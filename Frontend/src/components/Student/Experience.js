@@ -6,17 +6,23 @@ import { fillStudentDetails } from "../../common_store/actions/index";
 
 const initialState={
   editExperienceDetails : false,
-  detailsSubmitted : false
+  detailsSubmitted : false,
+  currentStudentDetails : null
 }
 
 class Experience extends Component{
   constructor(props) {
     super(props);
     this.state = initialState;
+    this.state.currentStudentDetails =
+      this.props.otherStudentDetails ? this.props.otherStudentDetails : this.props.studentDetails;
   }
 
   dispatch = async (state) => {
-    await this.props.fillStudentDetails(state)
+    await this.props.fillStudentDetails(state);
+    this.setState({
+      currentStudentDetails : this.props.studentDetails
+    });
     return this.props.studentDetails;
   }
 
@@ -29,9 +35,9 @@ class Experience extends Component{
 
   deleteStudentDetails = (e) =>{
     e.preventDefault();
-        const data = {index : this.props.studentDetails.studentExperience[this.props.index]._id,
+        const data = {index : this.state.currentStudentDetails.studentExperience[this.props.index]._id,
                   delete_experience_details : true}
-    var studentDetails=this.props.studentDetails;
+    var studentDetails=this.state.currentStudentDetails;
     studentDetails.studentExperience.splice(this.props.index,1);
     // console.log("Data being sent is ",data);
     axios.defaults.withCredentials = true;
@@ -59,23 +65,23 @@ class Experience extends Component{
       return(
         <React.Fragment>
         {redirectVar}
-        {this.props.studentDetails.editmode?(<button type="button" onClick={this.editStudentDetails} className="btn btn-default btn-sm"><span className="glyphicon glyphicon-pencil"></span>
+        {this.state.currentStudentDetails.editmode?(<button type="button" onClick={this.editStudentDetails} className="btn btn-default btn-sm"><span className="glyphicon glyphicon-pencil"></span>
                   </button>) :(<div></div>)} 
-                  &nbsp;&nbsp;{this.props.studentDetails.editmode?(<button type="button" onClick={this.deleteStudentDetails} className="btn btn-default btn-sm">
+                  &nbsp;&nbsp;{this.state.currentStudentDetails.editmode?(<button type="button" onClick={this.deleteStudentDetails} className="btn btn-default btn-sm">
                   <span className="glyphicon glyphicon-trash"></span>
                   </button>):(<div></div>)} 
                   <br />
-                  <label>Company Name :&nbsp;{this.props.studentDetails.studentExperience.length?this.props.studentDetails.studentExperience[this.props.index].companyname:null}</label>
+                  <label>Company Name :&nbsp;{this.state.currentStudentDetails.studentExperience.length?this.state.currentStudentDetails.studentExperience[this.props.index].companyname:null}</label>
                   <br />
-                  <label>Job Title :&nbsp;{this.props.studentDetails.studentExperience.length?this.props.studentDetails.studentExperience[this.props.index].title:null}</label>
+                  <label>Job Title :&nbsp;{this.state.currentStudentDetails.studentExperience.length?this.state.currentStudentDetails.studentExperience[this.props.index].title:null}</label>
                   <br />
-                  <label>Company Location :&nbsp;{this.props.studentDetails.studentExperience.length?this.props.studentDetails.studentExperience[this.props.index].companylocation:null}</label>
+                  <label>Company Location :&nbsp;{this.state.currentStudentDetails.studentExperience.length?this.state.currentStudentDetails.studentExperience[this.props.index].companylocation:null}</label>
                   <br />
-                  <label>Start Date :&nbsp;{this.props.studentDetails.studentExperience.length?this.props.studentDetails.studentExperience[this.props.index].startdate:null}</label>
+                  <label>Start Date :&nbsp;{this.state.currentStudentDetails.studentExperience.length?this.state.currentStudentDetails.studentExperience[this.props.index].startdate:null}</label>
                   &nbsp;&nbsp;
-                  <label>End Date :&nbsp;{this.props.studentDetails.studentExperience.length?this.props.studentDetails.studentExperience[this.props.index].enddate:null}</label>
+                  <label>End Date :&nbsp;{this.state.currentStudentDetails.studentExperience.length?this.state.currentStudentDetails.studentExperience[this.props.index].enddate:null}</label>
                   <br />
-                  <label>Job Details :&nbsp;{this.props.studentDetails.studentExperience.length?this.props.studentDetails.studentExperience[this.props.index].jobdetails:null}</label>
+                  <label>Job Details :&nbsp;{this.state.currentStudentDetails.studentExperience.length?this.state.currentStudentDetails.studentExperience[this.props.index].jobdetails:null}</label>
         </React.Fragment>
         )
     }
@@ -83,7 +89,8 @@ class Experience extends Component{
 
 function mapStateToProps(state) {
   return {
-    studentDetails : state.studentDetails
+    studentDetails : state.studentDetails,
+    otherStudentDetails : state.otherStudentDetails
   }
 }
 

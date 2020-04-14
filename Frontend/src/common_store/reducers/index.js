@@ -2,7 +2,8 @@ import * as constants from "../constants/action-types";
 
 const initialState = {
   employerDetails : null,
-  studentDetails : null
+  studentDetails : null,
+  otherStudentDetails : null
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -14,6 +15,8 @@ const rootReducer = (state = initialState, action) => {
       return {employerDetails : action.payload}
     case constants.FILL_BOTH_DETAILS:
       return {studentDetails : action.payload.studentDetails, employerDetails : action.payload.employerDetails}
+    case constants.FILL_OTHER_STUDENT_DETAILS:
+      return {studentDetails : action.payload.studentDetails, otherStudentDetails : action.payload.otherStudentDetails}
     default:
       return state;
   }

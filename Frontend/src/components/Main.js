@@ -48,7 +48,6 @@ class Main extends Component {
         <Route path='/studentlist' component={StudentList} />
         <Route path='/viewjobdetails' component={ViewJobDetails} />
 
-
         {/* Employer pages routing */}
         <Route path="/employerprofilepage" component={EmployerProfilePage} />
         <Route path="/editemployerdetails" component={EditEmployerDetails} />
