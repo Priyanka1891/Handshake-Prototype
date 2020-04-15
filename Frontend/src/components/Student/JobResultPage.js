@@ -6,18 +6,18 @@ import {Redirect} from 'react-router';
 const initialState={
   jobId : null,
   username : null,
-  viewJob : null
+  viewjob : null
 }
 class JobResultPage extends Component {
 
   constructor(props){
     super(props);
     this.state=initialState;
-    this.applyJobs = this.applyJobs.bind(this);
+    this.viewJob = this.viewJob.bind(this);
     this.searchedJobs = this.searchedJobs.bind(this);
   }
 
-  applyJobs = (e) => {
+  viewJob = (e) => {
     let jobdetails={};
     console.log("Reached here with jobDetails as",this.props.jobDetails);
     for(let idx=0;idx<this.props.jobDetails.length;idx++){
@@ -26,7 +26,7 @@ class JobResultPage extends Component {
       }
     }
     this.setState({
-      viewJob : jobdetails
+      viewjob : jobdetails
     })    
   }
 
@@ -43,7 +43,7 @@ class JobResultPage extends Component {
                     <td >{job.salary}</td>
                     <td >{job.type}</td>
                     <td >{job.createdby}</td>
-                    <td><button type="submit" value={job._id} onClick={this.applyJobs}>View</button></td>
+                    <td><button type="submit" className = "btn btn-link" value={job._id} onClick={this.viewJob}>View</button></td>
                   </tr>
             </React.Fragment>
                 );
@@ -53,9 +53,9 @@ class JobResultPage extends Component {
 
   render() {
     let redirectVar = null;
-    if (this.state.viewJob) {
-      redirectVar = <Redirect to={{pathname : '/viewjobdetails',state: this.state.viewJob} }/>
-    }  console.log(this.props.jobDetails);  
+    if (this.state.viewjob) {
+      redirectVar = <Redirect to={{pathname : '/viewjobdetails',state: this.state.viewjob} }/>
+    }  //console.log(this.props.jobDetails);  
     return(
       <React.Fragment>
         {redirectVar}

@@ -22,16 +22,32 @@ class StudentEvents extends Component {
   }
 
   componentWillMount = () => {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+  
+    today = yyyy + '-' + mm + '-' + dd;
+  
+    const data = {isStudent : true};
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-    axios.post('http://localhost:3001/events/list')
+    axios.post('http://localhost:3001/events/list',data)
       .then(response => {
+        let upcomingEventList = [];
+        for(let idx=0;idx<response.data.length;idx++){
+          if(response.data[idx].date.localeCompare(today)>0){
+            upcomingEventList.push(response.data[idx]);
+          }
+        }
         this.setState({
           allEventsBool : true,
           filterEventsBool : false,
           registeredEventsBool : false,
-          events : response.data
+          events : upcomingEventList
         })
+        // console.log(response.data);
+        // console.log(typeof response.data[0].date,typeof today);
     });
   }
 
@@ -49,12 +65,13 @@ class StudentEvents extends Component {
         searchedEvents.push(this.state.events[idx]);
       }
     }
+
     this.setState({
       allEventsBool : false,
       filterEventsBool : true,          
       registeredEventsBool : false,
       filteredEvents : searchedEvents
-    });
+    });    
   }
   
   registeredEvents = (e) => {
@@ -112,7 +129,7 @@ class StudentEvents extends Component {
                     <input onChange = {this.eventQueryChangeHandler} type ='text' style={{width:'70%'}} placeholder="Enter Event Name to Search"/>&nbsp;&nbsp;
                     <button type='submit'onClick={this.listSearchedEvents}><i className="fa fa-search"></i></button>
                     <br /><br />
-                    <button type='submit'onClick={this.registeredEvents}>Registered Events</button>
+                    <button className='btn btn-link'type='submit'onClick={this.registeredEvents}>Click to view registered Events</button>
                     <br />
                     <br />
                     {eventResult}

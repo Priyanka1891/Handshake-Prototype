@@ -1,41 +1,40 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 
 const initialState={
   username : null,
   eventId : null,
+  viewevent : null
 }
 class ListEvent extends Component {
 
   constructor(props){
     super(props);
     this.state=initialState;
-    this.registerEvents = this.registerEvents.bind(this);
+    // this.registerEvents = this.registerEvents.bind(this);
     this.listEvents = this.listEvents.bind(this);
+    this.viewEvent = this.viewEvent.bind(this);
   }
 
-  registerEvents = (e) => {
-    e.preventDefault();
-    var target = JSON.parse(e.target.value);
-    const data = {
-      eventId : target.id,
-      username : this.props.studentDetails.username
-    };
-    axios.defaults.withCredentials = true;
-    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-    console.log("Sending Data "+ JSON.stringify(data));
-    axios.post('http://localhost:3001/events/registerstudentevent',data)
-      .then(response => {
-        console.log("Entered inside axios post req");
-        if(response.data){
-          window.alert("Event registered successfully");
-        }
-    });
+
+  viewEvent = (e) => {
+    let eventdetails={};
+    console.log("Reached here with eventDetails as",this.props.eventDetails);
+    for(let idx=0;idx<this.props.eventDetails.length;idx++){
+      if(e.target.value===this.props.eventDetails[idx]._id){
+        eventdetails=this.props.eventDetails[idx];
+      }
+    }
+    this.setState({
+      viewevent : eventdetails
+    })    
   }
+
 
   listEvents(){
-    console.log("Inside list event ",this.props.eventDetails);
+    // console.log("Inside list event ",this.props.eventDetails);
+
       const events = this.props.eventDetails.map((event, index) => {
          return ( 
           //  <div key={event._id}>
@@ -46,9 +45,11 @@ class ListEvent extends Component {
                <td>{event.detail}</td>
                <td>{event.location}</td>
                <td>{event.createdby}</td>
+               <td><button onClick = {this.viewEvent}type="submit" className = "btn btn-link" value={event._id}>View</button></td>
                 {/* {event.createdby && event.username?(<div></div>):(<button type="submit" value={JSON.stringify({id: event.eventId, title : event.eventTitle})} onClick={this.registerEvents}>
                  Register
                 </button>)}  */}
+              <td></td>
               </tr>
            </React.Fragment>
           );
@@ -57,9 +58,16 @@ class ListEvent extends Component {
   }
 
   render() {
+    let redirectVar = null;
+    if (this.state.viewevent) {
+      redirectVar = <Redirect to={{pathname : '/vieweventdetails',state: this.state.viewevent} }/>
+    }  console.log(this.props.eventDetails);  
+
     return(
       <React.Fragment>
-        <div><h2 style={{align:'center'}}>Event List :</h2></div>
+        {redirectVar}
+        {this.props.eventDetails.length?<div>
+        <div><h2 style={{align:'center'}}>Upcoming event List :</h2></div>
         <br />
         <table className="table table-borderless table-hover">
          <thead className="thead-dark">
@@ -75,6 +83,8 @@ class ListEvent extends Component {
             {this.listEvents()}
           </tbody>
         </table>
+        </div>:<div></div>
+        }
       </React.Fragment> 
     )
   }    

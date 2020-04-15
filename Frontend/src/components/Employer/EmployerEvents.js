@@ -29,6 +29,7 @@ class EmployerEvents extends Component {
     this.props.fillBothDetails(payload);
     const data = {
       eventQuery : this.props.employerDetails.name,
+      isStudent : false
     };
     if (!this.props.employerDetails.name) {
       window.alert('Please login and try again..');

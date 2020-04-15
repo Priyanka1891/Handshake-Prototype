@@ -33,7 +33,7 @@ class ViewJobDetails extends Component {
     e.preventDefault();
     const data = {
       jobId : this.props.location.state._id,
-      username : this.props.studentDetails.username,
+      username : this.props.StudentDetails.username,
     };
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
@@ -107,7 +107,7 @@ function mapStateToProps(state) {
   return {
     studentDetails : state.studentDetails
   }
-}
-export default connect(mapStateToProps, null)(ViewJobDetails);
+}connect(mapStateToProps, null)
+export default (ViewJobDetails);
 
 
