@@ -78,9 +78,10 @@ class ViewEventDetails extends Component {
 
 function mapStateToProps(state) {
   return {
-    studentDetails : state.studentDetails
+    studentDetails : state.login.studentDetails
   }
-}connect(mapStateToProps, null)
-export default (ViewEventDetails);
+}
+
+export default connect(mapStateToProps, null)(ViewEventDetails);
 
 

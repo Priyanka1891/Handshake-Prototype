@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
-import { fillOtherStudentDetails } from "../../common_store/actions/index";
+import { fillOtherStudentDetails } from "../../common_store/actions/login";
 
 const initialState={
   // listStudentsRegistered : null,
@@ -84,8 +84,8 @@ class SearchedStudentResultPage extends Component {
 
 function mapStateToProps(state) {
   return {
-    studentDetails : state.studentDetails,
-    otherStudentDetails : state.otherStudentDetails
+    studentDetails : state.login.studentDetails,
+    otherStudentDetails : state.login.otherStudentDetails
   }
 }
 

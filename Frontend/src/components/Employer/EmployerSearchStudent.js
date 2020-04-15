@@ -3,7 +3,7 @@ import EmployerNavbar from './EmployerNavbar';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import SearchedStudentResultPage from './SearchedStudentResultPage';
-import { fillBothDetails } from "../../common_store/actions/index";
+import { fillBothDetails } from "../../common_store/actions/login";
 
 
 const initialState={
@@ -81,8 +81,8 @@ class EmployerSearchStudent extends Component {
 
 function mapStateToProps(state) {
   return {
-    employerDetails : state.employerDetails,
-    studentDetails : state.studentDetails
+    employerDetails : state.login.employerDetails,
+    studentDetails : state.login.studentDetails
   }
 }
 

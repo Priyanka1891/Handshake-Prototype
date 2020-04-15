@@ -122,7 +122,7 @@ class PostEvent extends Component{
 
 function mapStateToProps(state) {
   return {
-    employerDetails : state.employerDetails
+    employerDetails : state.login.employerDetails
   }
 }
 

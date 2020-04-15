@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import EmployerNavbar from './EmployerNavbar';
 import Details from  './Details';
-import { fillEmployerDetails } from "../../common_store/actions/index";
+import { fillEmployerDetails } from "../../common_store/actions/login";
 
 const initialState={
   reRender : false
@@ -110,7 +110,7 @@ class EmployerProfilePage extends Component {
 
 function mapStateToProps(state) {
   return {
-    employerDetails : state.employerDetails
+    employerDetails : state.login.employerDetails
   }
 }
 
@@ -121,39 +121,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmployerProfilePage);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

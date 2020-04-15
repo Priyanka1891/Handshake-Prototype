@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import { fillEmployerDetails } from "../../common_store/actions/index";
+import { fillEmployerDetails } from "../../common_store/actions/login";
 
 const initialState={
   username : "",
@@ -121,7 +121,7 @@ class EmployerSignUp extends Component{
 
 function mapStateToProps(state) {
   return {
-    employerDetails : state.employerDetails
+    employerDetails : state.login.employerDetails
   }
 }
   

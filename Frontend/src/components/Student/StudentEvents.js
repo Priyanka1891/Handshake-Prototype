@@ -145,7 +145,7 @@ class StudentEvents extends Component {
 // export StudentEvents Component
 function mapStateToProps(state) {
   return {
-    studentDetails : state.studentDetails
+    studentDetails : state.login.studentDetails
   }
 }
 

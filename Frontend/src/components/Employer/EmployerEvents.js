@@ -4,7 +4,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import EventResultPage from './EventResultPage';
 import {Redirect} from 'react-router';
-import { fillBothDetails } from "../../common_store/actions/index";
+import { fillBothDetails } from "../../common_store/actions/login";
 
 
 const initialState={
@@ -95,7 +95,7 @@ class EmployerEvents extends Component {
 
 function mapStateToProps(state) {
   return {
-    employerDetails : state.employerDetails
+    employerDetails : state.login.employerDetails
   }
 }
 

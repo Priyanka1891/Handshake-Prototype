@@ -88,7 +88,7 @@ class JobResultPage extends Component {
 
 function mapStateToProps(state) {
   return {
-    studentDetails : state.studentDetails
+    studentDetails : state.login.studentDetails
   }
 }
 export default connect(mapStateToProps, null)(JobResultPage);

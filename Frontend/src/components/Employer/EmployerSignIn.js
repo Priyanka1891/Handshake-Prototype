@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
-import { fillEmployerDetails } from "../../common_store/actions/index";
+import { fillEmployerDetails } from "../../common_store/actions/login";
 import axios from 'axios';
 const jwt_decode = require('jwt-decode');
 
@@ -118,7 +118,7 @@ render(){
 
 function mapStateToProps(state) {
   return {
-    employerDetails : state.employerDetails
+    employerDetails : state.login.employerDetails
   }
 }
 

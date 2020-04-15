@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import StudentNavbar from './StudentNavbar';
 import axios from 'axios';
-import {connect} from 'react-redux';
 import SearchedStudentResultPage from './SearchedStudentResultPage';
-import { fillBothDetails } from "../../common_store/actions/index";
 
 
 const initialState={
@@ -123,17 +121,4 @@ class StudentList extends Component {
 }
 
 
-function mapStateToProps(state) {
-  return {
-    employerDetails : state.employerDetails,
-    studentDetails : state.studentDetails
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fillBothDetails : (details) => dispatch(fillBothDetails(details))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(StudentList);
+export default StudentList;

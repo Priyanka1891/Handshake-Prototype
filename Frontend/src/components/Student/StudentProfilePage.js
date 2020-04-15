@@ -9,7 +9,7 @@ import Education from './Education';
 import Experience from './Experience';
 import Resume from './Resume';
 import MessageApp from '../Message/MessageApp';
-import { fillStudentDetails } from "../../common_store/actions/index";
+import { fillStudentDetails } from "../../common_store/actions/login";
 
 const initialState={
   addEducation : false,
@@ -213,8 +213,8 @@ class StudentProfilePage extends Component {
 
 function mapStateToProps(state) {
   return {
-    studentDetails : state.studentDetails,
-    otherStudentDetails : state.otherStudentDetails
+    studentDetails : state.login.studentDetails,
+    otherStudentDetails : state.login.otherStudentDetails
   }
 }
 

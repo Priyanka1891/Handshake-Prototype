@@ -105,9 +105,9 @@ class ViewJobDetails extends Component {
 
 function mapStateToProps(state) {
   return {
-    studentDetails : state.studentDetails
+    studentDetails : state.login.studentDetails
   }
-}connect(mapStateToProps, null)
-export default (ViewJobDetails);
+}
+export default connect(mapStateToProps, null)(ViewJobDetails);
 
 

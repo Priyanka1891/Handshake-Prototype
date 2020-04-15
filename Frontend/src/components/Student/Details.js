@@ -73,8 +73,8 @@ class Details extends Component{
 
 function mapStateToProps(state) {
   return {
-    studentDetails : state.studentDetails,
-    otherStudentDetails : state.otherStudentDetails
+    studentDetails : state.login.studentDetails,
+    otherStudentDetails : state.login.otherStudentDetails
   }
 }
 

@@ -99,9 +99,9 @@ class MessageApp extends Component {
 
 function mapStateToProps(state) {
   return {
-    employerDetails : state.employerDetails,
-    studentDetails : state.studentDetails,
-    otherStudentDetails : state.otherStudentDetails
+    employerDetails : state.login.employerDetails,
+    studentDetails : state.login.studentDetails,
+    otherStudentDetails : state.login.otherStudentDetails
   }
 }
 

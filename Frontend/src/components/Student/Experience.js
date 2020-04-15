@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router';
 import axios from 'axios';
-import { fillStudentDetails } from "../../common_store/actions/index";
+import { fillStudentDetails } from "../../common_store/actions/login";
 
 const initialState={
   editExperienceDetails : false,
@@ -89,8 +89,8 @@ class Experience extends Component{
 
 function mapStateToProps(state) {
   return {
-    studentDetails : state.studentDetails,
-    otherStudentDetails : state.otherStudentDetails
+    studentDetails : state.login.studentDetails,
+    otherStudentDetails : state.login.otherStudentDetails
   }
 }
 

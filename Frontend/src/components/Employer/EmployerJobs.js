@@ -4,7 +4,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import JobResultPage from './JobResultPage';
 import {Redirect} from 'react-router';
-import { fillBothDetails } from "../../common_store/actions/index";
+import { fillBothDetails } from "../../common_store/actions/login";
 
 
 
@@ -95,7 +95,7 @@ class EmployerJobs extends Component {
 
 function mapStateToProps(state) {
   return {
-    employerDetails : state.employerDetails
+    employerDetails : state.login.employerDetails
   }
 }
 

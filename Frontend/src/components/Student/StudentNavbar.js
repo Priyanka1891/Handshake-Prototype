@@ -2,7 +2,7 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import { fillStudentDetails } from "../../common_store/actions/index";
+import { fillStudentDetails } from "../../common_store/actions/login";
 
 
 // create the Navbar Component
@@ -50,8 +50,8 @@ class StudentNavbar extends Component {
 
 function mapStateToProps(state) {
   return {
-    studentDetails : state.studentDetails,
-    otherStudentDetails : state.otherStudentDetails
+    studentDetails : state.login.studentDetails,
+    otherStudentDetails : state.login.otherStudentDetails
   }
 }
 

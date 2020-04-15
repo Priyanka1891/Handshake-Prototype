@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
-import { fillBothDetails } from "../../common_store/actions/index";
+import { fillBothDetails } from "../../common_store/actions/login";
 
 const initialState={
   listStudentsRegistered : null,
@@ -142,8 +142,8 @@ class EventResultPage extends Component {
 
 function mapStateToProps(state) {
   return {
-    employerDetails : state.employerDetails,
-    studentDetails : state.studentDetails
+    employerDetails : state.login.employerDetails,
+    studentDetails : state.login.studentDetails
   }
 }
 

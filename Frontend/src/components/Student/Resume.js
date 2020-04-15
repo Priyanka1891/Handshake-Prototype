@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import { Document, Page } from 'react-pdf';
-import { fillStudentDetails } from "../../common_store/actions/index";
+import { fillStudentDetails } from "../../common_store/actions/login";
 
 class Resume extends Component {
 
@@ -119,8 +119,8 @@ class Resume extends Component {
 
 function mapStateToProps(state) {
   return {
-    studentDetails : state.studentDetails,
-    otherStudentDetails : state.otherStudentDetails
+    studentDetails : state.login.studentDetails,
+    otherStudentDetails : state.login.otherStudentDetails
   }
 }
 
