@@ -92,12 +92,58 @@ function listregisteredstudent(msg,callback){
 }
 
 
-function regiterstudentevent (msg,callback){
-  console.log("Entered here",msg)
-  var query = {$and : [{'_id': }, 
-  {'studentEducation.colgname': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'} },
-  {'basicDetails.skills': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'}}]};
-}
+// function  (msg,callback){
+//   console.log("Entered here",msg)
+//   // var query = {$and : [{'_id': msg.eventId}, 
+//   // {'studentEducation.colgname': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'} },
+//   // {'basicDetails.skills': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'}}]};
+//   Events.updateOne({_id : msg.eventId}, (error, data) => {
+//     if (error) {
+//       res.code = 500;
+//       res.value=error;
+//       callback(null, res);
+//     }
+//     else {
+//       res.code = 200;
+//       res.value = "Event registered successfully";
+//       callback(null, res);
+//     }
+//   });
+// }
+
+function regiterstudentevent(msg, callback) {
+  var studentdetail = {};
+studentdetail.username = msg.username;
+
+  Events.findById({ _id : msg.eventId },(error,data) => {
+      console.log("data fetched is",data);
+      if (error){
+        res.code = 500;
+        res.value=error;
+        callback(null, res);
+      }
+      for(let idx=0;idx<data.studentsregistered.length;idx++){
+        if (data.studentsregistered[idx].username === msg.username){
+          console.log("Should reach here");
+          res.code = 200;
+          res.value = "Already applied";
+          callback(null, res);}
+      }
+        Events.updateOne({ _id : msg.eventId}, {$addToSet : {studentsregistered: studentdetail}} ,(error,data) => {
+          if (error) {
+            res.code = 500;
+            res.value=error;
+            callback(null, res);
+          }
+          else{
+            res.code = 200;
+            res.value = "Event registered successfully";
+            callback(null, res);
+          }
+      });
+    });
+  }
+  
 
 
 function handle_request(msg, callback){

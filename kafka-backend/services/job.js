@@ -1,11 +1,12 @@
 const { Jobs } = require('../Models/JobModel');
 const { Users } = require('../Models/UserModel');
 const actions = require('../../Backend/Utils/constant');
- 
+
+var res = {};
+
 
 function listJob(msg, callback) {
-  var res = {};
- var query={};
+  var query={};
   if(msg.jobQuery)
   {
     query={$or: [{'title': {$regex: '.*' + msg.jobQuery + '.*', $options:'i'}}, 
@@ -33,7 +34,7 @@ function listJob(msg, callback) {
 }
 
 function studentSearch(msg, callback) {
-  var res= {},query={};
+  var query={};
   if(msg.studentQuery){  
     query = {$or: [{'basicDetails.name': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'}}, 
             {'studentEducation.colgname': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'} },
@@ -53,10 +54,7 @@ function studentSearch(msg, callback) {
   }); 
 }
 
-
-
 function postJob(msg, callback) {
-  var res = {};
   var newJob = new Jobs({
     title : msg.title,
     createdate : msg.createdate,
@@ -81,8 +79,8 @@ function postJob(msg, callback) {
     }
   }); 
 }
+
 function jobsApplied(msg, callback) {
-var res = {};
 console.log("Inside jobs applied ",msg);
 var today = new Date();
 

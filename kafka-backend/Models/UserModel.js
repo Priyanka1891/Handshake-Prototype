@@ -39,10 +39,10 @@ var usersSchema = new Schema({
     }],
 
     // job id of jobs applied by the student.
-    jobsApplied : [{type: String, required: false}],
+    // jobsApplied : [{type: String, required: false}],
 
-    // event id of events registered by the student.
-    eventsApplied : [{type: String, required: false}],
+    // // event id of events registered by the student.
+    // eventsApplied : [{type: String, required: false}],
 
     resume : {type: String, required: false},
     image : {type: String, required: false}

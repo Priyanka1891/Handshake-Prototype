@@ -132,9 +132,9 @@ class EditEducationDetails extends Component{
                   <label>Major*</label>
                   <select className="form-control" style={{width:"300px"}} id="types" onChange = {this.majorChangeHandler} value={this.state.major}>
                   <option value="">All</option>
-                    <option value="SE">Software Engineering</option>
-                    <option value="CE">Computer Engineering</option>
-                    <option value="EE">Electrical Engineering</option>
+                    <option value="Software Engineering">Software Engineering</option>
+                    <option value="Computer Engineering">Computer Engineering</option>
+                    <option value="Electrical Engineering">Electrical Engineering</option>
                     <option value="DA">Data Analytics</option>
                   </select>
                 </div>

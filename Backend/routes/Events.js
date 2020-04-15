@@ -41,7 +41,7 @@ router.post('/list', passport.authenticate('jwt', { session: false }), function(
             'Content-Type': 'text/plain'
         })
         console.log('in list event send result ', results);
-        res.end(results.value);
+        res.end(JSON.stringify(results.value));
     }           
   });
 });

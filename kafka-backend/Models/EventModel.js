@@ -10,9 +10,10 @@ var eventsSchema = new Schema({
     // username/id of students applied
     studentsregistered : 
     [{
+      _id : {required : false},
       username : {type: String, required : true},
-      filter : {type: String, required : true}
-    }]
+      // filter : {type: String, required : true}
+    },{strict:false}]
 },
 {
     versionKey: false

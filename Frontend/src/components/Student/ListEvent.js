@@ -20,7 +20,7 @@ class ListEvent extends Component {
 
   viewEvent = (e) => {
     let eventdetails={};
-    console.log("Reached here with eventDetails as",this.props.eventDetails);
+    // console.log("Reached here with eventDetails as",this.props.eventDetails);
     for(let idx=0;idx<this.props.eventDetails.length;idx++){
       if(e.target.value===this.props.eventDetails[idx]._id){
         eventdetails=this.props.eventDetails[idx];
@@ -61,7 +61,7 @@ class ListEvent extends Component {
     let redirectVar = null;
     if (this.state.viewevent) {
       redirectVar = <Redirect to={{pathname : '/vieweventdetails',state: this.state.viewevent} }/>
-    }  console.log(this.props.eventDetails);  
+    }  //console.log(this.props.eventDetails);  
 
     return(
       <React.Fragment>
