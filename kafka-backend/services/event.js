@@ -91,6 +91,15 @@ function listregisteredstudent(msg,callback){
   });
 }
 
+
+function regiterstudentevent (msg,callback){
+  console.log("Entered here",msg)
+  var query = {$and : [{'_id': }, 
+  {'studentEducation.colgname': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'} },
+  {'basicDetails.skills': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'}}]};
+}
+
+
 function handle_request(msg, callback){
   console.log("Event Req Body : ", msg);
   if (msg.action == actions.POSTEVENT) {
@@ -107,6 +116,10 @@ function handle_request(msg, callback){
   }
   else if(msg.action == actions.LISTREGISTEREDSTUDENT){
     listregisteredstudent(msg.body, callback);
+    return;
+  }
+  else if(msg.action == actions.REGISTERSTUDENTEVENT){
+    regiterstudentevent(msg.body, callback);
     return;
   }
 }

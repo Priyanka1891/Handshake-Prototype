@@ -41,13 +41,33 @@ router.post('/list', passport.authenticate('jwt', { session: false }), function(
             'Content-Type': 'text/plain'
         })
         console.log('in list event send result ', results);
-        res.end(JSON.stringify(results.value));
+        res.end(results.value);
     }           
   });
 });
 
 router.post('/listregisteredstudent', passport.authenticate('jwt', { session: false }), function(req,res) {
   var msg = { action : actions.LISTREGISTEREDSTUDENT , body : req.body};
+  kafka.make_request('event', msg, function(err,results){
+    if (err){
+        console.log("Inside err");
+        res.writeHead(500, {
+            'Content-Type': 'text/plain'
+        })
+        res.end("Error");
+    } else {
+        res.writeHead(results.code, {
+            'Content-Type': 'text/plain'
+        })
+        console.log('in list event send result ', results);
+        res.end(JSON.stringify(results.value));
+    }           
+  });
+});
+
+
+router.post('/registerstudentevent', passport.authenticate('jwt', { session: false }), function(req,res) {
+  var msg = { action : actions.REGISTERSTUDENTEVENT , body : req.body};
   kafka.make_request('event', msg, function(err,results){
     if (err){
         console.log("Inside err");

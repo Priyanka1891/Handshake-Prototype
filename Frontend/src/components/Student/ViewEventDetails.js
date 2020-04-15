@@ -27,7 +27,7 @@ class ViewEventDetails extends Component {
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data "+ JSON.stringify(data));
-    axios.post('http://localhost:3001/events/registerstudentevent',data)
+    axios.post('http://localhost:3001/events/studentregisterevent',data)
       .then(response => {
         console.log("Entered inside axios post req");
         if(response.data){
@@ -81,7 +81,6 @@ function mapStateToProps(state) {
     studentDetails : state.login.studentDetails
   }
 }
-
 export default connect(mapStateToProps, null)(ViewEventDetails);
 
 
