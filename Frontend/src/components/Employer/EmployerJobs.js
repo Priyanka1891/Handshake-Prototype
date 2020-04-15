@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import JobResultPage from './JobResultPage';
 import {Redirect} from 'react-router';
 import { fillBothDetails } from "../../common_store/actions/login";
+import { fillJobDetailsList } from '../../common_store/actions/job'
 
 
 
@@ -41,6 +42,7 @@ class EmployerJobs extends Component {
     axios.post('http://localhost:3001/jobs/jobsearch',data)
       .then(response => {
         console.log("Result job search :", response.data)
+        this.props.fillJobDetailsList(response.data);
         this.setState({
           jobsList : response.data
         });
@@ -102,7 +104,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fillBothDetails : (details) => dispatch(fillBothDetails(details))
+    fillBothDetails : (details) => dispatch(fillBothDetails(details)),
+    fillJobDetailsList : (details) => dispatch(fillJobDetailsList(details))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(EmployerJobs);

@@ -4,6 +4,7 @@ import Messages from "./Messages";
 import {connect} from 'react-redux';
 import Input from "./Input";
 import axios from 'axios';
+import { fillMsgDetailsList } from '../../common_store/actions/message'
 
 
 function randomColor() {
@@ -45,6 +46,7 @@ class MessageApp extends Component {
       }
       const backendmsgs = this.state.backendmsgs;
       backendmsgs.push(msgdetail);
+      this.props.fillMsgDetailsList(backendmsgs);
       this.setState({backendmsgs});
     });
   }
@@ -105,4 +107,10 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, null)(MessageApp);
+function mapDispatchToProps(dispatch) {
+  return {
+    fillMsgDetailsList : (details) => dispatch(fillMsgDetailsList(details))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessageApp);

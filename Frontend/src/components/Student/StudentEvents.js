@@ -3,6 +3,7 @@ import StudentNavbar from './StudentNavbar';
 import axios from 'axios';
 import ListEvent from './ListEvent';
 import {connect} from 'react-redux';
+import { fillEventDetailsList } from '../../common_store/actions/event'
 
 const initialState={
   eventQuery : '',
@@ -40,6 +41,7 @@ class StudentEvents extends Component {
             upcomingEventList.push(response.data[idx]);
           }
         }
+        this.props.fillEventDetailsList(upcomingEventList);
         this.setState({
           allEventsBool : true,
           filterEventsBool : false,
@@ -65,6 +67,7 @@ class StudentEvents extends Component {
         searchedEvents.push(this.state.events[idx]);
       }
     }
+    this.props.fillEventDetailsList(searchedEvents);
 
     this.setState({
       allEventsBool : false,
@@ -80,6 +83,7 @@ class StudentEvents extends Component {
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     axios.post('http://localhost:3001/events/listregisteredstudent',data)
       .then(response => {
+        this.props.fillEventDetailsList(response.data);
         // console.log("Result event query :", JSON.stringify(response.data))
         this.setState({
           allEventsBool : false,
@@ -142,11 +146,17 @@ class StudentEvents extends Component {
   }
 }
 
-// export StudentEvents Component
 function mapStateToProps(state) {
   return {
     studentDetails : state.login.studentDetails
   }
 }
 
-export default connect(mapStateToProps, null)(StudentEvents);
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fillEventDetailsList : (details) => dispatch(fillEventDetailsList(details)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StudentEvents);

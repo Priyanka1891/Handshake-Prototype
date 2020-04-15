@@ -1,11 +1,14 @@
 import {Component} from "react";
 import React from "react";
+import {connect} from 'react-redux';
 import {Redirect} from 'react-router';
 import EmployerNavbar from '../Employer/EmployerNavbar';
 import StudentNavbar from '../Student/StudentNavbar';
 import axios from 'axios';
 import './MessageApp.css';
 import { Button, Card, Col, Row, Form} from "react-bootstrap";
+import { fillMsgDetailsList } from '../../common_store/actions/message'
+
 
 const initialState={
   messageList : null,
@@ -66,6 +69,7 @@ class ListAllMessages extends Component {
       .then(response => {
         console.log(response);
         console.log("here ", messageList)
+        this.props.fillMsgDetailsList(messageList);
         this.setState({
           messageList : messageList
         });
@@ -196,5 +200,10 @@ class ListAllMessages extends Component {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    fillMsgDetailsList : (details) => dispatch(fillMsgDetailsList(details))
+  }
+}
 
-export default ListAllMessages; 
+export default connect(null, mapDispatchToProps)(ListAllMessages);

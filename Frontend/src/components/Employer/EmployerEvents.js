@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import EventResultPage from './EventResultPage';
 import {Redirect} from 'react-router';
 import { fillBothDetails } from "../../common_store/actions/login";
+import { fillEventDetailsList } from '../../common_store/actions/event'
 
 
 const initialState={
@@ -41,6 +42,7 @@ class EmployerEvents extends Component {
     axios.post('http://localhost:3001/events/list', data)
       .then(response => {
         console.log("Event lists:", response);
+        this.props.fillEventDetailsList(response.data);
         this.setState({
           eventsList : response.data
         });
@@ -101,7 +103,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fillBothDetails : (details) => dispatch(fillBothDetails(details))
+    fillBothDetails : (details) => dispatch(fillBothDetails(details)),
+    fillEventDetailsList : (details) => dispatch(fillEventDetailsList(details))
   }
 }
 

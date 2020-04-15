@@ -1,21 +1,6 @@
-import {FILL_STUDENT_DETAILS,FILL_EMPLOYER_DETAILS, FILL_BOTH_DETAILS, FILL_OTHER_STUDENT_DETAILS } from "../constants/action-types";
+import { FILL_MSG_DETAILS_LIST} from "../constants/action-types";
 
-export function fillStudentDetails(payload) {
+export function fillMsgDetailsList(payload) {
   console.log("dispatching the action here : ", payload)
-  return { type: FILL_STUDENT_DETAILS, payload };
-}
-export function fillEmployerDetails(payload) {
-  console.log("dispatching the action here : ", payload)
-  return { type: FILL_EMPLOYER_DETAILS, payload };
-}
-
-export function fillBothDetails(payload) {
-  console.log("dispatching the action here : ", payload)
-  return { type: FILL_BOTH_DETAILS, payload };
-}
-
-
-export function fillOtherStudentDetails(payload) {
-  console.log("dispatching the action here : ", payload)
-  return { type: FILL_OTHER_STUDENT_DETAILS, payload };
+  return { type: FILL_MSG_DETAILS_LIST, payload };
 }
