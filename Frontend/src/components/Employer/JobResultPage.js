@@ -78,17 +78,17 @@ class JobResultPage extends Component {
         <div key={item.username}>
               <div className="radio">
               <label>
-              <input type="radio" value={JSON.stringify({job:item, status : 'pending'})} checked={'pending' === item.status.toLowerCase()}
+              <input type="radio" value={JSON.stringify({job:item, status : 'Pending'})} checked={'Pending' === item.status.toLowerCase()}
                onChange={this.updateApplicationStatus} />
                 Pending
               </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <label>&nbsp;&nbsp;&nbsp;&nbsp;
-              <input type="radio" value={JSON.stringify({job:item, status : 'reviewed'})} checked={'reviewed' === item.status.toLowerCase()}
+              <input type="radio" value={JSON.stringify({job:item, status : 'Reviewed'})} checked={'Reviewed' === item.status.toLowerCase()}
                onChange={this.updateApplicationStatus}/>
                 Reviewed
               </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <label>
-              <input type="radio" value={JSON.stringify({job:item, status : 'declined'})} checked={'declined' === item.status.toLowerCase()} 
+              <input type="radio" value={JSON.stringify({job:item, status : 'Declined'})} checked={'Declined' === item.status.toLowerCase()} 
                onChange={this.updateApplicationStatus}/>
                 Declined
               </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

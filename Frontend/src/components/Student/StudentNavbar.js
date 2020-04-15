@@ -31,7 +31,7 @@ class StudentNavbar extends Component {
                 <li><Link to="/studentlist" onClick={this.resetOtherStudentDetails}>Students</Link></li>
                 <li><Link to="/studentjobs" onClick={this.resetOtherStudentDetails}>Jobs</Link></li>
                 <li><Link to="/studentevents" onClick={this.resetOtherStudentDetails}>Events</Link></li>
-                <li><Link to="/studentapps" onClick={this.resetOtherStudentDetails} >Applications</Link></li>
+                <li><Link to="/studentapplications" onClick={this.resetOtherStudentDetails} >Applications</Link></li>
                 <li><Link to={{pathname: "/messages", state: {isEmployer: false}}} onClick={this.resetOtherStudentDetails} >Messages&nbsp;&nbsp;<span className="glyphicon glyphicon-comment"/></Link></li>
               </ul>
               <ul className="nav navbar-nav navbar-right">

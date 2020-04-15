@@ -135,7 +135,7 @@ class EditEducationDetails extends Component{
                     <option value="Software Engineering">Software Engineering</option>
                     <option value="Computer Engineering">Computer Engineering</option>
                     <option value="Electrical Engineering">Electrical Engineering</option>
-                    <option value="DA">Data Analytics</option>
+                    <option value="Data Analytics">Data Analytics</option>
                   </select>
                 </div>
 

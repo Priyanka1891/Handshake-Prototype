@@ -73,7 +73,7 @@ function postEvent(msg, callback){
     }); 
 }
 
-function listregisteredstudent(msg,callback){
+function registeredstudenteventlist(msg,callback){
   // var res = {};
   console.log('Username is',msg.username);
   Events.find({'studentsregistered.username' : msg.username}, (error, data) => {
@@ -90,26 +90,6 @@ function listregisteredstudent(msg,callback){
     }
   });
 }
-
-
-// function  (msg,callback){
-//   console.log("Entered here",msg)
-//   // var query = {$and : [{'_id': msg.eventId}, 
-//   // {'studentEducation.colgname': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'} },
-//   // {'basicDetails.skills': {$regex: '.*' + msg.studentQuery + '.*', $options:'i'}}]};
-//   Events.updateOne({_id : msg.eventId}, (error, data) => {
-//     if (error) {
-//       res.code = 500;
-//       res.value=error;
-//       callback(null, res);
-//     }
-//     else {
-//       res.code = 200;
-//       res.value = "Event registered successfully";
-//       callback(null, res);
-//     }
-//   });
-// }
 
 function regiterstudentevent(msg, callback) {
   var studentdetail = {};
@@ -161,11 +141,11 @@ function handle_request(msg, callback){
     return;
   }
   else if(msg.action == actions.LISTREGISTEREDSTUDENT){
-    listregisteredstudent(msg.body, callback);
+    regiterstudentevent(msg.body, callback);
     return;
   }
-  else if(msg.action == actions.REGISTERSTUDENTEVENT){
-    regiterstudentevent(msg.body, callback);
+  else if(msg.action == actions.REGISTERSTUDENTEVENTLIST){
+    registeredstudenteventlist(msg.body, callback);
     return;
   }
 }

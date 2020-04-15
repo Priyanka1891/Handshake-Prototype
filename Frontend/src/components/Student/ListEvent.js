@@ -46,10 +46,6 @@ class ListEvent extends Component {
                <td>{event.location}</td>
                <td>{event.createdby}</td>
                <td><button onClick = {this.viewEvent}type="submit" className = "btn btn-link" value={event._id}>View</button></td>
-                {/* {event.createdby && event.username?(<div></div>):(<button type="submit" value={JSON.stringify({id: event.eventId, title : event.eventTitle})} onClick={this.registerEvents}>
-                 Register
-                </button>)}  */}
-              <td></td>
               </tr>
            </React.Fragment>
           );

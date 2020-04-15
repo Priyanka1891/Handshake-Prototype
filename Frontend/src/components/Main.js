@@ -16,6 +16,8 @@ import AddExperinceDetails from './Student/AddExperienceDetails';
 import StudentList from './Student/StudentList';
 import ViewEventDetails from './Student/ViewEventDetails';
 import ViewJobDetails from './Student/ViewJobDetails';
+import StudentApplications from './Student/StudentApplications';
+
 
 
 import EmployerProfilePage from './Employer/EmployerProfilePage';
@@ -50,6 +52,8 @@ class Main extends Component {
         <Route path='/studentlist' component={StudentList} />
         <Route path='/viewjobdetails' component={ViewJobDetails} />
         <Route path='/vieweventdetails' component={ViewEventDetails} />
+        <Route path='/studentapplications' component={StudentApplications} />
+
 
 
         {/* Employer pages routing */}

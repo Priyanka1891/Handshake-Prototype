@@ -66,8 +66,8 @@ router.post('/listregisteredstudent', passport.authenticate('jwt', { session: fa
 });
 
 
-router.post('/registerstudentevent', passport.authenticate('jwt', { session: false }), function(req,res) {
-  var msg = { action : actions.REGISTERSTUDENTEVENT , body : req.body};
+router.post('/registeredstudenteventlist', passport.authenticate('jwt', { session: false }), function(req,res) {
+  var msg = { action : actions.REGISTERSTUDENTEVENTLIST , body : req.body};
   kafka.make_request('event', msg, function(err,results){
     if (err){
         console.log("Inside err");

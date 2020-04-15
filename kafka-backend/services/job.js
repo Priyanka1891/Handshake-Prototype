@@ -80,6 +80,22 @@ function postJob(msg, callback) {
   }); 
 }
 
+function jobsAppliedstudent (msg, callback) { 
+  Jobs.find({'studentsapplied.username' : msg.username },(error,data) => {
+    if (error) {
+      res.code = 500;
+      res.value=error;
+      callback(null, res);
+    }
+    else{
+      res.code = 200;
+      res.value = data;
+      callback(null, res);
+    }
+  });
+}
+
+
 function jobsApplied(msg, callback) {
 console.log("Inside jobs applied ",msg);
 var today = new Date();
@@ -143,6 +159,10 @@ function handle_request(msg, callback){
     }
     else if(msg.action == actions.JOBSAPPLIED){
       jobsApplied(msg.body, callback);
+      return;
+    }
+    else if(msg.action == actions.JOBSAPPLIEDSTUDENT){
+      jobsAppliedstudent(msg.body, callback);
       return;
     }
 }

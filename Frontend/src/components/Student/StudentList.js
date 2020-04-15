@@ -7,6 +7,7 @@ import SearchedStudentResultPage from './SearchedStudentResultPage';
 const initialState={
   studentQuery : null,
   studentList : null,
+  filteredStudentList : null
 }
 
 class StudentList extends Component {
@@ -15,6 +16,8 @@ class StudentList extends Component {
     super(props);
     this.state = initialState;
     this.listStudentResults = this.listStudentResults.bind(this);
+    this.queryChangeHandler = this.queryChangeHandler.bind(this);
+    this.majorChangeHandler = this.majorChangeHandler.bind(this);
   }
 
   queryChangeHandler = (e) => {
@@ -50,7 +53,7 @@ class StudentList extends Component {
     }
     console.log("Filtered student list is : ",filteredStudentList);
     this.setState({
-      major : e.target.value,
+      major : e.target.value,//?
       filteredStudentList : filteredStudentList,
     });
   }
@@ -103,10 +106,10 @@ class StudentList extends Component {
                 <i className="glyphicon glyphicon-filter" /><label>Major:&nbsp;&nbsp;</label>
                   <select id="types" onChangeCapture = {this.majorChangeHandler} value={this.state.major}>
                     <option value="">All</option>
-                    <option value="SE">Software Engineering</option>
-                    <option value="CE">Computer Engineering</option>
-                    <option value="EE">Electrical Engineering</option>
-                    <option value="DA">Data Analytics</option>
+                    <option value="Software Engineering">Software Engineering</option>
+                    <option value="Computer Engineering">Computer Engineering</option>
+                    <option value="Electrical Engineering">Electrical Engineering</option>
+                    <option value="Data Analytics">Data Analytics</option>
                   </select>
                 <br />
                 <br />

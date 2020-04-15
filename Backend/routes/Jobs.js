@@ -93,6 +93,25 @@ router.post('/jobsapplied', passport.authenticate('jwt', { session: false }),fun
 });
 
 
+router.post('/jobsappliedstudent', passport.authenticate('jwt', { session: false }),function(req,res) {
+  var msg = { action : actions.JOBSAPPLIEDSTUDENT , body : req.body};
+  kafka.make_request('job', msg, function(err,results){
+    if (err){
+        console.log("Inside err");
+        res.writeHead(500, {
+            'Content-Type': 'text/plain'
+        })
+        res.end("Error");
+    } else {
+        res.writeHead(results.code, {
+            'Content-Type': 'text/plain'
+        })
+        res.end(JSON.stringify(results.value));
+    }           
+  });
+});
+
+
 // Students applied for the particular job
 router.post('/studentsapplied',passport.authenticate('jwt', { session: false }),function(req,res) {
 });
