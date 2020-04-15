@@ -10,6 +10,7 @@ import Experience from './Experience';
 import Resume from './Resume';
 import MessageApp from '../Message/MessageApp';
 import { fillStudentDetails } from "../../common_store/actions/login";
+import {fillStudentImageDetails}  from "../../common_store/actions/student"
 
 const initialState={
   addEducation : false,
@@ -58,6 +59,7 @@ class StudentProfilePage extends Component {
       axios.post('http://localhost:3001/student/editdetails', data)
         .then(response => {
           if (response.data.code===200) {
+            // this.props.fillStudentImageDetails(studentDetails.image);
             this.dispatch(studentDetails).then((result) => { 
               this.setState({reRender: true})});
             window.alert("Image uploaded successfully");
@@ -220,7 +222,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fillStudentDetails : (details) => dispatch(fillStudentDetails(details))
+    fillStudentDetails : (details) => dispatch(fillStudentDetails(details)),
+    fillStudentImageDetails : (details) => dispatch(fillStudentImageDetails(details))
   }
 }
 

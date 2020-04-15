@@ -3,6 +3,7 @@ import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import { fillStudentDetails } from "../../common_store/actions/login";
+import { fillStudentBasicDetails } from "../../common_store/actions/student"
 
 const initialState={
   detailsSubmitted : false,
@@ -124,12 +125,13 @@ class Editdetails extends Component{
         console.log("Edit Response: ", response);
         if (response.status === 200) {
           console.log("Details are",this.state.studentDetails);
+          this.props.fillStudentBasicDetails(this.state.studentDetails.basicDetails);
           this.dispatch(this.state.studentDetails)
             .then(result => {
               this.setState({
                 detailsSubmitted : true
               })
-            })
+            });
         }
     });
   }
@@ -204,7 +206,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fillStudentDetails : (details) => dispatch(fillStudentDetails(details))
+    fillStudentDetails : (details) => dispatch(fillStudentDetails(details)),
+    fillStudentBasicDetails : (details) => dispatch(fillStudentBasicDetails(details))
   }
 }
 

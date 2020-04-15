@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import StudentNavbar from './StudentNavbar';
+import {connect} from 'react-redux';
 import axios from 'axios';
 import JobResultPage from './JobResultPage';
+import { fillJobDetailsList} from '../../common_store/actions/job'
 
 const initialState={
   searchQuery : "",
@@ -78,6 +80,7 @@ class StudentJobs extends Component {
       jobType : e.target.value,
       jobList : filteredJobList
     });
+    this.props.fillJobDetailsList(filteredJobList);
   }
 
   sortOrderChangeHandler = (e) => {
@@ -112,7 +115,7 @@ class StudentJobs extends Component {
       jobList : sortedJobList,
       sortorder : e.target.value
     });
-
+    this.props.fillJobDetailsList(sortedJobList);
   }
 
 
@@ -145,6 +148,7 @@ class StudentJobs extends Component {
       sortvalue : e.target.value,
       jobList : sortedJobList
     });
+    this.props.fillJobDetailsList(sortedJobList);
   }
 
   locationfilter = (e) =>{
@@ -168,6 +172,7 @@ class StudentJobs extends Component {
       locationQuery : locationquery,
       jobList : filteredJobList
     });
+    this.props.fillJobDetailsList(filteredJobList);
     this.textInputLocation.current.value="";
   }
 
@@ -181,6 +186,7 @@ class StudentJobs extends Component {
     console.log("Sending Data " + JSON.stringify(data));
     axios.post('http://localhost:3001/jobs/jobsearch', data)
       .then(response => {
+        this.props.fillJobDetailsList(response.data);
         this.setState({
           initialJobList : response.data,
           jobList : response.data
@@ -251,7 +257,15 @@ class StudentJobs extends Component {
   }
 }
 
-export default StudentJobs;
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fillJobDetailsList : (details) => dispatch(fillJobDetailsList(details))
+  }
+}
+
+// export StudentJob Component
+export default connect(null, mapDispatchToProps)(StudentJobs);
 
 
 

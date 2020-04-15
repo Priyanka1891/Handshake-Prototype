@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
-import { fillStudentDetails } from "../../common_store/actions/login";
+import { fillStudentDetails}  from "../../common_store/actions/login";
+import {fillStudentBasicDetails, fillStudentEducationDetails, fillStudentExperienceDetails,
+        fillStudentImageDetails, fillStudentResumeDetails} from "../../common_store/actions/student"
 import axios from 'axios';
 const jwt_decode = require('jwt-decode');
 
@@ -36,7 +38,7 @@ passwordChangeHandler = (e) => {
 }
 
 dispatch = async (state) => {
-  await this.props.fillStudentDetails(state)
+  await this.props.fillStudentDetails(state)  
   return this.props.studentDetails;
 }
 
@@ -59,6 +61,11 @@ login = (e) => {
           this.setState({
             token: response.data.value
           });
+          this.props.fillStudentBasicDetails(result.basicDetails);
+          this.props.fillStudentEducationDetails(result.studentEducation);
+          this.props.fillStudentExperienceDetails(result.studentExperience);
+          this.props.fillStudentImageDetails(result.image);
+          this.props.fillStudentResumeDetails(result.resume);
       });
       console.log("Response data is ",response.data.details);
     })
@@ -134,7 +141,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fillStudentDetails : (details) => dispatch(fillStudentDetails(details))
+    fillStudentDetails : (details) => dispatch(fillStudentDetails(details)),
+    fillStudentBasicDetails : (details) => dispatch(fillStudentBasicDetails(details)),
+    fillStudentEducationDetails : (details) => dispatch(fillStudentEducationDetails(details)),
+    fillStudentExperienceDetails : (details) => dispatch(fillStudentExperienceDetails(details)),
+    fillStudentImageDetails : (details) => dispatch(fillStudentImageDetails(details)),
+    fillStudentResumeDetails : (details) => dispatch(fillStudentResumeDetails(details)),
   }
 }
 // export Student Sign In Component

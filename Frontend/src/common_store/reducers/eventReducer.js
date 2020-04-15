@@ -8,6 +8,7 @@ const initialState = {
 }
 
 export default function(state = initialState, action) {
+    console.log("Reducer: ", action);
     switch (action.type) {
       case FILL_STUDENT_DETAILS:
         return {studentDetails : action.payload}

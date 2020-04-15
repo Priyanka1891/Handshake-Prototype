@@ -3,6 +3,7 @@ import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import { fillStudentDetails } from "../../common_store/actions/login";
+import { fillStudentEducationDetails } from "../../common_store/actions/student"
 
 const initialState={
   detailsSubmitted : false,
@@ -76,6 +77,7 @@ class EditEducationDetails extends Component{
     axios.post('http://localhost:3001/student/editdetails', data)
       .then(response => {
         if (response.status === 200) {
+          this.props.fillStudentEducationDetails(this.state.studentDetails.studentEducation);
           this.dispatch(this.state.studentDetails)
             .then(result => {
               this.setState({
@@ -164,7 +166,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fillStudentDetails : (details) => dispatch(fillStudentDetails(details))
+    fillStudentDetails : (details) => dispatch(fillStudentDetails(details)),
+    fillStudentEducationDetails : (details) => dispatch(fillStudentEducationDetails(details))
   }
 }
 

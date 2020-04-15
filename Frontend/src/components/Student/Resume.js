@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import { Document, Page } from 'react-pdf';
 import { fillStudentDetails } from "../../common_store/actions/login";
+import { fillStudentResumeDetails } from "../../common_store/actions/student"
 
 class Resume extends Component {
 
@@ -52,6 +53,7 @@ class Resume extends Component {
     axios.post('http://localhost:3001/student/editdetails', data)
       .then(response => {
         if (response.data.code===200) {
+          // this.props.fillStudentResumeDetails(studentDetails.resume);
           this.dispatch(studentDetails).then((result) => {});
           window.alert("Resume uploaded successfully");
           if (this.state.currentStudentDetails.editmode) {
@@ -126,7 +128,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fillStudentDetails : (details) => dispatch(fillStudentDetails(details))
+    fillStudentDetails : (details) => dispatch(fillStudentDetails(details)),
+    fillStudentResumeDetails : (details) => dispatch(fillStudentResumeDetails(details))
   }
 }
 
