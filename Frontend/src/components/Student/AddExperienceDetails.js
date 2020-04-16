@@ -83,7 +83,6 @@ class AddExperienceDetails extends Component{
     this.state.studentDetails.studentExperience.push(this.state.newExperinceDetails);
     const data = {details : this.state.studentDetails,
                   edit_experience_details : true}
-    console.log("Sending Data ", data,  axios.defaults.headers);
     axios.post(`${backendURL}/student/editdetails`, data)
       .then(response => {
         console.log("Edit Experience Response: ", response);

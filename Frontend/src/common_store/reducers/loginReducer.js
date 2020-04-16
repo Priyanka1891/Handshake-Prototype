@@ -1,10 +1,9 @@
-import {FILL_STUDENT_DETAILS,FILL_EMPLOYER_DETAILS, FILL_BOTH_DETAILS, FILL_OTHER_STUDENT_DETAILS } from "../constants/action-types";
+import {FILL_STUDENT_DETAILS,FILL_EMPLOYER_DETAILS, FILL_BOTH_DETAILS} from "../constants/action-types";
 
 
 const initialState = {
     employerDetails : null,
-    studentDetails : null,
-    otherStudentDetails : null
+    studentDetails : null
 }
 
 export default function(state = initialState, action) {
@@ -15,8 +14,6 @@ export default function(state = initialState, action) {
         return {employerDetails : action.payload}
       case FILL_BOTH_DETAILS:
         return {studentDetails : action.payload.studentDetails, employerDetails : action.payload.employerDetails}
-      case FILL_OTHER_STUDENT_DETAILS:
-        return {studentDetails : action.payload.studentDetails, otherStudentDetails : action.payload.otherStudentDetails}
       default:
         return state;
     }

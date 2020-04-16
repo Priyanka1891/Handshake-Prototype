@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Redirect} from 'react-router';
+// import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
-import { fillOtherStudentDetails } from "../../common_store/actions/login";
 import { backendURL } from   "../../Utils/config"
 
 
@@ -40,9 +39,10 @@ class SearchedStudentResultPage extends Component {
       .then(response=>{
         console.log("Entered inside axios post req", response);
         if(response.data.details){
-          const bothDetails = {studentDetails : this.props.studentDetails , 
-                               otherStudentDetails : response.data.details};
-          this.props.fillOtherStudentDetails(bothDetails);
+          // TODO
+          // const bothDetails = {studentDetails : this.props.studentDetails , 
+          //                      otherStudentDetails : response.data.details};
+          // this.props.fillOtherStudentDetails(bothDetails);
         }
       })
   }
@@ -69,9 +69,9 @@ class SearchedStudentResultPage extends Component {
  
   render() {
     let redirectVar = null;
-    if (this.props.otherStudentDetails) {
-      redirectVar = <Redirect to = '/studentprofilepage'/>
-    }
+    // if (this.props.otherStudentDetails) {
+    //   redirectVar = <Redirect to = '/studentprofilepage'/>
+    // }
     return(
       <React.Fragment>
         {redirectVar}
@@ -86,15 +86,14 @@ class SearchedStudentResultPage extends Component {
 
 function mapStateToProps(state) {
   return {
-    studentDetails : state.login.studentDetails,
-    otherStudentDetails : state.login.otherStudentDetails
+    studentDetails : state.login.studentDetails
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fillOtherStudentDetails : (details) => dispatch(fillOtherStudentDetails(details))
-  }
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     fillOtherStudentDetails : (details) => dispatch(fillOtherStudentDetails(details))
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchedStudentResultPage);
+export default connect(mapStateToProps, null)(SearchedStudentResultPage);

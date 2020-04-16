@@ -16,11 +16,8 @@ class Resume extends Component {
         numPages: null,
         pageNumber: 1,
         viewResume : false,
-        buttonValue : "View Resume",  
-        currentStudentDetails : null
+        buttonValue : "View Resume" 
       }
-      this.state.currentStudentDetails =
-        this.props.otherStudentDetails ? this.props.otherStudentDetails : this.props.studentDetails;
   }
   onChangeHandler = (e) => {
     let file = e.target.files[0];
@@ -35,9 +32,6 @@ class Resume extends Component {
   
   dispatch = async (state) => {
     await this.props.fillStudentDetails(state);
-    this.setState({
-      currentStudentDetails : this.props.studentDetails
-    });
     return this.props.studentDetails;
   }
 
@@ -46,7 +40,7 @@ class Resume extends Component {
       window.alert("Resume upload failed, either path is empty or some error happened");
       return;
     }
-    var studentDetails = this.state.currentStudentDetails;
+    var studentDetails = this.props.studentDetails;
     studentDetails.resume = this.state.readData;
     const data = {details : studentDetails , upload_resume : true};
     console.log("Sending data with resume: ", data);
@@ -58,7 +52,7 @@ class Resume extends Component {
           // this.props.fillStudentResumeDetails(studentDetails.resume);
           this.dispatch(studentDetails).then((result) => {});
           window.alert("Resume uploaded successfully");
-          if (this.state.currentStudentDetails.editmode) {
+          if (this.props.studentDetails.editmode) {
             this.props.enableapply()
           }
         } else {
@@ -79,7 +73,7 @@ class Resume extends Component {
         buttonValue: "View Resume"
       })
     }
-    if (this.state.currentStudentDetails.editmode) {
+    if (this.props.studentDetails.editmode) {
       this.props.enableapply()
     }
   }
@@ -106,9 +100,9 @@ class Resume extends Component {
   render(){
     return(
       <React.Fragment>
-        {this.state.viewResume ? this.pdfViewer(this.state.currentStudentDetails.resume): <div/>}  
+        {this.state.viewResume ? this.pdfViewer(this.props.studentDetails.resume): <div/>}  
         <button type="button" className="btn btn-success" onClick={this.viewResumeHandler}>{this.state.buttonValue}</button>
-        {this.state.currentStudentDetails.editmode ? (
+        {this.props.studentDetails.editmode ? (
           <div><h2 id='Resume'>Upload Resume</h2>
             <input type="file" name="file" onChange={this.onChangeHandler} />
             <br />
@@ -123,8 +117,7 @@ class Resume extends Component {
 
 function mapStateToProps(state) {
   return {
-    studentDetails : state.login.studentDetails,
-    otherStudentDetails : state.login.otherStudentDetails
+    studentDetails : state.login.studentDetails
   }
 }
 

@@ -120,7 +120,7 @@ class Editdetails extends Component{
     e.preventDefault();
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-    console.log("Sending Data ", this.state.studentDetails, axios.defaults.headers);
+    // console.log("Sending Data ", this.state.studentDetails, axios.defaults.headers);
     const data = {details : this.state.studentDetails , edit_details : true};
     axios.post(`${backendURL}/student/editdetails`, data)
       .then(response => {
