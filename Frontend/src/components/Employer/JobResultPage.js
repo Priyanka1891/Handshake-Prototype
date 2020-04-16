@@ -40,7 +40,6 @@ class JobResultPage extends Component {
     console.log("Sending Data "+ JSON.stringify(data));
     axios.post(`${backendURL}/jobs/studentsapplied`,data)
       .then(response => {
-        console.log("Result student search :", response.data)
         this.setState({
           listStudentsApplied : response.data,
         });
@@ -71,7 +70,6 @@ class JobResultPage extends Component {
   }
 
   studentsApplied = () => {
-    console.log("Reached here ", this.state.listStudentsApplied);
     if (!this.state.listStudentsApplied) {
       return <div></div>
     } 
@@ -119,9 +117,7 @@ class JobResultPage extends Component {
       status : value.status
     };
     var updatedList = this.state.listStudentsApplied;
-    console.log("Here ",updatedList);
-    for (var idx = 0; idx < updatedList.length; ++idx) {
-      console.log("Here ",data);
+    for (var idx = 0; idx < updatedList.studentsapplied.length; ++idx) {
       if (updatedList.studentsapplied[idx].username == data.username){
         updatedList.studentsapplied[idx].status = data.status;
       }
