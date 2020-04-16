@@ -3,6 +3,8 @@ import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import { fillStudentDetails } from "../../common_store/actions/login";
+import { backendURL } from   "../../Utils/config"
+
 
 const initialState={
   detailsSubmitted : false,
@@ -82,7 +84,7 @@ class AddExperienceDetails extends Component{
     const data = {details : this.state.studentDetails,
                   edit_experience_details : true}
     console.log("Sending Data ", data,  axios.defaults.headers);
-    axios.post('http://localhost:3001/student/editdetails', data)
+    axios.post(`${backendURL}/student/editdetails`, data)
       .then(response => {
         console.log("Edit Experience Response: ", response);
         if (response.status === 200) {

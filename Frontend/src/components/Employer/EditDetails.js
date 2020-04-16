@@ -3,6 +3,7 @@ import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import { fillEmployerDetails } from "../../common_store/actions/login";
+import { backendURL } from   "../../Utils/config"
 
 const initialState={
   detailsSubmitted : false,
@@ -57,7 +58,7 @@ class EditEmployerDetails extends Component{
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data ", this.state.employerDetails);
     const data = {details : this.state.employerDetails , edit_details : true}
-    axios.post('http://localhost:3001/employer/editdetails', data)
+    axios.post(`${backendURL}/employer/editdetails`, data)
       .then(response => {
         console.log("Edit Response: ", response);
         if (response.status === 200) {

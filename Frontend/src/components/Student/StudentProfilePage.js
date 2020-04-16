@@ -11,6 +11,8 @@ import Resume from './Resume';
 import MessageApp from '../Message/MessageApp';
 import { fillStudentDetails } from "../../common_store/actions/login";
 import {fillStudentImageDetails}  from "../../common_store/actions/student"
+import { backendURL } from   "../../Utils/config"
+
 
 const initialState={
   addEducation : false,
@@ -56,7 +58,7 @@ class StudentProfilePage extends Component {
       const data = {details : studentDetails , upload_image : true};
       axios.defaults.withCredentials = true;
       axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-      axios.post('http://localhost:3001/student/editdetails', data)
+      axios.post(`${backendURL}/student/editdetails`, data)
         .then(response => {
           if (response.data.code===200) {
             // this.props.fillStudentImageDetails(studentDetails.image);

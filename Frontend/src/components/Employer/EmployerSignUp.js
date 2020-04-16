@@ -3,6 +3,8 @@ import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import { fillEmployerDetails } from "../../common_store/actions/login";
+import { backendURL } from   "../../Utils/config"
+
 
 const initialState={
   username : "",
@@ -58,7 +60,7 @@ class EmployerSignUp extends Component{
 
   axios.defaults.withCredentials = true;
   console.log("Sending Data " + JSON.stringify(data));
-    axios.post('http://localhost:3001/employer/signup',data)
+    axios.post(`${backendURL}/employer/signup`,data)
       .then(response => {
         this.setState({
           signUpDone : true

@@ -4,7 +4,7 @@ import Resume from './Resume';
 import axios from 'axios';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
-
+import { backendURL } from   "../../Utils/config"
 
 
 const initialState={
@@ -38,7 +38,7 @@ class ViewJobDetails extends Component {
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data "+ JSON.stringify(data));
-    axios.post('http://localhost:3001/jobs/jobsapplied',data)
+    axios.post(`${backendURL}/jobs/jobsapplied`,data)
       .then(response => {
         console.log("Entered inside axios post req");
         if(response.data){

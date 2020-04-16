@@ -3,6 +3,8 @@ import axios from 'axios';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import { fillBothDetails } from "../../common_store/actions/login";
+import { backendURL } from   "../../Utils/config"
+
 
 const initialState={
   listStudentsApplied : null,
@@ -36,7 +38,7 @@ class JobResultPage extends Component {
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data "+ JSON.stringify(data));
-    axios.post('http://localhost:3001/jobs/studentsapplied',data)
+    axios.post(`${backendURL}/jobs/studentsapplied`,data)
       .then(response => {
         console.log("Result student search :", response.data)
         this.setState({
@@ -114,7 +116,7 @@ class JobResultPage extends Component {
     };
     axios.defaults.withCredentials = true;
     console.log("Sending Data "+ JSON.stringify(data));
-    axios.post('http://localhost:3001/jobs/studentsapplied',data)
+    axios.post(`${backendURL}/jobs/studentsapplied`,data)
       .then(response => {
         console.log("Result update :", response.data)
         this.setState({
@@ -129,7 +131,7 @@ class JobResultPage extends Component {
       editmode : false
     };
     console.log("Data being sent is"+JSON.stringify(data));
-    axios.post('http://localhost:3001/studentsignin',data)
+    axios.post(`${backendURL}/studentsignin`,data)
       .then(response=>{
         console.log("Entered inside axios post req", response);
         if(response.data.details){

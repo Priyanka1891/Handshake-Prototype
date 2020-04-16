@@ -3,6 +3,8 @@ import axios from 'axios';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import { fillOtherStudentDetails } from "../../common_store/actions/login";
+import { backendURL } from   "../../Utils/config"
+
 
 const initialState={
   // listStudentsRegistered : null,
@@ -34,7 +36,7 @@ class SearchedStudentResultPage extends Component {
     console.log("Data being sent is"+ JSON.stringify(data));
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-    axios.post('http://localhost:3001/student/signin', data)
+    axios.post(`${backendURL}/student/signin`, data)
       .then(response=>{
         console.log("Entered inside axios post req", response);
         if(response.data.details){

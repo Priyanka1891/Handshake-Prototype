@@ -3,6 +3,8 @@ import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import { fillEmployerDetails } from "../../common_store/actions/login";
 import axios from 'axios';
+import { backendURL } from   "../../Utils/config"
+
 const jwt_decode = require('jwt-decode');
 
 
@@ -48,7 +50,7 @@ class EmployerSignIn extends Component{
 
   axios.defaults.withCredentials = true;
     console.log("Sending Data "+JSON.stringify(data));
-    axios.post('http://localhost:3001/employer/signin',data)
+    axios.post(`${backendURL}/employer/signin`,data)
     .then(response => {
       console.log("Response received ", response);
       this.dispatch(response.data.details)

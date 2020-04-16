@@ -4,6 +4,8 @@ import axios from 'axios';
 import ListEvent from './ListEvent';
 import {connect} from 'react-redux';
 import { fillEventDetailsList } from '../../common_store/actions/event'
+import { backendURL } from   "../../Utils/config"
+
 
 const initialState={
   eventQuery : '',
@@ -33,7 +35,7 @@ class StudentEvents extends Component {
     const data = {isStudent : true};
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-    axios.post('http://localhost:3001/events/list',data)
+    axios.post(`${backendURL}/events/list`,data)
       .then(response => {
         let upcomingEventList = [];
         for(let idx=0;idx<response.data.length;idx++){
@@ -81,7 +83,7 @@ class StudentEvents extends Component {
     const data={username : this.props.studentDetails.username}
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-    axios.post('http://localhost:3001/events/registeredstudenteventlist',data)
+    axios.post(`${backendURL}/events/registeredstudenteventlist`,data)
       .then(response => {
         this.props.fillEventDetailsList(response.data);
         // console.log("Result event query :", JSON.stringify(response.data))

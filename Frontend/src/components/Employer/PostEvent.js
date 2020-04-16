@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import { backendURL } from   "../../Utils/config"
+
 
 const initialState={
   eventPosted : false,
@@ -66,7 +68,7 @@ class PostEvent extends Component{
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     const data = this.state;
     console.log("Sending Data ", data);
-    axios.post('http://localhost:3001/events/postevent', data)
+    axios.post(`${backendURL}/events/postevent`, data)
       .then(response => {
         console.log("Edit Response: ", response);
         if (response.status === 200) {

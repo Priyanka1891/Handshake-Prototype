@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import StudentNavbar from './StudentNavbar';
 import axios from 'axios';
 import SearchedStudentResultPage from './SearchedStudentResultPage';
+import { backendURL } from   "../../Utils/config"
+
 
 
 const initialState={
@@ -28,7 +30,7 @@ class StudentList extends Component {
   // componentWillMount=()=>{
   //   axios.defaults.withCredentials = true;
   //   axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-  //   axios.post('http://localhost:3001/jobs/studentsearch', {})
+  //   axios.post(`${backendURL}/jobs/studentsearch`, {})
   //   .then(response => {
   //     this.setState({
   //       studentList : response.data
@@ -67,7 +69,7 @@ class StudentList extends Component {
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data "+JSON.stringify(data));
-    axios.post('http://localhost:3001/jobs/studentsearch',data)
+    axios.post(`${backendURL}/jobs/studentsearch`,data)
       .then(response => {
         console.log("Result students :", response.data)
         this.setState({

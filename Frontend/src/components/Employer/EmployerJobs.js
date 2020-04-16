@@ -6,6 +6,8 @@ import JobResultPage from './JobResultPage';
 import {Redirect} from 'react-router';
 import { fillBothDetails } from "../../common_store/actions/login";
 import { fillJobDetailsList } from '../../common_store/actions/job'
+import { backendURL } from   "../../Utils/config"
+
 
 
 
@@ -39,7 +41,7 @@ class EmployerJobs extends Component {
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data for job search"+ JSON.stringify(data));
-    axios.post('http://localhost:3001/jobs/jobsearch',data)
+    axios.post(`${backendURL}/jobs/jobsearch`,data)
       .then(response => {
         console.log("Result job search :", response.data)
         this.props.fillJobDetailsList(response.data);

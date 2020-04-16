@@ -4,6 +4,8 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import SearchedStudentResultPage from './SearchedStudentResultPage';
 import { fillBothDetails } from "../../common_store/actions/login";
+import { backendURL } from   "../../Utils/config"
+
 
 
 const initialState={
@@ -35,7 +37,7 @@ class EmployerSearchStudent extends Component {
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data "+JSON.stringify(data));
-    axios.post('http://localhost:3001/jobs/studentsearch', data)
+    axios.post(`${backendURL}/jobs/studentsearch`, data)
       .then(response => {
         console.log("Result students :", response.data)
         this.setState({

@@ -3,6 +3,8 @@ import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import { fillStudentDetails } from "../../common_store/actions/login";
+import { backendURL } from   "../../Utils/config"
+
 
 
 const initialState={
@@ -65,7 +67,7 @@ submitDetails = (e) => {
 
   axios.defaults.withCredentials = true;
   console.log("Sending Data "+JSON.stringify(data));
-  axios.post('http://localhost:3001/student/signup',data)
+  axios.post(`${backendURL}/student/signup`,data)
     .then(response => {
       this.setState({
         signUpDone : true

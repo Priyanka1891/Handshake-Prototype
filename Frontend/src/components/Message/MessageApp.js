@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import Input from "./Input";
 import axios from 'axios';
 import { fillMsgDetailsList } from '../../common_store/actions/message'
+import { backendURL } from   "../../Utils/config"
 
 
 function randomColor() {
@@ -67,7 +68,7 @@ class MessageApp extends Component {
      messages : this.state.backendmsgs
     }
     console.log("Sending Data " + JSON.stringify(data));
-    axios.post('http://localhost:3001/messages/post', data)
+    axios.post(`${backendURL}/messages/post`, data)
       .then(response => {
         console.log(response);
       });

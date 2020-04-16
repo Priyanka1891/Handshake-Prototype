@@ -5,6 +5,8 @@ import { fillStudentDetails}  from "../../common_store/actions/login";
 import {fillStudentBasicDetails, fillStudentEducationDetails, fillStudentExperienceDetails,
         fillStudentImageDetails, fillStudentResumeDetails} from "../../common_store/actions/student"
 import axios from 'axios';
+import { backendURL } from   "../../Utils/config"
+
 const jwt_decode = require('jwt-decode');
 
 
@@ -51,7 +53,7 @@ login = (e) => {
   }
   axios.defaults.withCredentials = true;
   console.log("Sending Data "+ JSON.stringify(data));
-  axios.post('http://localhost:3001/student/signin',data)
+  axios.post(`${backendURL}/student/signin`,data)
     .then(response => {
       const newStudentDetails={...response.data.details,
         editmode : true};

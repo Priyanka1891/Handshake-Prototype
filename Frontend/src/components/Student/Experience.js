@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router';
 import axios from 'axios';
 import { fillStudentDetails } from "../../common_store/actions/login";
+import { backendURL } from   "../../Utils/config"
+
 
 const initialState={
   editExperienceDetails : false,
@@ -42,7 +44,7 @@ class Experience extends Component{
     // console.log("Data being sent is ",data);
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-    axios.post('http://localhost:3001/student/deletedetails', data)
+    axios.post(`${backendURL}/student/deletedetails`, data)
       .then(response => {
         // console.log("Delete Experience Response: ", response);
         if (response.status === 200) {

@@ -6,7 +6,6 @@ const initialState = {
 }
 
 export default function(state = initialState, action) {
-    console.log("Reducer: ", action);
     switch (action.type) {
       case FILL_EVENT_DETAILS_LIST:
         return {...state, eventDetailsList : action.payload}

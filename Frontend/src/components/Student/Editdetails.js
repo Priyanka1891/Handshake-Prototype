@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import { fillStudentDetails } from "../../common_store/actions/login";
 import { fillStudentBasicDetails } from "../../common_store/actions/student"
+import { backendURL } from   "../../Utils/config"
+
 
 const initialState={
   detailsSubmitted : false,
@@ -120,7 +122,7 @@ class Editdetails extends Component{
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data ", this.state.studentDetails, axios.defaults.headers);
     const data = {details : this.state.studentDetails , edit_details : true};
-    axios.post('http://localhost:3001/student/editdetails', data)
+    axios.post(`${backendURL}/student/editdetails`, data)
       .then(response => {
         console.log("Edit Response: ", response);
         if (response.status === 200) {

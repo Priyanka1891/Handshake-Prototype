@@ -6,7 +6,6 @@ const initialState = {
 }
 
 export default function(state = initialState, action) {
-    console.log("Reducer: ", action);
     switch (action.type) {
       case FILL_JOB_DETAILS_LIST:
         return {...state, jobDetailsList : action.payload}

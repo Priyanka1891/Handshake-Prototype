@@ -3,6 +3,8 @@ import axios from 'axios';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import { fillBothDetails } from "../../common_store/actions/login";
+import { backendURL } from   "../../Utils/config"
+
 
 const initialState={
   listStudentsRegistered : null,
@@ -36,7 +38,7 @@ class EventResultPage extends Component {
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data "+ JSON.stringify(data));
-    axios.post('http://localhost:3001/events/studentsregistered',data)
+    axios.post(`${backendURL}/events/studentsregistered`,data)
       .then(response => {
         console.log("Result student search :", response.data)
         this.setState({
@@ -76,7 +78,7 @@ class EventResultPage extends Component {
       editmode : false
     };
     console.log("Data being sent is"+JSON.stringify(data));
-    axios.post('http://localhost:3001/studentsignin', data)
+    axios.post(`${backendURL}/studentsignin`, data)
       .then(response=>{
         console.log("Entered inside axios post req", response);
         if(response.data.details){

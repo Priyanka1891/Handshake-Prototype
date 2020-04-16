@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import JobResultPage from './JobResultPage';
 import { fillJobDetailsList} from '../../common_store/actions/job'
+import { backendURL } from   "../../Utils/config"
+
 
 const initialState={
   searchQuery : "",
@@ -37,7 +39,7 @@ class StudentJobs extends Component {
   //   axios.defaults.withCredentials = true;
   //   axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
   //   console.log("Sending Data " + JSON.stringify(data));
-  //   axios.post('http://localhost:3001/jobs/jobsearch',data)
+  //   axios.post(`${backendURL}/jobs/jobsearch`,data)
   //     .then(response => {
   //       this.setState({
   //         initialJobList : response.data,
@@ -184,7 +186,7 @@ class StudentJobs extends Component {
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data " + JSON.stringify(data));
-    axios.post('http://localhost:3001/jobs/jobsearch', data)
+    axios.post(`${backendURL}/jobs/jobsearch`, data)
       .then(response => {
         this.props.fillJobDetailsList(response.data);
         this.setState({

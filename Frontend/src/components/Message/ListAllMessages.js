@@ -8,6 +8,8 @@ import axios from 'axios';
 import './MessageApp.css';
 import { Button, Card, Col, Row, Form} from "react-bootstrap";
 import { fillMsgDetailsList } from '../../common_store/actions/message'
+import { backendURL } from   "../../Utils/config"
+
 
 
 const initialState={
@@ -30,7 +32,7 @@ class ListAllMessages extends Component {
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data " + JSON.stringify(data));
-    axios.post('http://localhost:3001/messages/list',data)
+    axios.post(`${backendURL}/messages/list`,data)
       .then(response => {
         this.setState({
           messageList : response.data
@@ -65,7 +67,7 @@ class ListAllMessages extends Component {
      messages : [this.state.currentMsg]
     }
     console.log("Sending Data " + JSON.stringify(data));
-    axios.post('http://localhost:3001/messages/post', data)
+    axios.post(`${backendURL}/messages/post`, data)
       .then(response => {
         console.log(response);
         console.log("here ", messageList)

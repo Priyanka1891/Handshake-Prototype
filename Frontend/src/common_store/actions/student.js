@@ -18,11 +18,9 @@ export function fillStudentExperienceDetails(payload) {
 }
 
 export function fillStudentImageDetails(payload) {
-  console.log("dispatching the action here : ", payload);
   return { type: FILL_STUDENT_IMAGE_DETAILS, payload };
 }
 
 export function fillStudentResumeDetails(payload) {
-  console.log("dispatching the action here : ", payload);
   return { type: FILL_STUDENT_RESUME_DETAILS, payload };
 }

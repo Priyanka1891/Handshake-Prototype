@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Document, Page } from 'react-pdf';
 import { fillStudentDetails } from "../../common_store/actions/login";
 import { fillStudentResumeDetails } from "../../common_store/actions/student"
+import { backendURL } from   "../../Utils/config"
+
 
 class Resume extends Component {
 
@@ -50,7 +52,7 @@ class Resume extends Component {
     console.log("Sending data with resume: ", data);
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-    axios.post('http://localhost:3001/student/editdetails', data)
+    axios.post(`${backendURL}/student/editdetails`, data)
       .then(response => {
         if (response.data.code===200) {
           // this.props.fillStudentResumeDetails(studentDetails.resume);

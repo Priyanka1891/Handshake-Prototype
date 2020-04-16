@@ -6,6 +6,8 @@ import EventResultPage from './EventResultPage';
 import {Redirect} from 'react-router';
 import { fillBothDetails } from "../../common_store/actions/login";
 import { fillEventDetailsList } from '../../common_store/actions/event'
+import { backendURL } from   "../../Utils/config"
+
 
 
 const initialState={
@@ -39,7 +41,7 @@ class EmployerEvents extends Component {
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data "+ JSON.stringify(data));
-    axios.post('http://localhost:3001/events/list', data)
+    axios.post(`${backendURL}/events/list`, data)
       .then(response => {
         console.log("Event lists:", response);
         this.props.fillEventDetailsList(response.data);

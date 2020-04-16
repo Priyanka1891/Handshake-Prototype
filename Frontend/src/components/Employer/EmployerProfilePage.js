@@ -4,6 +4,8 @@ import axios from 'axios';
 import EmployerNavbar from './EmployerNavbar';
 import Details from  './Details';
 import { fillEmployerDetails } from "../../common_store/actions/login";
+import { backendURL } from   "../../Utils/config"
+
 
 const initialState={
   reRender : false
@@ -40,7 +42,7 @@ class EmployerProfilePage extends Component {
       const data = {details : employerDetails , upload_image : true};
       axios.defaults.withCredentials = true;
       axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-      axios.post('http://localhost:3001/employer/editdetails', data)
+      axios.post(`${backendURL}/employer/editdetails`, data)
         .then(response => {
           if (response.data.code===200) {
             this.dispatch(employerDetails).then((result) => { 
