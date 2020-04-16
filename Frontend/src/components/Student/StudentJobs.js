@@ -33,20 +33,20 @@ class StudentJobs extends Component {
     this.textInputSearch = React.createRef(null);
   }
 
-  // componentWillMount() {
-  //   const data = {
-  //   };
-  //   axios.defaults.withCredentials = true;
-  //   axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-  //   console.log("Sending Data " + JSON.stringify(data));
-  //   axios.post(`${backendURL}/jobs/jobsearch`,data)
-  //     .then(response => {
-  //       this.setState({
-  //         initialJobList : response.data,
-  //         jobList : response.data
-  //       })
-  //   });
-  // }
+  componentWillMount() {
+    const data = {
+    };
+    axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
+    console.log("Sending Data " + JSON.stringify(data));
+    axios.post(`${backendURL}/jobs/jobsearch`,data)
+      .then(response => {
+        this.setState({
+          initialJobList : response.data,
+          jobList : response.data
+        })
+    });
+  }
 
   queryChangeHandler = (e) => {
     e.preventDefault();
@@ -219,11 +219,11 @@ class StudentJobs extends Component {
                     <div display='flex'>
                     <input onChange = {this.queryChangeHandler} ref={this.textInputSearch}
                       style={{width:'30%'}}type="text" placeholder="Enter Job Title or Company Name to Search"/>&nbsp;
-                      <button type='submit'onClick={this.listJobResults}><i className="fa fa-search"></i></button>
+                      <button className="btn btn-success" type='submit'onClick={this.listJobResults}><i className="fa fa-search"></i></button>
                       &nbsp;&nbsp;&nbsp;&nbsp;
                       <input  onChange = {this.locationChangeHandler} ref={this.textInputLocation}
                       style={{width:'30%'}}type="text" placeholder="Enter city name to filter"/>&nbsp;
-                      <button type='submit'onClick={this.locationfilter}><i className="fa fa-search"></i></button>
+                      <button className="btn btn-success"type='submit'onClick={this.locationfilter}><i className="fa fa-search"></i></button>
                       &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <br />

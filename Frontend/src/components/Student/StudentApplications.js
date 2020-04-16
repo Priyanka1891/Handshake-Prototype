@@ -40,7 +40,9 @@ class StudentApplications extends Component {
       })
       return;
     }
-
+    if(!this.state.appliedjobList) {
+      return;
+    }
     for(let i=0; i < this.state.appliedjobList.length; i++){
       var studentsapplied = this.state.appliedjobList[i].studentsapplied;
       for(let j=0; j < studentsapplied.length; j++) {
