@@ -11,7 +11,8 @@ import { fillBothDetails } from "../../common_store/actions/login";
 const initialState={
   uploadresume : false,
   enableapply : false,
-  canceljob : false
+  canceljob : false,
+  renderEmployer : false
 }
 
 class ViewJobDetails extends Component {
@@ -62,6 +63,9 @@ class ViewJobDetails extends Component {
           }
           const bothDetails = {studentDetails : this.props.studentDetails, employerDetails : newEmployerDetails};
           this.props.fillBothDetails(bothDetails);
+          this.setState({
+            renderEmployer : true
+          })
         }
       })
   }
@@ -81,9 +85,8 @@ class ViewJobDetails extends Component {
     if (this.state.canceljob) {
       redirectVar = <Redirect to='/studentjobs' />
     }   
-    else if(this.props.employerDetails) {
-      console.log("Here");
-      redirectVar = <Redirect to='/employerprofilepage' />
+    else if(this.props.employerDetails && this.state.renderEmployer) {
+      redirectVar = <Redirect to={{pathname: "/employerprofilepage", state: {isStudent: true}}} />
     }
 
       return(

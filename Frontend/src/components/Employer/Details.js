@@ -32,7 +32,7 @@ class Details extends Component{
         {redirectVar}
           <br />
                 <h2>Profile Overview</h2>
-                {this.props.employerDetails.editmode ?
+                {this.props.editmode ?
                   (<button onClick={this.editEmployerDetails} type="button" className="btn btn-default btn-sm">
                   <span className="glyphicon glyphicon-pencil"></span>
                   </button>) : <div/>}

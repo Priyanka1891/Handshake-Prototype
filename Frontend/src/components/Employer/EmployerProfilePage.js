@@ -5,6 +5,7 @@ import EmployerNavbar from './EmployerNavbar';
 import Details from  './Details';
 import { fillEmployerDetails } from "../../common_store/actions/login";
 import { backendURL } from   "../../Utils/config"
+import StudentNavbar from '../Student/StudentNavbar';
 
 
 const initialState={
@@ -55,9 +56,10 @@ class EmployerProfilePage extends Component {
   }
 
   render() {
+    let viewMode = this.props.location.state && this.props.location.state.isStudent;
     return(
       <React.Fragment>
-        <EmployerNavbar />
+        {  viewMode ? <StudentNavbar /> : <EmployerNavbar />}
         <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js" />
         <script src="http://code.jquery.com/jquery-1.11.1.min.js" />
@@ -72,7 +74,7 @@ class EmployerProfilePage extends Component {
                     <img src="https://static.change.org/profile-img/default-user-profile.svg" className="img-responsive" alt="" />
                   } 
                 </div> 
-                {this.props.employerDetails.editmode ?
+                {!viewMode ?
                   (<div className="profile-userbuttons">
                     <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={this.imageChangeHandler}/>
                     <button onClick={this.imageButtonHandler} type="button" className="glyphicon glyphicon-camera btn btn-info">
@@ -100,7 +102,7 @@ class EmployerProfilePage extends Component {
             <div className="col-md-offset-0">
               <div className="profile-content">
               <div className="col-md-offset-4">
-                <div id='Details'><Details /></div>
+                <div id='Details'><Details editmode ={!viewMode}/></div>
               </div>
               </div>
             </div>
