@@ -10,7 +10,6 @@ import Experience from './Experience';
 import Resume from './Resume';
 import MessageApp from '../Message/MessageApp';
 import { fillStudentDetails } from "../../common_store/actions/login";
-import {fillStudentImageDetails}  from "../../common_store/actions/student"
 import { backendURL } from   "../../Utils/config"
 
 
