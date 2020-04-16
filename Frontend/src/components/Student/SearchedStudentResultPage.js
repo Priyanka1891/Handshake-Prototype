@@ -54,10 +54,11 @@ class SearchedStudentResultPage extends Component {
       }
       return ( 
         <div key={item.username}>
+            <h2>{item.username}</h2>
             <div className = "">
-              <button variant="secondary" type="submit" 
-               value = {item.username} style={{width:'100px'}} onClick={this.redirectStudentProfile}><i className='glyphicon glyphicon-user'/>
-               &nbsp;{item.username}'s Profile
+              <button className="btn btn-link" type="submit" 
+               value = {item.username} onClick={this.redirectStudentProfile}>
+               Click to view Profile
               </button>
             </div>
             <br/>

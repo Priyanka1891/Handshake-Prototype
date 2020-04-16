@@ -103,10 +103,20 @@ class AddEducationDetails extends Component{
            <div className="profile-content">
               <div className="col-md-offset-4">
                 <h2>Add Education</h2>
-                <label>College Name</label>
+                {/* <label>College Name</label>
                 <input style={{width:"300px"}} onChange = {this.colgnameChangeHandler}value={this.state.colgname} 
-                type="text" className="form-control" placeholder="College Name" />
+                type="text" className="form-control" placeholder="College Name" /> */}
                 <br />
+                <select style={{width:"300px"}}  className="form-control"
+                  onChangeCapture = {this.colgnameChangeHandler} value={this.state.colgname}>
+                    <option>-----Choose your University-----</option>
+                    <option>UCLA</option>
+                    <option>University of Hogwarts</option>
+                    <option>UC Davis</option>
+                    <option>UC Berkley</option>
+                    <option>Stanford University</option>
+                </select>
+                <br/>
                 <label>Location</label>
                 <input style={{width:"300px"}} onChange = {this.locationChangeHandler}value={this.state.location} 
                 type="text" className="form-control" placeholder="Location" />
@@ -115,10 +125,20 @@ class AddEducationDetails extends Component{
                 <input style={{width:"300px"}} onChange = {this.degreeChangeHandler}value={this.state.degree} 
                 type="text" className="form-control" placeholder="Degree" />
                 <br />
-                <label>Major</label>
+                {/* <label>Major</label>
                 <input style={{width:"300px"}} onChange = {this.majorChangeHandler}value={this.state.major} 
                 type="text" className="form-control" placeholder="Major" />
-                <br />
+                <br /> */}
+                <div className="form-group">
+                  <label>Major*</label>
+                  <select className="form-control" style={{width:"300px"}} id="types" onChange = {this.majorChangeHandler} value={this.state.major}>
+                  <option>--Select Major--</option>
+                    <option value="Software Engineering">Software Engineering</option>
+                    <option value="Computer Engineering">Computer Engineering</option>
+                    <option value="Electrical Engineering">Electrical Engineering</option>
+                    <option value="Data Analytics">Data Analytics</option>
+                  </select>
+                </div>
                 <label>Year of Passing</label>
                 <input style={{width:"300px"}} onChange = {this.yearofpassingChangeHandler}value={this.state.yearofpassing} 
                 type="text" className="form-control" placeholder="Year of Passing" />

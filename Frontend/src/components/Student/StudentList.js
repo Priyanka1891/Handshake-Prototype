@@ -9,7 +9,7 @@ import { backendURL } from   "../../Utils/config"
 const initialState={
   studentQuery : null,
   studentList : null,
-  filteredStudentList : null
+  filteredStudentList : null,
 }
 
 class StudentList extends Component {

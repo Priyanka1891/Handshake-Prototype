@@ -37,7 +37,7 @@ class ViewEventDetails extends Component {
       axios.defaults.withCredentials = true;
       axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
       console.log("Sending Data "+ JSON.stringify(data));
-      axios.post(`${backendURL}/events/registerstudentevent`,data)
+      axios.post(`${backendURL}/events/listregisteredstudent`,data)
         .then(response => {
           console.log("Entered inside axios post req");
           if(response.data){

@@ -42,6 +42,7 @@ class Education extends Component{
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     axios.post(`${backendURL}/student/deletedetails`, data)
       .then(response => {
+        console.log("Delete Education Response: ", response);
         if (response.status === 200) {
           this.dispatch(studentDetails)
             .then(result => {

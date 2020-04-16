@@ -63,7 +63,7 @@ class JobResultPage extends Component {
                 <td>{job.type}</td>
                 <td>{job.createdate}</td>
                 <td>{job.enddate}</td>
-                <td><button type="submit" value={job._id}className="btn btn-link" onClick={this.getStudentDetails}>View Details</button></td>
+                <td><button type="submit" value={job._id} className="btn btn-link" onClick={this.getStudentDetails}>View Details</button></td>
               </tr>
            );
      });
@@ -96,9 +96,9 @@ class JobResultPage extends Component {
               </label>
               <br />
               <br/>
-              <h2>{item.username}&nbsp;:</h2>
+              <h2>{item.username}</h2>
               <button variant="secondary" type="submit" className="btn btn-link"
-               value = {item.username} style={{width:'100px'}} onClick={this.redirectStudentProfile}>
+               value = {item.username}  onClick={this.redirectStudentProfile}>
                Click to view Profile
               </button>
             </div>
@@ -113,7 +113,7 @@ class JobResultPage extends Component {
     e.preventDefault();
     let value = JSON.parse(e.target.value);
     const data = {
-      jobId : value.job.jobid,
+      // jobId : this.props.,
       username : value.job.username,
       status : value.status
     };
@@ -134,7 +134,7 @@ class JobResultPage extends Component {
       editmode : false
     };
     console.log("Data being sent is"+JSON.stringify(data));
-    axios.post(`${backendURL}/studentsignin`,data)
+    axios.post(`${backendURL}/student/signin`,data)
       .then(response=>{
         console.log("Entered inside axios post req", response);
         if(response.data.details){

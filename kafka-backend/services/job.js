@@ -109,7 +109,7 @@ today = yyyy + '-' + mm + '-' + dd;
 var studentdetail = {};
 studentdetail.username = msg.username;
 studentdetail.applicationdate = today;
-// studentdetail.
+studentdetail.status = "NA";
   // Jobs.find({'studentsapplied.username': msg.username},(error,data) => {
 Jobs.findById({ _id : msg.jobId },(error,data) => {
     // console.log("data fetched is",data);

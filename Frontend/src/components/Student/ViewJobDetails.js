@@ -102,7 +102,7 @@ class ViewJobDetails extends Component {
             <label for="usr">Job Type :&nbsp;&nbsp;&nbsp;{this.props.location.state.type}</label>
             <label for="usr">Company Name :&nbsp;&nbsp;&nbsp;{this.props.location.state.createdby}</label>
             <br/>
-            <button type="button"onClick={this.redirectEmployerProfile}className="btn btn-link">View {this.props.location.state.createdby} profile</button>
+            <button type="button"onClick={this.redirectEmployerProfile}className="btn btn-link">Click to view {this.props.location.state.createdby} profile</button>
             <br/>
             <br/>
             {this.state.enableapply ?

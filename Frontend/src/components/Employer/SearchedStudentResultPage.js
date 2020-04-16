@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import { fillBothDetails } from "../../common_store/actions/login";
 import { backendURL } from   "../../Utils/config"
 
-
 const initialState={
 }
 
@@ -52,13 +51,12 @@ class SearchedStudentResultPage extends Component {
     const students = this.props.studentList.map((item, index) => {
       return ( 
         <div key={item.username}>
-            <div className = "">
-              <button variant="secondary" type="submit" 
-               value = {item.username} style={{width:'100px'}} onClick={this.redirectStudentProfile}><i className='glyphicon glyphicon-user'/>
-               &nbsp;{item.username}'s Profile
+            <h2>{item.username}</h2>
+              <button className="btn btn-link" type="submit" 
+               value = {item.username} onClick={this.redirectStudentProfile}>
+                Click to view Profile
               </button>
             </div>
-        </div>
       );
     });
     return students;
