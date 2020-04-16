@@ -200,13 +200,12 @@ class StudentProfilePage extends Component {
                   }
                 </div>
                 <br/>
-                <div id="Resume"><Resume enableApply = {this.enableApply}/></div></div> 
+                <div id="Resume"><Resume enableapply = {this.enableApply}/></div></div> 
                 <div className="col-md-offset-5">
                   {this.state.openMessageBox ? <div style={{"height" : "40%", "width" : "40%"}}><MessageApp closeMessageBox = {this.closeMessageBox}/> </div> : <div/> }
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </React.Fragment>

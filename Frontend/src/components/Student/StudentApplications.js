@@ -3,6 +3,8 @@ import StudentNavbar from './StudentNavbar';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import JobApplicationResultPage from './JobApplicationResultPage';
+import { backendURL } from   "../../Utils/config"
+
 
 
 const initialState={
@@ -21,7 +23,7 @@ class StudentApplications extends Component {
     const data = {username : this.props.studentDetails.username};
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-    axios.post('http://localhost:3001/jobs/jobsappliedstudent',data)
+    axios.post(`${backendURL}/jobs/jobsappliedstudent`,data)
       .then(response => {
         console.log("here",response.data);
         this.setState({

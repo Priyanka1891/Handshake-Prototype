@@ -72,11 +72,13 @@ class EmployerProfilePage extends Component {
                     <img src="https://static.change.org/profile-img/default-user-profile.svg" className="img-responsive" alt="" />
                   } 
                 </div> 
-                <div className="profile-userbuttons">
-                  <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={this.imageChangeHandler}/>
-                  <button onClick={this.imageButtonHandler} type="button" className="glyphicon glyphicon-camera btn btn-info">
-                  </button>
-                </div>
+                {this.props.employerDetails.editmode ?
+                  (<div className="profile-userbuttons">
+                    <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={this.imageChangeHandler}/>
+                    <button onClick={this.imageButtonHandler} type="button" className="glyphicon glyphicon-camera btn btn-info">
+                    </button>
+                  </div>) : <div/>
+                }
                 <div className="profile-usertitle">
                   <div className="profile-usertitle-name">
                     {this.props.employerDetails.username}

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router';
 
+
 const initialState={
   editDetails : false
 }
@@ -31,9 +32,10 @@ class Details extends Component{
         {redirectVar}
           <br />
                 <h2>Profile Overview</h2>
-                <button onClick={this.editEmployerDetails} type="button" className="btn btn-default btn-sm">
-                <span className="glyphicon glyphicon-pencil"></span>
-              </button>
+                {this.props.employerDetails.editmode ?
+                  (<button onClick={this.editEmployerDetails} type="button" className="btn btn-default btn-sm">
+                  <span className="glyphicon glyphicon-pencil"></span>
+                  </button>) : <div/>}
               <br />
               <br />
               <div className="form-group">

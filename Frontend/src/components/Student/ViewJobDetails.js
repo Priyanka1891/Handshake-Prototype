@@ -8,7 +8,6 @@ import { backendURL } from   "../../Utils/config"
 import { fillBothDetails } from "../../common_store/actions/login";
 
 
-
 const initialState={
   uploadresume : false,
   enableapply : false,
@@ -54,7 +53,7 @@ class ViewJobDetails extends Component {
       editmode : false
     };
     console.log("Data being sent is"+JSON.stringify(data));
-    axios.post('http://localhost:3001/employer/signin',data)
+    axios.post(`${backendURL}/employer/signin`,data)
       .then(response=>{
         console.log("Entered inside axios post req", response);
         if(response.data.details){
@@ -128,7 +127,8 @@ class ViewJobDetails extends Component {
 
 function mapStateToProps(state) {
   return {
-    studentDetails : state.login.studentDetails
+    studentDetails : state.login.studentDetails,
+    employerDetails : state.login.employerDetails
   }
 }
 function mapDispatchToProps(dispatch) {
