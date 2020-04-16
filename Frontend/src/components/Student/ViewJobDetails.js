@@ -5,6 +5,8 @@ import axios from 'axios';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import { backendURL } from   "../../Utils/config"
+import { fillBothDetails } from "../../common_store/actions/login";
+
 
 
 const initialState={
@@ -33,7 +35,7 @@ class ViewJobDetails extends Component {
     e.preventDefault();
     const data = {
       jobId : this.props.location.state._id,
-      username : this.props.StudentDetails.username,
+      username : this.props.studentDetails.username,
     };
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
@@ -46,7 +48,24 @@ class ViewJobDetails extends Component {
         }
     });
   }
-
+  redirectEmployerProfile = (e) => {
+    const data ={
+      username : this.props.location.state.username,
+      editmode : false
+    };
+    console.log("Data being sent is"+JSON.stringify(data));
+    axios.post('http://localhost:3001/employer/signin',data)
+      .then(response=>{
+        console.log("Entered inside axios post req", response);
+        if(response.data.details){
+          const newEmployerDetails={...response.data.details,
+              editmode : false
+          }
+          const bothDetails = {studentDetails : this.props.studentDetails, employerDetails : newEmployerDetails};
+          this.props.fillBothDetails(bothDetails);
+        }
+      })
+  }
   enableApply = ()=> {
     this.setState({
       enableapply : true
@@ -62,17 +81,21 @@ class ViewJobDetails extends Component {
     let redirectVar = null;
     if (this.state.canceljob) {
       redirectVar = <Redirect to='/studentjobs' />
-    }    
+    }   
+    else if(this.props.employerDetails) {
+      console.log("Here");
+      redirectVar = <Redirect to='/employerprofilepage' />
+    }
 
       return(
         <React.Fragment>
           {redirectVar}
         <StudentNavbar/>
-        <div class="container">
+        <div className="container">
           <h2>{this.props.location.state.title}</h2>
           <br />
-          <div class="card">
-           <div class="card-body">
+          <div className="card">
+           <div className="card-body">
             <label for="usr">Create Date :&nbsp;&nbsp;&nbsp;{this.props.location.state.createdate}</label>
             <label for="usr">End Date :&nbsp;&nbsp;&nbsp;{this.props.location.state.enddate}</label>
             <label for="usr">Location :&nbsp;&nbsp;&nbsp;{this.props.location.state.location}</label>
@@ -80,7 +103,7 @@ class ViewJobDetails extends Component {
             <label for="usr">Job Type :&nbsp;&nbsp;&nbsp;{this.props.location.state.type}</label>
             <label for="usr">Company Name :&nbsp;&nbsp;&nbsp;{this.props.location.state.createdby}</label>
             <br/>
-            <button type="button"className="btn btn-info btn-sm">View {this.props.location.state.createdby} profile</button>
+            <button type="button"onClick={this.redirectEmployerProfile}className="btn btn-link">View {this.props.location.state.createdby} profile</button>
             <br/>
             <br/>
             {this.state.enableapply ?
@@ -108,6 +131,12 @@ function mapStateToProps(state) {
     studentDetails : state.login.studentDetails
   }
 }
-export default connect(mapStateToProps, null)(ViewJobDetails);
+function mapDispatchToProps(dispatch) {
+  return {
+    fillBothDetails : (details) => dispatch(fillBothDetails(details))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewJobDetails);
 
 

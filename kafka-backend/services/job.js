@@ -63,7 +63,8 @@ function postJob(msg, callback) {
     salary : msg.salary,
     description : msg.description,
     type : msg.type,
-    createdby : msg.companyname
+    createdby : msg.companyname,
+    username : msg.username
   });
   
   newJob.save((error, data) => {
@@ -138,7 +139,20 @@ Jobs.findById({ _id : msg.jobId },(error,data) => {
     });
   });
 }
-
+function studentapplied(msg,callback){
+  Jobs.findById({'_id' : msg.jobId },(error,data) => {
+    if (error) {
+      res.code = 500;
+      res.value=error;
+      callback(null, res);
+    }
+    else{
+      res.code = 200;
+      res.value = data;
+      callback(null, res);
+    }
+  });
+}
 
 function handle_request(msg, callback){
     console.log("Job Req Body : ", msg);
@@ -163,6 +177,10 @@ function handle_request(msg, callback){
     }
     else if(msg.action == actions.JOBSAPPLIEDSTUDENT){
       jobsAppliedstudent(msg.body, callback);
+      return;
+    }
+    else if(msg.action == actions.STUDENTAPPLIED){
+      studentapplied(msg.body, callback);
       return;
     }
 }

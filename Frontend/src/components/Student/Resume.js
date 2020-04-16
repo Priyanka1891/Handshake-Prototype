@@ -59,7 +59,7 @@ class Resume extends Component {
           this.dispatch(studentDetails).then((result) => {});
           window.alert("Resume uploaded successfully");
           if (this.state.currentStudentDetails.editmode) {
-            this.props.enableApply()
+            this.props.enableapply()
           }
         } else {
           window.alert("Resume upload failed");
@@ -80,7 +80,7 @@ class Resume extends Component {
       })
     }
     if (this.state.currentStudentDetails.editmode) {
-      this.props.enableApply()
+      this.props.enableapply()
     }
   }
 

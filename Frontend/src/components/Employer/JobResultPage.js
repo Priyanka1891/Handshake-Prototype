@@ -63,7 +63,7 @@ class JobResultPage extends Component {
                 <td>{job.type}</td>
                 <td>{job.createdate}</td>
                 <td>{job.enddate}</td>
-                <td><button type="submit" value={job._id} onClick={this.getStudentDetails}>View Details</button></td>
+                <td><button type="submit" value={job._id}className="btn btn-link" onClick={this.getStudentDetails}>View Details</button></td>
               </tr>
            );
      });
@@ -75,7 +75,7 @@ class JobResultPage extends Component {
       return <div></div>
     } 
 
-    const students = this.state.listStudentsApplied.map((item, index) => {
+    const students = this.state.listStudentsApplied.studentsapplied.map((item, index) => {
       return ( 
         <div key={item.username}>
               <div className="radio">
@@ -93,10 +93,13 @@ class JobResultPage extends Component {
               <input type="radio" value={JSON.stringify({job:item, status : 'Declined'})} checked={'Declined' === item.status.toLowerCase()} 
                onChange={this.updateApplicationStatus}/>
                 Declined
-              </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <button variant="secondary" type="submit" 
-               value = {item.username} style={{width:'100px'}} onClick={this.redirectStudentProfile}><i className='glyphicon glyphicon-user'/>
-               &nbsp;{item.username}'s Profile
+              </label>
+              <br />
+              <br/>
+              <h2>{item.username}&nbsp;:</h2>
+              <button variant="secondary" type="submit" className="btn btn-link"
+               value = {item.username} style={{width:'100px'}} onClick={this.redirectStudentProfile}>
+               Click to view Profile
               </button>
             </div>
             </div>
@@ -152,8 +155,8 @@ class JobResultPage extends Component {
     return(
       <React.Fragment>
         {redirectVar}
-        <br />
-        <div><h2 style={{align:'center'}}>Jobs :</h2></div>
+        <br />{!this.state.listStudentsApplied?<div>
+        <div><h2 style={{align:'center'}}>Job List :</h2></div>
         <br />
         <table className="table table-borderless table-hover">
          <thead className="thead-dark">
@@ -171,7 +174,7 @@ class JobResultPage extends Component {
           <tbody>
             {this.searchedJobs()}
           </tbody>
-        </table>
+        </table></div>:<div></div>}
         <div className="row-container">{this.studentsApplied()}</div>
       </React.Fragment> 
     )
