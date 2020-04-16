@@ -38,13 +38,14 @@ class EventResultPage extends Component {
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     console.log("Sending Data "+ JSON.stringify(data));
-    axios.post(`${backendURL}/events/studentsregistered`,data)
+    axios.post(`${backendURL}/events/registeredstudentlist`,data)
       .then(response => {
         console.log("Result student search :", response.data)
         this.setState({
           listStudentsRegistered : response.data,
         });
     });
+    // console.log("Result student search :", this.state.listStudentsRegistered)
   }
 
 
@@ -61,7 +62,7 @@ class EventResultPage extends Component {
                   <td>{event.date}</td>
                   <td>{event.detail}</td>
                   <td>{event.location}</td>
-                  <td><button type="submit" 
+                  <td><button type="submit" className="btn btn-link"
                       value={event._id} onClick={this.getRegisteredStudentDetails}>
                       Details
                     </button></td>
@@ -78,7 +79,7 @@ class EventResultPage extends Component {
       editmode : false
     };
     console.log("Data being sent is"+JSON.stringify(data));
-    axios.post(`${backendURL}/studentsignin`, data)
+    axios.post(`${backendURL}/student/signin`, data)
       .then(response=>{
         console.log("Entered inside axios post req", response);
         if(response.data.details){
@@ -95,17 +96,23 @@ class EventResultPage extends Component {
     if (!this.state.listStudentsRegistered) {
       return <div></div>
     } 
-
-    const students = this.state.listStudentsRegistered.map((item, index) => {
+    console.log("Here list",this.state.listStudentsRegistered);
+    const students = this.state.listStudentsRegistered.studentsregistered.map((item, index) => {
       return ( 
-        <div key={item.username}>
-            <div className = "">
-              <button variant="secondary" type="submit" 
-               value = {item.username} style={{width:'100px'}} onClick={this.redirectStudentProfile}><i className='glyphicon glyphicon-user'/>
-               &nbsp;{item.username}'s Profile
+                // <div key={item.username}>
+
+        <React.Fragment>
+        {item.username?<div>
+              <label htmlFor="usr"><b>Students Registered</b></label>
+              <br />
+              <br />
+              <h2>{item.username}</h2>
+              <button  type="submit" className="btn btn-link"
+               value = {item.username}  onClick={this.redirectStudentProfile}>
+               Click to view Profile
               </button>
-            </div>
-        </div>
+        </div>:<div></div>}
+        </React.Fragment>
       );
     });
     return students;
@@ -119,9 +126,9 @@ class EventResultPage extends Component {
     }
     return(
       <React.Fragment>
-        {redirectVar}
         <br/>
-        <div><h2 style={{align:'center'}}>Event List :</h2></div>
+        {redirectVar}{!this.state.listStudentsRegistered?
+        <div><h2 style={{align:'center'}}>Event List :</h2>
         <br />
         <table className="table table-borderless table-hover">
          <thead className="thead-dark">
@@ -135,7 +142,9 @@ class EventResultPage extends Component {
           <tbody>
             {this.searchedEvents()}
           </tbody>
-        </table>
+        </table>      
+        </div>:<div></div>}
+        <br/>
         <div className="row-container">{this.studentsRegistered()}</div>
       </React.Fragment> 
     )

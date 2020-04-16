@@ -154,6 +154,24 @@ function studentapplied(msg,callback){
   });
 }
 
+function updatejobstatus(msg,callback){
+  // console.log("here");
+  Jobs.updateOne({'_id' : msg.jobId ,"studentsapplied.username":msg.username},{$set : {"studentsapplied.$.status" : msg.status}},(error,data) => {
+    if (error) {
+      // console.log(error);
+      res.code = 500;
+      res.value=error;
+      callback(null, res);
+    }
+    else{
+      console.log("Data is",data);
+      res.code = 200;
+      res.value="Status update successfully";
+      callback(null, res);
+    }
+  });
+}
+
 function handle_request(msg, callback){
     console.log("Job Req Body : ", msg);
     if (msg.action == actions.POSTJOB) {
@@ -181,6 +199,10 @@ function handle_request(msg, callback){
     }
     else if(msg.action == actions.STUDENTAPPLIED){
       studentapplied(msg.body, callback);
+      return;
+    }
+    else if(msg.action == actions.UPDATEJOBSTATUS){
+      updatejobstatus(msg.body, callback);
       return;
     }
 }

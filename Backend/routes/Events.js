@@ -86,5 +86,26 @@ router.post('/registeredstudenteventlist', passport.authenticate('jwt', { sessio
 });
 
 
+router.post('/registeredstudentlist', passport.authenticate('jwt', { session: false }), function(req,res) {
+  var msg = { action : actions.REGISTEREDSTUDENTLIST , body : req.body};
+  kafka.make_request('event', msg, function(err,results){
+    if (err){
+        console.log("Inside err");
+        res.writeHead(500, {
+            'Content-Type': 'text/plain'
+        })
+        res.end("Error");
+    } else {
+        res.writeHead(results.code, {
+            'Content-Type': 'text/plain'
+        })
+        console.log('in list event send result ', results);
+        res.end(JSON.stringify(results.value));
+    }           
+  });
+});
+
+
+
 
 module.exports = router;

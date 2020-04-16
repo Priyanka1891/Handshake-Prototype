@@ -50,6 +50,12 @@ class PostEvent extends Component{
       eventLocation : e.target.value
     })
   }
+  eligibilityChangeHandler = (e) => {
+    this.setState({
+      eligibility : e.target.value
+    })
+  }
+
 
   postEventDetails = (e) => {
     e.preventDefault();
@@ -112,6 +118,17 @@ class PostEvent extends Component{
                 <label>Location*</label>
                 <input style={{width:"300px"}} onChange = {this.eventLocationChangeHandler}value={this.state.eventLocation} 
                 type="text" className="form-control" />
+              </div>
+              <div className="form-group">
+                  <label>Eligibility*</label>
+                  <select className="form-control" style={{width:"300px"}} id="types" onChange = {this.eligibilityChangeHandler} value={this.state.eligibility}>
+                  <option>--Select Major--</option>
+                    <option>All</option>
+                    <option value="Software Engineering">Software Engineering</option>
+                    <option value="Computer Engineering">Computer Engineering</option>
+                    <option value="Electrical Engineering">Electrical Engineering</option>
+                    <option value="Data Analytics">Data Analytics</option>
+                  </select>
               </div>
               <button type="button" onClick={this.postEventDetails} className="btn btn-success">Post Event</button>    
             </div>

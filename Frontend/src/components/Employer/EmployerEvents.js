@@ -82,10 +82,10 @@ class EmployerEvents extends Component {
           <div className="login-form">
               <div className="panel">
                   <br />
-                  <button type='submit'onClick={this.postEvent}>Post Event</button>
+                  <button className="btn btn-success"type='submit'onClick={this.postEvent}>Post Event</button>
                   <br />
                   <br />
-                  <button type='submit'onClick={this.listEventResults}>List Events</button>
+                  <button className ="btn btn-success"type='submit'onClick={this.listEventResults}>List Events</button>
                   <br />
                 {resultPage}
               </div>

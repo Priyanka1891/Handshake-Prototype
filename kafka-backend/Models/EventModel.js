@@ -7,6 +7,7 @@ var eventsSchema = new Schema({
     detail : {type: String, required: true},
     location : {type: String, required : true},
     createdby : {type: String, required : true},
+    eligibility : {type: String, required : true},
     // username/id of students applied
     studentsregistered : 
     [{

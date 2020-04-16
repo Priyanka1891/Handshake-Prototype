@@ -113,17 +113,18 @@ class JobResultPage extends Component {
     e.preventDefault();
     let value = JSON.parse(e.target.value);
     const data = {
-      // jobId : this.props.,
+      jobId : this.state.listStudentsApplied._id,
       username : value.job.username,
       status : value.status
     };
     axios.defaults.withCredentials = true;
     console.log("Sending Data "+ JSON.stringify(data));
-    axios.post(`${backendURL}/jobs/studentsapplied`,data)
+    axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
+    axios.post(`${backendURL}/jobs/updatejobstatus`,data)
       .then(response => {
         console.log("Result update :", response.data)
         this.setState({
-          listStudentsApplied : response.data[1],
+          // listStudentsApplied : response.data[1],
         });
     });
   }

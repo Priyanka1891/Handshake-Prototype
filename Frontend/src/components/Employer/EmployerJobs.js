@@ -82,10 +82,10 @@ class EmployerJobs extends Component {
           <div className="login-form">
               <div className="panel">
                   <br />
-                  <button type='submit'onClick={this.postJob}>Post Job</button>
+                  <button className="btn btn-success" type='submit'onClick={this.postJob}>Post Job</button>
                   <br />
                   <br />
-                  <button type='submit'onClick={this.listJobResults}>List Jobs</button>
+                  <button className="btn btn-success" type='submit'onClick={this.listJobResults}>List Jobs</button>
                   <br />
                 {resultPage}
               </div>

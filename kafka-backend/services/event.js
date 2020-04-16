@@ -56,7 +56,8 @@ function postEvent(msg, callback){
       date : msg.eventDate,
       detail : msg.eventDetail,
       location : msg.eventLocation,
-      createdby : msg.companyName
+      createdby : msg.companyName,
+      eligibility : msg.eligibility
     });
     
     newEvent.save((error, data) => {
@@ -123,7 +124,21 @@ studentdetail.username = msg.username;
       });
     });
   }
-  
+
+function registeredstudentlist(msg,callback){
+  Events.findOne({'_id' : msg.eventId}, (error, data) => {
+    if (error) {
+      res.code = 500;
+      res.value=error;
+      callback(null, res);
+    }
+    else {
+      res.code = 200;
+      res.value = data;
+      callback(null, res);
+    }
+  });
+}
 
 
 function handle_request(msg, callback){
@@ -146,6 +161,10 @@ function handle_request(msg, callback){
   }
   else if(msg.action == actions.REGISTERSTUDENTEVENTLIST){
     registeredstudenteventlist(msg.body, callback);
+    return;
+  }
+  else if(msg.action == actions.REGISTEREDSTUDENTLIST){
+    registeredstudentlist(msg.body, callback);
     return;
   }
 }

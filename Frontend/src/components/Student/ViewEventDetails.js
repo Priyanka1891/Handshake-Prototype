@@ -24,12 +24,12 @@ class ViewEventDetails extends Component {
       // console.log("Here",this.props.studentDetails.studentEducation[0].major.toLowerCase());
       // console.log("And here",this.props.location.state.detail.toLowerCase());
   
-      if(this.props.studentDetails.studentEducation[idx].major.toLowerCase().includes(this.props.location.state.detail.toLowerCase())){
+      if(this.props.studentDetails.studentEducation[idx].major.toLowerCase().includes(this.props.location.state.eligibility.toLowerCase())){
         index=1;
         break;
       }
     }
-    if(index){
+    if(index || this.props.location.state.eligibility==="All"){
         const data = {
         eventId : this.props.location.state._id,
         username : this.props.studentDetails.username,
@@ -76,6 +76,7 @@ class ViewEventDetails extends Component {
             <label htmlFor="usr">Detail :&nbsp;&nbsp;&nbsp;{this.props.location.state.detail}</label>
             <label htmlFor="usr">Location :&nbsp;&nbsp;&nbsp;{this.props.location.state.location}</label>
             <label htmlFor="usr">Company Name :&nbsp;&nbsp;&nbsp;{this.props.location.state.createdby}</label>
+            <label htmlFor="usr">Eligibility :&nbsp;&nbsp;&nbsp;{this.props.location.state.eligibility}</label>
             <br/>
             <br/>
               <button type="button" className="btn btn-success" onClick={this.registerEvent}>Register</button>
