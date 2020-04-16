@@ -29,8 +29,7 @@ class ListEvent extends Component {
         page = parseInt(e.target.name, 10);
     }
     this.setState({
-        activePage: page,
-        message: null
+        activePage: page
     });
   };  
 

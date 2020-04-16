@@ -71,6 +71,7 @@ class JobResultPage extends Component {
   }
 
   studentsApplied = () => {
+    console.log("Reached here ", this.state.listStudentsApplied);
     if (!this.state.listStudentsApplied) {
       return <div></div>
     } 
@@ -80,17 +81,17 @@ class JobResultPage extends Component {
         <div key={item.username}>
               <div className="radio">
               <label>
-              <input type="radio" value={JSON.stringify({job:item, status : 'Pending'})} checked={'Pending' === item.status.toLowerCase()}
+              <input type="radio" value={JSON.stringify({job:item, status : 'Pending'})} checked={'pending' === item.status.toLowerCase()}
                onChange={this.updateApplicationStatus} />
                 Pending
               </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <label>&nbsp;&nbsp;&nbsp;&nbsp;
-              <input type="radio" value={JSON.stringify({job:item, status : 'Reviewed'})} checked={'Reviewed' === item.status.toLowerCase()}
+              <input type="radio" value={JSON.stringify({job:item, status : 'Reviewed'})} checked={'reviewed' === item.status.toLowerCase()}
                onChange={this.updateApplicationStatus}/>
                 Reviewed
               </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <label>
-              <input type="radio" value={JSON.stringify({job:item, status : 'Declined'})} checked={'Declined' === item.status.toLowerCase()} 
+              <input type="radio" value={JSON.stringify({job:item, status : 'Declined'})} checked={'declined' === item.status.toLowerCase()} 
                onChange={this.updateApplicationStatus}/>
                 Declined
               </label>
@@ -117,6 +118,14 @@ class JobResultPage extends Component {
       username : value.job.username,
       status : value.status
     };
+    var updatedList = this.state.listStudentsApplied;
+    console.log("Here ",updatedList);
+    for (var idx = 0; idx < updatedList.length; ++idx) {
+      console.log("Here ",data);
+      if (updatedList.studentsapplied[idx].username == data.username){
+        updatedList.studentsapplied[idx].status = data.status;
+      }
+    }
     axios.defaults.withCredentials = true;
     console.log("Sending Data "+ JSON.stringify(data));
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
@@ -124,7 +133,7 @@ class JobResultPage extends Component {
       .then(response => {
         console.log("Result update :", response.data)
         this.setState({
-          // listStudentsApplied : response.data[1],
+          listStudentsApplied : updatedList
         });
     });
   }
