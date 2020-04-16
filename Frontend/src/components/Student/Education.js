@@ -38,12 +38,10 @@ class Education extends Component{
                   delete_education_details : true}
     var studentDetails=this.props.studentDetails;
     studentDetails.studentEducation.splice(this.props.index, 1);
-    // console.log("Data being sent is ",data);
     axios.defaults.withCredentials = true;
     axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
     axios.post(`${backendURL}/student/deletedetails`, data)
       .then(response => {
-        // console.log("Delete Experience Response: ", response);
         if (response.status === 200) {
           this.dispatch(studentDetails)
             .then(result => {
@@ -63,29 +61,34 @@ class Education extends Component{
       return(
         <React.Fragment> 
         {redirectVar}
-                  {this.props.studentDetails.editmode?(<button type="button" onClick={this.editStudentDetails} className="btn btn-default btn-sm"><span className="glyphicon glyphicon-pencil"></span>
+                  {this.props.studentDetails.editmode && (this.props.studentDetails.studentEducation.length > this.props.index)?(<button type="button" onClick={this.editStudentDetails} className="btn btn-default btn-sm"><span className="glyphicon glyphicon-pencil"></span>
                   </button>) :(<div></div>)} 
-                  &nbsp;&nbsp;{this.props.studentDetails.editmode?(<button type="button" onClick={this.deleteStudentDetails} className="btn btn-default btn-sm">
+                  &nbsp;&nbsp;{this.props.studentDetails.editmode && (this.props.studentDetails.studentEducation.length > this.props.index)?(<button type="button" onClick={this.deleteStudentDetails} className="btn btn-default btn-sm">
                   <span className="glyphicon glyphicon-trash"></span>
                   </button>):(<div></div>)} 
                   <br/>
-                  <label>College Name :&nbsp;{this.props.studentDetails.studentEducation.length?
-                  this.props.studentDetails.studentEducation[this.props.index].colgname:null}</label>
+                  {(this.props.studentDetails.studentEducation.length > this.props.index) ?
+                  <label>College Name :&nbsp;
+                  {this.props.studentDetails.studentEducation[this.props.index].colgname}</label>: <label />}
                   <br />
-                  <label>Location :&nbsp;{this.props.studentDetails.studentEducation.length?
-                  this.props.studentDetails.studentEducation[this.props.index].location:null}</label>
+                  {(this.props.studentDetails.studentEducation.length > this.props.index) ?
+                  <label>Location :&nbsp;{this.props.studentDetails.studentEducation[this.props.index].location}</label>:<label/>}
                   <br />
-                  <label>Degree :&nbsp;{this.props.studentDetails.studentEducation.length?
-                  this.props.studentDetails.studentEducation[this.props.index].degree:null}</label>
+                  {(this.props.studentDetails.studentEducation.length > this.props.index) ?
+                  <label>Degree :&nbsp;{
+                  this.props.studentDetails.studentEducation[this.props.index].degree}</label> : <label/>}
                   <br />
-                  <label>Major :&nbsp;{this.props.studentDetails.studentEducation.length?
-                  this.props.studentDetails.studentEducation[this.props.index].major:null}</label>
+                  {(this.props.studentDetails.studentEducation.length > this.props.index) ?
+                  <label>Major :&nbsp;{
+                  this.props.studentDetails.studentEducation[this.props.index].major}</label> : <label/>}
                   <br />
-                  <label>Year of Passing :&nbsp;{this.props.studentDetails.studentEducation.length?
-                  this.props.studentDetails.studentEducation[this.props.index].yearofpassing:null}</label>
+                  {(this.props.studentDetails.studentEducation.length > this.props.index) ?
+                  <label>Year of Passing :&nbsp;{
+                  this.props.studentDetails.studentEducation[this.props.index].yearofpassing}</label>: <label/>}
                   <br />
-                  <label>CGPA :&nbsp;{this.props.studentDetails.studentEducation.length?
-                  this.props.studentDetails.studentEducation[this.props.index].cgpa:null}</label>    
+                  {(this.props.studentDetails.studentEducation.length > this.props.index) ?
+                  <label>CGPA :&nbsp;{
+                  this.props.studentDetails.studentEducation[this.props.index].cgpa}</label> : <label/>}  
           </React.Fragment>
         )
     }
