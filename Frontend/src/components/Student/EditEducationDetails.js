@@ -3,8 +3,9 @@ import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import { fillStudentDetails } from "../../common_store/actions/login";
-import { fillStudentEducationDetails } from "../../common_store/actions/student"
-import { backendURL } from   "../../Utils/config"
+import { fillStudentEducationDetails } from "../../common_store/actions/student";
+import { backendURL } from   "../../Utils/config";
+import StudentNavbar from './StudentNavbar';
 
 
 const initialState={
@@ -99,11 +100,12 @@ class EditEducationDetails extends Component{
     return(
       <div>
       {redirectVar}
-      <br />
       <React.Fragment>
+        <StudentNavbar/>
       <div className="col-md-offset-0">
            <div className="profile-content">
               <div className="col-md-offset-4">
+                <br/>
                 <h2>Edit Education</h2>
                 {/* <label>College Name</label>
                 <input style={{width:"300px"}} onChange = {this.colgnameChangeHandler}value={this.state.colgname} placeholder={this.props.studentDetails.studentEducation[this.props.location.state].colgname}
@@ -113,8 +115,8 @@ class EditEducationDetails extends Component{
                   onChangeCapture = {this.colgnameChangeHandler} value={this.state.colgname}>
                     <option>-----Choose your University-----</option>
                     <option>UCLA</option>
-                    <option>University of Hogwarts</option>
-                    <option>UC Davis</option>
+                    <option>Columbia University</option>
+                    <option>Lincoln School</option>
                     <option>UC Berkley</option>
                     <option>Stanford University</option>
                 </select>
@@ -138,6 +140,8 @@ class EditEducationDetails extends Component{
                     <option value="Computer Engineering">Computer Engineering</option>
                     <option value="Electrical Engineering">Electrical Engineering</option>
                     <option value="Data Analytics">Data Analytics</option>
+                    <option value="Fashion">Fashion</option>
+                    <option value="Commerce">Commerce</option>
                   </select>
                 </div>
 

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import { fillStudentDetails } from "../../common_store/actions/login";
 import { backendURL } from   "../../Utils/config"
+import StudentNavbar from './StudentNavbar';
 
 
 const initialState={
@@ -97,8 +98,8 @@ class AddEducationDetails extends Component{
     return(
       <div>
       {redirectVar}
-      <br />
       <React.Fragment>
+        <StudentNavbar/>
       <div className="col-md-offset-0">
            <div className="profile-content">
               <div className="col-md-offset-4">
@@ -111,8 +112,8 @@ class AddEducationDetails extends Component{
                   onChangeCapture = {this.colgnameChangeHandler} value={this.state.colgname}>
                     <option>-----Choose your University-----</option>
                     <option>UCLA</option>
-                    <option>University of Hogwarts</option>
-                    <option>UC Davis</option>
+                    <option>Columbia University</option>
+                    <option>Lincoln School</option>
                     <option>UC Berkley</option>
                     <option>Stanford University</option>
                 </select>
@@ -137,6 +138,8 @@ class AddEducationDetails extends Component{
                     <option value="Computer Engineering">Computer Engineering</option>
                     <option value="Electrical Engineering">Electrical Engineering</option>
                     <option value="Data Analytics">Data Analytics</option>
+                    <option value="Fashion">Fashion</option>
+                    <option value="Commerce">Commerce</option>
                   </select>
                 </div>
                 <label>Year of Passing</label>

@@ -100,7 +100,7 @@ class ListAllMessages extends Component {
                     <Row>
                         <Col>
                             <Card.Body>
-                                <b>{messages[i].sender}:</b><br />
+                                <b style= {{ color: '#389583' }}>{messages[i].sender}:</b><br />
                                 {messages[i].content}
                             </Card.Body>
                       <Card.Subtitle className="mb-2 text-muted" align="right">{timestamp}</Card.Subtitle>
@@ -158,18 +158,17 @@ class ListAllMessages extends Component {
     }
     const listMessageHistory = this.state.messageList.map((message, index) => {
       return(
-        <div style={{height:'80px', width:'200px', background: '#f2f2f2', border: '1px solid grey'}} 
+        <div>
+        <label htmlFor="usr"><b>Last 2 messages ..</b></label> 
+        <div className="container" style={{height:'100px', width:'400px', background: '#f2f2f2', border: '1px solid grey'}} 
              id = {index} onClick = {this.renderMessage}>
-          <tr>
-            <th scope="row" className="text-center">{ localStorage.getItem("username")},&nbsp;{
-                (localStorage.getItem("username") === message.usera) ? message.userb : message.usera}:&nbsp;</th>
-            <td>{message.messages[message.messages.length -1].content}</td>
-          </tr>
-          <br/>
-         <sub><i>last message</i></sub>
+            <label  htmlFor="usr">Conversation between<br/><b style={{ color: 'red' }}>{ localStorage.getItem("username")}</b>&nbsp;&nbsp;<b style={{ color: 'green' }}>{
+                (localStorage.getItem("username") === message.usera) ? message.userb : message.usera}&nbsp;:&nbsp;</b></label>
+            <div >{message.messages[message.messages.length -2].content}</div>
+            <div>{message.messages[message.messages.length -1].content}</div>
+        </div>
         </div>
       );
-
     });
     return listMessageHistory;
   }

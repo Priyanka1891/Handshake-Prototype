@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router';
 import axios from 'axios';
 import { fillStudentDetails } from "../../common_store/actions/login";
-import { backendURL } from   "../../Utils/config"
+import { backendURL } from   "../../Utils/config";
+
 
 
 const initialState={

@@ -149,6 +149,7 @@ function studentapplied(msg,callback){
     else{
       res.code = 200;
       res.value = data;
+      console.log("Result ", msg, res);
       callback(null, res);
     }
   });

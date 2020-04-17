@@ -3,7 +3,8 @@ import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import { fillStudentDetails } from "../../common_store/actions/login";
-import { backendURL } from   "../../Utils/config"
+import { backendURL } from   "../../Utils/config";
+import StudentNavbar from './StudentNavbar';
 
 
 const initialState={
@@ -104,10 +105,11 @@ class AddExperienceDetails extends Component{
       redirectVar = <Redirect to="/studentprofilepage" />
     }
     return(
-      <div>
+      <div>    
       {redirectVar}
-      <br />
       <React.Fragment>
+      <br />
+      <StudentNavbar/>
       <div className="col-md-offset-0">
            <div className="profile-content">
               <div className="col-md-offset-4">

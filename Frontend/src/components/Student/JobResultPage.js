@@ -69,18 +69,10 @@ class JobResultPage extends Component {
 
   sectionItems (jobDetails) {
     return (
-      // <tr>
-      // <th scope="row" className="text-center">{jobDetails.title}</th>
-      //  <td>{jobDetails.date}</td>
-      //  <td>{jobDetails.detail}</td>
-      //  <td>{jobDetails.location}</td>
-      //  <td>{jobDetails.createdby}</td>
-      //  <td><button onClick = {this.viewJob}type="submit" className = "btn btn-link" value={jobDetails._id}>View</button></td>
-      // </tr> 
                  <React.Fragment>
               {/* <div key={job._id}/> */}
                   <tr >
-                    <td className="text-center" scope="row">{jobDetails.title}</td>
+                    <th className="text-center" scope="row">{jobDetails.title}</th>
                     <td >{jobDetails.location}</td>
                     <td >{jobDetails.createdate}</td>
                     <td >{jobDetails.enddate}</td>
@@ -99,7 +91,7 @@ class JobResultPage extends Component {
     let redirectVar = null,
             section,
             active = 1,
-            itemsToShow = 1,
+            itemsToShow = 3,
             pagesBar = null,
             renderOutput = [];
 
@@ -154,7 +146,7 @@ class JobResultPage extends Component {
               <tr>
                 <th className="text-center">Job Title</th>
                 <th className="text-center">Location</th>
-                <th className="text-center">Create Date</th>
+                <th className="text-center">Posting Date</th>
                 <th className="text-center">End Date</th>
                 <th className="text-center">Salary</th>
                 <th className="text-center">Type</th>

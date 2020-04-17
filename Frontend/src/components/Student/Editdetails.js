@@ -159,7 +159,7 @@ class Editdetails extends Component{
                 <label>Date Of Birth</label>
                 <input style={{width:"300px"}} onChange = {this.dobChangeHandler}placeholder={this.props.studentDetails.basicDetails?
                 this.props.studentDetails.basicDetails.dob:null}value={this.state.dob}
-                type="text" className="form-control" name="dob" />
+                type="date" className="form-control" name="dob" />
                 <br/>
                 <label>City</label>
                 <input style={{width:"300px"}} onChange = {this.cityChangeHandler}placeholder={this.props.studentDetails.basicDetails?this.props.studentDetails.basicDetails.city:null}value={this.state.city} 
