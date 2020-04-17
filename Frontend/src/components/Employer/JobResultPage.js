@@ -4,10 +4,12 @@ import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import { fillBothDetails } from "../../common_store/actions/login";
 import { backendURL } from   "../../Utils/config"
+import {Row, Col, Pagination} from 'react-bootstrap';
 
 
 const initialState={
   listStudentsApplied : null,
+  activePage: 1
 }
 
 class JobResultPage extends Component {
@@ -15,7 +17,7 @@ class JobResultPage extends Component {
   constructor(props){
     super(props);
     this.state=initialState;
-    this.searchedJobs = this.searchedJobs.bind(this);
+    // this.searchedJobs = this.searchedJobs.bind(this);
     this.getStudentDetails = this.getStudentDetails.bind(this);
     this.studentsApplied = this.studentsApplied.bind(this);
     this.redirectStudentProfile = this.redirectStudentProfile.bind(this);
@@ -29,6 +31,20 @@ class JobResultPage extends Component {
   componentWillReceiveProps() {
     this.setState(initialState);
   }
+
+  changePage = (e) => {
+    let page = this.state.activePage;
+    if (e.target.text === ">" && page !== parseInt(e.target.name, 10)) {
+        page += 1;
+    } else if (e.target.text === "<" && page !== parseInt(e.target.name, 10)) {
+        page -= 1;
+    } else {
+        page = parseInt(e.target.name, 10);
+    }
+    this.setState({
+        activePage: page
+    });
+  };  
 
   getStudentDetails = (e) => {
     e.preventDefault();
@@ -47,26 +63,43 @@ class JobResultPage extends Component {
   }
 
 
-  searchedJobs = () => {
-      if (this.state.listStudentsApplied) {
-        return <div></div>
-      }
-      const jobs = this.props.jobDetails.map((job, index) => {
-         return ( 
-                // <div key={job._id}>
-                <tr>
-                <th scope="row" className="text-center">{job.title}</th>
-                <td>{job.createdby}</td>
-                <td>{job.location}</td>
-                <td>{job.salary}</td>
-                <td>{job.type}</td>
-                <td>{job.createdate}</td>
-                <td>{job.enddate}</td>
-                <td><button type="submit" value={job._id} className="btn btn-link" onClick={this.getStudentDetails}>View Details</button></td>
-              </tr>
-           );
-     });
-     return jobs;
+  // searchedJobs = () => {
+  //     if (this.state.listStudentsApplied) {
+  //       return <div></div>
+  //     }
+  //     const jobs = this.props.jobDetails.map((job, index) => {
+  //        return ( 
+  //               // <div key={job._id}>
+              //   <tr>
+              //   <th scope="row" className="text-center">{job.title}</th>
+              //   <td>{job.createdby}</td>
+              //   <td>{job.location}</td>
+              //   <td>{job.salary}</td>
+              //   <td>{job.type}</td>
+              //   <td>{job.createdate}</td>
+              //   <td>{job.enddate}</td>
+              //   <td><button type="submit" value={job._id} className="btn btn-link" onClick={this.getStudentDetails}>View Details</button></td>
+              // </tr>
+  //          );
+  //    });
+  //    return jobs;
+  // }
+
+  sectionItems (jobDetails) {
+    if (this.state.listStudentsApplied) { return <div/> }
+
+    return (
+      <tr>
+        <th scope="row" className="text-center">{jobDetails.title}</th>
+        {/* <td>{jobDetails.createdby}</td> */}
+        <td>{jobDetails.location}</td>
+        <td>{jobDetails.salary}</td>
+        <td>{jobDetails.type}</td>
+        <td>{jobDetails.createdate}</td>
+        <td>{jobDetails.enddate}</td>
+        <td><button type="submit" value={jobDetails._id} className="btn btn-link" onClick={this.getStudentDetails}>View Details</button></td>
+      </tr>
+    )
   }
 
   studentsApplied = () => {
@@ -154,10 +187,52 @@ class JobResultPage extends Component {
   }
 
   render() {
-    let redirectVar = null;
+    let redirectVar = null,
+            section,
+            active = 1,
+            itemsToShow = 2,
+            pagesBar = null,
+            renderOutput = [];
+
     if (this.props.studentDetails) {
       redirectVar = <Redirect to = '/studentprofilepage' />
     }
+
+    if (this.state && this.state.activePage) {
+      active = this.state.activePage;
+    }
+
+    if (this.props.jobDetails && this.props.jobDetails.length > 0) {
+      let sectionCount = 0;
+      for (var i = (active - 1) * itemsToShow; i < this.props.jobDetails.length; i++) {
+          section = this.sectionItems(this.props.jobDetails[i]);
+          renderOutput.push(section);
+          if (++sectionCount === itemsToShow)
+              break;
+      }
+
+      let pages = [];
+      let pageCount = Math.ceil(this.props.jobDetails.length / itemsToShow);
+
+      for (let i = 1; i <= pageCount; i++) {
+          pages.push(
+              <Pagination.Item active={i === active} name={i} key={i} onClick={this.changePage}>
+                  {i}
+              </Pagination.Item>
+          );
+      }
+      pagesBar = (
+          <div>
+              <br />
+              <Pagination>
+                  <Pagination.Prev name="1" onClick={this.changePage} />
+                  {pages}
+                  <Pagination.Next name={pageCount} onClick={this.changePage} />
+              </Pagination>
+          </div>
+      );
+    }
+
     return(
       <React.Fragment>
         {redirectVar}
@@ -168,8 +243,8 @@ class JobResultPage extends Component {
          <thead className="thead-dark">
           <tr>
             <th className="text-center">Job Title</th>
-            <th className="text-center">Company Name</th>
-            <th className="text-center">Location</th>
+           {/* <th className="text-center">Company Name</th> */}
+           <th className="text-center">Location</th>
             <th className="text-center">Salary</th>
             <th className="text-center">Job Type</th>
             <th className="text-center">Create Date</th>
@@ -178,9 +253,14 @@ class JobResultPage extends Component {
           </tr>
           </thead>
           <tbody>
-            {this.searchedJobs()}
+          {renderOutput}
           </tbody>
         </table></div>:<div></div>}
+        { !this.state.listStudentsApplied ?
+          (<Row>
+                <Col sm={4}></Col>
+                <Col>{pagesBar}</Col>
+          </Row>) :  <div/>}
         <div className="row-container">{this.studentsApplied()}</div>
       </React.Fragment> 
     )
