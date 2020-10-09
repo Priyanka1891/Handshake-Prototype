@@ -1,4 +1,4 @@
-# Handshake-Lab2
+Key features: MERN Stack, Kafka, Passport JWT Authentication.
 
 Steps to run the application:
 1.  Clone repository.
